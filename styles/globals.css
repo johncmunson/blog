@@ -1,16 +1,25 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+/*
+ * Tailwind is the primary and preferred method for authoring styles in this project,
+ * and is enabled by the tailwind at-rules below. However, Next also supports global
+ * styles and component-level styles.
+ * https://tailwindcss.com/docs/guides/nextjs
+ *
+ * Global styles are enabled by this stylesheet. You can simply add normal CSS anywhere
+ * in this file. Due to the global nature of standard CSS, Next only allows .css files
+ * to be imported into _app.tsx.
+ * https://nextjs.org/docs/basic-features/built-in-css-support#adding-a-global-stylesheet
+ *
+ * Component-level styles are enabled by Next's built-in support for CSS Modules. Simply
+ * create a .module.css file and import into your components like so...
+ * import styles from '../styles/Home.module.css'
+ * https://nextjs.org/docs/basic-features/built-in-css-support#adding-component-level-css
+ *
+ * Next also supports Sass and CSS-in-JS, but those two approaches are discouraged by
+ * this project. Tailwind should support the vast majority of styling needs, and CSS Modules
+ * is the preferred backup approach in the event that tailwind isn't suitable for a particular
+ * use case.
+ */
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
