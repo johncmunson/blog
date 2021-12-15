@@ -1,22 +1,22 @@
-import { useMemo } from "react";
-import { getMDXComponent } from "mdx-bundler/client";
+import { useMemo } from "react"
+import { getMDXComponent } from "mdx-bundler/client"
 import type {
   GetStaticPaths,
   GetStaticProps,
   InferGetStaticPropsType,
   NextPage,
-} from "next";
-import { Frontmatter, getAllSlugs, getSinglePost } from "../../utils/mdx";
-import { ParsedUrlQuery } from "querystring";
+} from "next"
+import { Frontmatter, getAllSlugs, getSinglePost } from "../../utils/mdx"
+import { ParsedUrlQuery } from "querystring"
 
 type Params = ParsedUrlQuery & {
-  slug: string;
-};
+  slug: string
+}
 
 type Props = {
-  code: string;
-  frontmatter: Frontmatter;
-};
+  code: string
+  frontmatter: Frontmatter
+}
 
 const Post: NextPage<Props> = ({
   code,
@@ -24,7 +24,7 @@ const Post: NextPage<Props> = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   // It's generally a good idea to memoize this function call to
   // avoid re-creating the component every render.
-  const Component = useMemo(() => getMDXComponent(code), [code]);
+  const Component = useMemo(() => getMDXComponent(code), [code])
 
   return (
     <>
@@ -41,29 +41,29 @@ const Post: NextPage<Props> = ({
         <Component />
       </main>
     </>
-  );
-};
+  )
+}
 
 export const getStaticProps: GetStaticProps<Props, Params> = async (
   context
 ) => {
-  const params = context.params!;
-  const post = await getSinglePost(params.slug);
+  const params = context.params!
+  const post = await getSinglePost(params.slug)
 
   return {
     props: { ...post },
-  };
-};
+  }
+}
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = await getAllSlugs();
+  const slugs = await getAllSlugs()
 
   return {
     paths: slugs.map((slug) => ({
       params: { slug },
     })),
     fallback: false,
-  };
-};
+  }
+}
 
-export default Post;
+export default Post

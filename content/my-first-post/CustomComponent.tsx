@@ -9,6 +9,6 @@ const Custom = () => (
       <span>component.</span>
     </div>
   </div>
-);
+)
 
-export default Custom;
+export default Custom
