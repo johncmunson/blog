@@ -71,7 +71,7 @@ export const prepareMDX = async (source: string, files?: Files) => {
   const mdx = await bundleMDX<Frontmatter>({
     source,
     files,
-    // @eslint-ignor
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     xdmOptions(options, frontmatter) {
       // This is the recommended way to add custom remark/rehype plugins:
       // The syntax might look weird, but it protects you in case we add/remove
