@@ -2,9 +2,10 @@ import fs from "fs"
 import path from "path"
 import { bundleMDX } from "mdx-bundler"
 import { PluggableList } from "unified"
-import matter from "gray-matter"
 // @ts-ignore - no types available
 import addClasses from "rehype-add-classes"
+// This package is useful for parsing frontmatter
+// import matter from "gray-matter"
 
 const { readdir, readFile } = fs.promises
 const POSTS_PATH = path.join(process.cwd(), "content")
