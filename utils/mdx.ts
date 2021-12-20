@@ -2,7 +2,7 @@ import fs from "fs"
 import path from "path"
 import { bundleMDX } from "mdx-bundler"
 import { PluggableList } from "unified"
-// @ts-ignore - no types available
+// @ts-expect-error: no types available
 import addClasses from "rehype-add-classes"
 // This package is useful for parsing frontmatter
 // import matter from "gray-matter"
@@ -15,8 +15,6 @@ export type Frontmatter = {
   description: string
 }
 type Files = Record<string, string>
-
-const x = 5
 
 export async function asyncForEach<T>(
   array: T[],
@@ -73,6 +71,7 @@ export const prepareMDX = async (source: string, files?: Files) => {
   const mdx = await bundleMDX<Frontmatter>({
     source,
     files,
+    // @eslint-ignor
     xdmOptions(options, frontmatter) {
       // This is the recommended way to add custom remark/rehype plugins:
       // The syntax might look weird, but it protects you in case we add/remove
