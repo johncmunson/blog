@@ -1,12 +1,13 @@
 module.exports = {
   "**/*.ts?(x)": (filenames) => {
     console.log(filenames)
-    const filenamesString = filenames
-      .map((file) => file.split(process.cwd())[1])
-      .join(" --file ")
+    const files = filenames.map((file) => file.split(process.cwd())[1])
+    console.log(files)
     return [
-      `next lint --fix --file ${filenamesString}`,
-      `prettier --write --ignore-unknown .${filenamesString}`,
+      `next lint --fix --file ${files.join(" --file ")}`,
+      `prettier --write --ignore-unknown ${files
+        .map((file) => "." + file)
+        .join(" ")}`,
     ]
   },
 }
