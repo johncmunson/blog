@@ -16,7 +16,7 @@ export type Frontmatter = {
 }
 type Files = Record<string, string>
 
-let x = 5
+const x = 5
 
 export async function asyncForEach<T>(
   array: T[],
