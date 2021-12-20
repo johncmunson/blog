@@ -2,7 +2,7 @@ import fs from "fs"
 import path from "path"
 import { bundleMDX } from "mdx-bundler"
 import { PluggableList } from "unified"
-// @ts-expect-error: no types available
+// @ts-expect-error - no types available
 import addClasses from "rehype-add-classes"
 // This package is useful for parsing frontmatter
 // import matter from "gray-matter"
