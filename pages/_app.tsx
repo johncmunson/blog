@@ -3,6 +3,8 @@ import type { AppProps } from "next/app"
 
 // https://nextjs.org/docs/advanced-features/custom-app
 
+const x = 5
+
 function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />
 }
