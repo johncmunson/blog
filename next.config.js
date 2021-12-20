@@ -2,6 +2,6 @@
 module.exports = {
   reactStrictMode: true,
   eslint: {
-    dirs: ['pages', 'components', 'lib', 'utils'], // Only run ESLint on the 'pages' and 'utils' directories during production builds (next build)
+    dirs: ['pages', 'components', 'lib', 'utils', 'content'], // Only run ESLint on these directories during production builds (next build)
   },
 }
