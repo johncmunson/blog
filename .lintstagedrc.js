@@ -1,9 +1,12 @@
 module.exports = {
-  "**/*.ts?(x)": "prettier --write --ignore-unknown",
-  "**/*.js?(x)": (filenames) => {
+  "**/*.ts?(x)": (filenames) => {
     console.log(filenames)
-    return `next lint --fix --file ${filenames
+    const filenamesString = filenames
       .map((file) => file.split(process.cwd())[1])
-      .join(" --file ")}`
+      .join(" --file ")
+    return [
+      `next lint --fix --file ${filenamesString}`,
+      `prettier --write --ignore-unknown .${filenamesString}`,
+    ]
   },
 }
