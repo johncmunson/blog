@@ -48,8 +48,11 @@ InferGetStaticPropsType<typeof getStaticProps>) => {
 export const getStaticProps: GetStaticProps<Props, Params> = async (
   context
 ) => {
-  const params = context.params!
+  const params = context.params
+  if (!params) throw new Error("Weird, you forgot to send params...")
+
   const slug = params.slug
+
   const post = await getSinglePost(slug)
 
   return {

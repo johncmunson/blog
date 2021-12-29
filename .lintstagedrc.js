@@ -1,5 +1,5 @@
 module.exports = {
-  "**/*.ts?(x)": (filenames) => {
+  "**/*.{js,jsx,ts,tsx}": (filenames) => {
     const files = filenames.map((file) => file.split(process.cwd())[1])
     return [
       `next lint --fix --file ${files.join(" --file ")}`,
