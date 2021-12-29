@@ -1,7 +1,10 @@
 import fs from "fs"
 import path from "path"
+import { asyncForEach } from "."
 import { bundleMDX } from "mdx-bundler"
 import { PluggableList } from "unified"
+import { Files, Frontmatter } from "../types"
+
 // @ts-expect-error: no types available
 import addClasses from "rehype-add-classes"
 // This package is useful for parsing frontmatter
@@ -10,27 +13,16 @@ import addClasses from "rehype-add-classes"
 const { readdir, readFile } = fs.promises
 const POSTS_PATH = path.join(process.cwd(), "content")
 
-export type Frontmatter = {
-  title: string
-  description: string
-}
-type Files = Record<string, string>
-
-export async function asyncForEach<T>(
-  array: T[],
-  callback: (item: T, index: number, allItems: T[]) => Promise<void>
-) {
-  for (let index = 0; index < array.length; index++) {
-    await callback(array[index], index, array)
-  }
-}
-
-export const getFileContent = async (slug: string) => {
+const getFileContent = async (slug: string) => {
   const fileBuffer = await readFile(path.join(POSTS_PATH, slug, "index.mdx"))
   return fileBuffer.toString().trim()
 }
 
-export const prepareMDX = async (source: string, files?: Files) => {
+const prepareMDX = async (
+  slug: string,
+  rawMdx: string,
+  rawMdxComponents?: Files
+) => {
   // https://github.com/kentcdodds/mdx-bundler#nextjs-esbuild-enoent
   if (process.platform === "win32") {
     process.env.ESBUILD_BINARY_PATH = path.join(
@@ -69,8 +61,8 @@ export const prepareMDX = async (source: string, files?: Files) => {
   ]
 
   const mdx = await bundleMDX<Frontmatter>({
-    source,
-    files,
+    source: rawMdx,
+    files: rawMdxComponents,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     xdmOptions(options, frontmatter) {
       // This is the recommended way to add custom remark/rehype plugins:
@@ -91,38 +83,40 @@ export const prepareMDX = async (source: string, files?: Files) => {
 
   // Should use Zod to validate the mdx.frontmatter before returning.
   // If it's invalid, we want to fail early with a helpful error message.
+  const validatedFrontmatter = Frontmatter.safeParse(mdx.frontmatter)
+  if (!validatedFrontmatter.success) {
+    throw new Error(
+      `Error parsing frontmatter for post '${slug}': ${JSON.stringify(
+        validatedFrontmatter.error.issues
+      )}`
+    )
+  }
 
   return mdx
 }
 
-export const getSinglePost = async (slug: string) => {
-  const source = await getFileContent(slug)
-  const files = await getComponents(slug)
-  return prepareMDX(source, files)
-}
+const getComponents = async (slug: string) => {
+  const components: Files = {}
 
-export const getAllPosts = async () => {
-  const slugs = await getAllSlugs()
-  return Promise.all(slugs.map(getSinglePost))
+  const files = await readdir(path.join(POSTS_PATH, slug))
+
+  await asyncForEach(files, async (file) => {
+    if (file.slice(-3) === "tsx") {
+      const filePath = path.join(POSTS_PATH, slug, file)
+      const fileBuffer = await readFile(filePath)
+      components[`./${file}`] = fileBuffer.toString().trim()
+    }
+  })
+
+  return components
 }
 
 export const getAllSlugs = async () => {
   return readdir(POSTS_PATH)
 }
 
-// Use this in [slug].tsx getStaticProps
-export const getComponents = async (slug: string) => {
-  const components: Files = {}
-
-  const files = await readdir(path.join(POSTS_PATH, slug))
-
-  await asyncForEach(files, async (file) => {
-    if (file.substr(-3) === "tsx") {
-      const fileBuffer = await readFile(path.join(POSTS_PATH, slug, file))
-
-      components[`./${file}`] = fileBuffer.toString().trim()
-    }
-  })
-
-  return components
+export const getSinglePost = async (slug: string) => {
+  const rawMdx = await getFileContent(slug)
+  const rawMdxComponents = await getComponents(slug)
+  return prepareMDX(slug, rawMdx, rawMdxComponents)
 }

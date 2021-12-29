@@ -1,27 +1,28 @@
 import { useMemo } from "react"
+import { Frontmatter } from "../../types"
+import { ParsedUrlQuery } from "querystring"
 import { getMDXComponent } from "mdx-bundler/client"
+import { getAllSlugs, getSinglePost } from "../../utils/mdx"
 import type {
   GetStaticPaths,
   GetStaticProps,
   InferGetStaticPropsType,
-  NextPage,
 } from "next"
-import { Frontmatter, getAllSlugs, getSinglePost } from "../../utils/mdx"
-import { ParsedUrlQuery } from "querystring"
-
-type Params = ParsedUrlQuery & {
-  slug: string
-}
 
 type Props = {
   code: string
   frontmatter: Frontmatter
 }
 
-const Post: NextPage<Props> = ({
+type Params = ParsedUrlQuery & {
+  slug: string
+}
+
+const Post = ({
   code,
   frontmatter,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: // Could also just use Props, instead of infering them
+InferGetStaticPropsType<typeof getStaticProps>) => {
   // It's generally a good idea to memoize this function call to
   // avoid re-creating the component every render.
   const Component = useMemo(() => getMDXComponent(code), [code])
@@ -48,7 +49,8 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
   context
 ) => {
   const params = context.params!
-  const post = await getSinglePost(params.slug)
+  const slug = params.slug
+  const post = await getSinglePost(slug)
 
   return {
     props: { ...post },
@@ -62,6 +64,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: slugs.map((slug) => ({
       params: { slug },
     })),
+    // If user tries to access an invalid post, i.e. localhost:3000/posts/not-valid,
+    // then display a 404 page. true is used for very large sites that have a ton
+    // of pages.
     fallback: false,
   }
 }
