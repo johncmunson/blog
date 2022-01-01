@@ -1,5 +1,4 @@
 import { useMemo } from "react"
-import { Frontmatter } from "../../types"
 import { ParsedUrlQuery } from "querystring"
 import { getMDXComponent } from "mdx-bundler/client"
 import { getAllSlugs, getSinglePost } from "../../utils/mdx"
@@ -8,15 +7,6 @@ import type {
   GetStaticProps,
   InferGetStaticPropsType,
 } from "next"
-
-type Props = {
-  code: string
-  frontmatter: Frontmatter
-}
-
-type Params = ParsedUrlQuery & {
-  slug: string
-}
 
 const Post = ({
   code,
@@ -45,14 +35,8 @@ InferGetStaticPropsType<typeof getStaticProps>) => {
   )
 }
 
-export const getStaticProps: GetStaticProps<Props, Params> = async (
-  context
-) => {
-  const params = context.params
-  if (!params) throw new Error("Weird, you forgot to send params...")
-
-  const slug = params.slug
-
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { slug } = context.params as Params
   const post = await getSinglePost(slug)
 
   return {
@@ -72,6 +56,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
     // of pages.
     fallback: false,
   }
+}
+
+type Params = ParsedUrlQuery & {
+  slug: string
 }
 
 export default Post
