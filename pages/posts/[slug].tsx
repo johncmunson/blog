@@ -4,14 +4,14 @@ import { getMDXComponent } from "mdx-bundler/client"
 import { getAllSlugs, getSinglePost } from "../../utils/mdx"
 import type {
   GetStaticPaths,
-  GetStaticProps,
   InferGetStaticPropsType,
+  GetStaticPropsContext,
 } from "next"
 
 const Post = ({
   code,
   frontmatter,
-}: // Could also just use Props, instead of infering them
+}: // Could also just explicitly define a type for Props instead of infering them
 InferGetStaticPropsType<typeof getStaticProps>) => {
   // It's generally a good idea to memoize this function call to
   // avoid re-creating the component every render.
@@ -35,7 +35,7 @@ InferGetStaticPropsType<typeof getStaticProps>) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { slug } = context.params as Params
   const post = await getSinglePost(slug)
 
@@ -44,7 +44,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths = async () => {
   const slugs = await getAllSlugs()
 
   return {

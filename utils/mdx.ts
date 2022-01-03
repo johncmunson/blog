@@ -1,6 +1,7 @@
 import fs from "fs"
 import path from "path"
 import { asyncForEach } from "."
+import memoize from "lodash/memoize"
 import { bundleMDX } from "mdx-bundler"
 import { PluggableList } from "unified"
 import { Files, Frontmatter } from "../types"
@@ -115,8 +116,14 @@ export const getAllSlugs = async () => {
   return readdir(POSTS_PATH)
 }
 
-export const getSinglePost = async (slug: string) => {
+const _getSinglePost = async (slug: string) => {
   const rawMdx = await getFileContent(slug)
   const rawMdxComponents = await getComponents(slug)
   return prepareMDX(slug, rawMdx, rawMdxComponents)
+}
+export const getSinglePost = memoize(_getSinglePost)
+
+export const getAllPosts = async () => {
+  const slugs = await getAllSlugs()
+  return Promise.all(slugs.map(getSinglePost))
 }
