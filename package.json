@@ -8,6 +8,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "format": "prettier --write --ignore-unknown .",
+    "format:check": "prettier --check --ignore-unknown .",
     "lint": "next lint",
     "prepare": "husky install",
     "test": "jest --watch",

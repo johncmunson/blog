@@ -1,21 +1,21 @@
-import fs from "fs"
-import path from "path"
-import { asyncForEach } from "."
-import memoize from "lodash/memoize"
-import { bundleMDX } from "mdx-bundler"
-import { PluggableList } from "unified"
-import { Files, Frontmatter, Post } from "../types"
+import fs from 'fs'
+import path from 'path'
+import { asyncForEach } from '.'
+import memoize from 'lodash/memoize'
+import { bundleMDX } from 'mdx-bundler'
+import { PluggableList } from 'unified'
+import { Files, Frontmatter, Post } from '../types'
 
 // @ts-expect-error: no types available
-import addClasses from "rehype-add-classes"
+import addClasses from 'rehype-add-classes'
 // This package is useful for parsing frontmatter
 // import matter from "gray-matter"
 
 const { readdir, readFile } = fs.promises
-const POSTS_PATH = path.join(process.cwd(), "content")
+const POSTS_PATH = path.join(process.cwd(), 'content')
 
 const getFileContent = async (slug: string) => {
-  const fileBuffer = await readFile(path.join(POSTS_PATH, slug, "index.mdx"))
+  const fileBuffer = await readFile(path.join(POSTS_PATH, slug, 'index.mdx'))
   return fileBuffer.toString().trim()
 }
 
@@ -25,20 +25,20 @@ const prepareMDX = async (
   rawMdxComponents?: Files
 ): Promise<Post> => {
   // https://github.com/kentcdodds/mdx-bundler#nextjs-esbuild-enoent
-  if (process.platform === "win32") {
+  if (process.platform === 'win32') {
     process.env.ESBUILD_BINARY_PATH = path.join(
       process.cwd(),
-      "node_modules",
-      "esbuild",
-      "esbuild.exe"
+      'node_modules',
+      'esbuild',
+      'esbuild.exe'
     )
   } else {
     process.env.ESBUILD_BINARY_PATH = path.join(
       process.cwd(),
-      "node_modules",
-      "esbuild",
-      "bin",
-      "esbuild"
+      'node_modules',
+      'esbuild',
+      'bin',
+      'esbuild'
     )
   }
 
@@ -48,15 +48,15 @@ const prepareMDX = async (
     [
       addClasses,
       {
-        h1: "text-5xl mb-5",
-        h2: "text-4xl mb-5",
-        h3: "text-3xl mb-5",
-        h4: "text-2xl mb-5",
-        h5: "text-xl mb-5",
-        h6: "text-lg mb-5",
-        p: "mb-5",
-        ol: "-mt-4 mb-5 ml-5 list-decimal",
-        ul: "-mt-4 mb-5 ml-5 list-disc",
+        h1: 'text-5xl mb-5',
+        h2: 'text-4xl mb-5',
+        h3: 'text-3xl mb-5',
+        h4: 'text-2xl mb-5',
+        h5: 'text-xl mb-5',
+        h6: 'text-lg mb-5',
+        p: 'mb-5',
+        ol: '-mt-4 mb-5 ml-5 list-decimal',
+        ul: '-mt-4 mb-5 ml-5 list-disc',
       },
     ],
   ]
@@ -101,7 +101,7 @@ const getComponents = async (slug: string) => {
   const files = await readdir(path.join(POSTS_PATH, slug))
 
   await asyncForEach(files, async (file) => {
-    if (file.slice(-3) === "tsx") {
+    if (file.slice(-3) === 'tsx') {
       const filePath = path.join(POSTS_PATH, slug, file)
       const fileBuffer = await readFile(filePath)
       components[`./${file}`] = fileBuffer.toString().trim()

@@ -1,6 +1,6 @@
-import { asyncForEach, sleep } from "."
+import { asyncForEach, sleep } from '.'
 
-it("applies the async callback to each item in the array", async () => {
+it('applies the async callback to each item in the array', async () => {
   const numbers = [1, 2, 3]
   const doubled: number[] = []
 

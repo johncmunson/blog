@@ -1,9 +1,9 @@
-import { useMemo } from "react"
-import { Post } from "../../types"
-import { ParsedUrlQuery } from "querystring"
-import { getMDXComponent } from "mdx-bundler/client"
-import { GetStaticProps, GetStaticPaths } from "next"
-import { getAllSlugs, getSinglePost } from "../../utils/mdx"
+import { useMemo } from 'react'
+import { Post } from '../../types'
+import { ParsedUrlQuery } from 'querystring'
+import { getMDXComponent } from 'mdx-bundler/client'
+import { GetStaticProps, GetStaticPaths } from 'next'
+import { getAllSlugs, getSinglePost } from '../../utils/mdx'
 
 type PostPathParams = ParsedUrlQuery & {
   slug: string

@@ -1,7 +1,7 @@
-import Head from "next/head"
-import { Post } from "../types"
-import { getAllPosts } from "../utils/mdx"
-import styles from "../styles/Home.module.css"
+import Head from 'next/head'
+import { Post } from '../types'
+import { getAllPosts } from '../utils/mdx'
+import styles from '../styles/Home.module.css'
 
 type HomeProps = {
   posts: Post[]
