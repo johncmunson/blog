@@ -4,7 +4,7 @@ import { asyncForEach } from "."
 import memoize from "lodash/memoize"
 import { bundleMDX } from "mdx-bundler"
 import { PluggableList } from "unified"
-import { Files, Frontmatter } from "../types"
+import { Files, Frontmatter, Post } from "../types"
 
 // @ts-expect-error: no types available
 import addClasses from "rehype-add-classes"
@@ -23,7 +23,7 @@ const prepareMDX = async (
   slug: string,
   rawMdx: string,
   rawMdxComponents?: Files
-) => {
+): Promise<Post> => {
   // https://github.com/kentcdodds/mdx-bundler#nextjs-esbuild-enoent
   if (process.platform === "win32") {
     process.env.ESBUILD_BINARY_PATH = path.join(
@@ -82,8 +82,7 @@ const prepareMDX = async (
     },
   })
 
-  // Should use Zod to validate the mdx.frontmatter before returning.
-  // If it's invalid, we want to fail early with a helpful error message.
+  // Use zod to validate the frontmatter
   const validatedFrontmatter = Frontmatter.safeParse(mdx.frontmatter)
   if (!validatedFrontmatter.success) {
     throw new Error(

@@ -1,5 +1,5 @@
 import "../styles/globals.css"
-import type { AppProps } from "next/app"
+import { AppProps } from "next/app"
 
 // https://nextjs.org/docs/advanced-features/custom-app
 

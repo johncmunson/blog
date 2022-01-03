@@ -1,9 +1,13 @@
 import Head from "next/head"
+import { Post } from "../types"
 import { getAllPosts } from "../utils/mdx"
 import styles from "../styles/Home.module.css"
-import type { GetStaticPropsContext, InferGetStaticPropsType } from "next"
 
-const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
+type HomeProps = {
+  posts: Post[]
+}
+
+const Home = ({ posts }: HomeProps) => {
   return (
     <div className={styles.main}>
       <Head>
@@ -22,9 +26,7 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   )
 }
 
-export default Home
-
-export const getStaticProps = async (context: GetStaticPropsContext) => {
+export const getStaticProps = async () => {
   const posts = await getAllPosts()
   return {
     props: {
@@ -32,3 +34,5 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     },
   }
 }
+
+export default Home

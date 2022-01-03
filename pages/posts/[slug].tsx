@@ -1,18 +1,17 @@
 import { useMemo } from "react"
+import { Post } from "../../types"
 import { ParsedUrlQuery } from "querystring"
 import { getMDXComponent } from "mdx-bundler/client"
+import { GetStaticProps, GetStaticPaths } from "next"
 import { getAllSlugs, getSinglePost } from "../../utils/mdx"
-import type {
-  GetStaticPaths,
-  InferGetStaticPropsType,
-  GetStaticPropsContext,
-} from "next"
 
-const Post = ({
-  code,
-  frontmatter,
-}: // Could also just explicitly define a type for Props instead of infering them
-InferGetStaticPropsType<typeof getStaticProps>) => {
+type PostPathParams = ParsedUrlQuery & {
+  slug: string
+}
+
+type PostProps = Post
+
+const Post = ({ code, frontmatter }: PostProps) => {
   // It's generally a good idea to memoize this function call to
   // avoid re-creating the component every render.
   const Component = useMemo(() => getMDXComponent(code), [code])
@@ -35,16 +34,16 @@ InferGetStaticPropsType<typeof getStaticProps>) => {
   )
 }
 
-export const getStaticProps = async (context: GetStaticPropsContext) => {
-  const { slug } = context.params as Params
+export const getStaticProps: GetStaticProps<PostProps> = async (context) => {
+  const { slug } = context.params as PostPathParams
   const post = await getSinglePost(slug)
 
   return {
-    props: { ...post },
+    props: post,
   }
 }
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths<PostPathParams> = async () => {
   const slugs = await getAllSlugs()
 
   return {
@@ -52,14 +51,10 @@ export const getStaticPaths = async () => {
       params: { slug },
     })),
     // If user tries to access an invalid post, i.e. localhost:3000/posts/not-valid,
-    // then display a 404 page. true is used for very large sites that have a ton
+    // then display a 404 page. True is used for very large sites that have a ton
     // of pages.
     fallback: false,
   }
-}
-
-type Params = ParsedUrlQuery & {
-  slug: string
 }
 
 export default Post
