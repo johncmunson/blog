@@ -46,8 +46,6 @@ export const getStaticProps: GetStaticProps<PostProps> = async (context) => {
 export const getStaticPaths: GetStaticPaths<PostPathParams> = async () => {
   const slugs = await getAllSlugs()
 
-  const y = 5
-
   return {
     paths: slugs.map((slug) => ({
       params: { slug },
