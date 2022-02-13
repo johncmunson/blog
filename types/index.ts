@@ -4,6 +4,7 @@ export type Files = Record<string, string>
 
 export type Post = {
   code: string
+  slug: string // slugs are determined by the directory names inside of the content folder
   frontmatter: Frontmatter
 }
 

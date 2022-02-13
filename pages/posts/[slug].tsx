@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useMemo } from 'react'
 import { Post } from '../../types'
 import { ParsedUrlQuery } from 'querystring'
@@ -22,8 +23,11 @@ const Post = ({ code, frontmatter }: PostProps) => {
         <h1>Title: {frontmatter.title}</h1>
         <p>Description: {frontmatter.description}</p>
         <p className="text-xs">
-          (This is the header. It&apos;s part of the layout that is applied to
-          every post.)
+          This is the header. It&apos;s part of the layout that is applied to
+          every post.{' '}
+          <Link href="/">
+            <a className="underline text-blue-500">Back to home</a>
+          </Link>
         </p>
         <hr />
       </header>

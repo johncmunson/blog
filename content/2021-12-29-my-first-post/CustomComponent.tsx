@@ -8,8 +8,8 @@ const Custom = () => (
       <span>dawg,</span>
       <span>I&apos;m</span>
       <span>a</span>
-      <span className="text-blue-600">custom</span>
-      <span className="text-blue-600">component.</span>
+      <span className="text-green-500">custom</span>
+      <span className="text-green-500">component</span>
     </div>
   </div>
 )

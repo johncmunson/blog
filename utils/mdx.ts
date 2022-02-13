@@ -92,7 +92,7 @@ const prepareMDX = async (
     )
   }
 
-  return mdx
+  return { ...mdx, slug }
 }
 
 const getComponents = async (slug: string) => {
