@@ -65,7 +65,7 @@ const prepareMDX = async (
     source: rawMdx,
     files: rawMdxComponents,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    xdmOptions(options, frontmatter) {
+    mdxOptions(options, frontmatter) {
       // This is the recommended way to add custom remark/rehype plugins:
       // The syntax might look weird, but it protects you in case we add/remove
       // plugins in the future.
