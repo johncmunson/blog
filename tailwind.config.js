@@ -1,3 +1,5 @@
+// https://tailwindcss.com/docs/configuration
+
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
