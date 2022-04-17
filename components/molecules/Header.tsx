@@ -10,7 +10,7 @@ export const Header = () => {
   }
 
   return (
-    <div className="mt-9 mx-3">
+    <div className="mt-9 mx-4">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-semibold">Ternary Town</h1>
         <button
