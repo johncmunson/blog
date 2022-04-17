@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Post } from '../types'
 import { getAllPosts } from '../utils/mdx'
 import styles from '../styles/Home.module.css'
+import { Header } from '../components/molecules/Header'
 
 type HomeProps = {
   posts: Post[]
@@ -18,7 +19,7 @@ const Home = ({ posts }: HomeProps) => {
       </Head>
 
       <main className={styles.main}>
-        <h3>Home Page:</h3>
+        <Header />
         <ul>
           {posts.map((post, i) => (
             <li key={i}>
