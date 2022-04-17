@@ -1,10 +1,16 @@
 import '../styles/globals.css'
 import { AppProps } from 'next/app'
+import { MainLayout } from '../components/templates/MainLayout'
 
-// https://nextjs.org/docs/advanced-features/custom-app
+// Custom App: https://nextjs.org/docs/advanced-features/custom-app
+// Layouts: https://nextjs.org/docs/basic-features/layouts
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <MainLayout>
+      <Component {...pageProps} />
+    </MainLayout>
+  )
 }
 
 export default MyApp
