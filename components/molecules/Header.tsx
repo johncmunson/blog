@@ -36,28 +36,34 @@ export const Header = () => {
           ></i>
         </button>
       </div>
-      <nav className={isMenuOpen ? styles.drawerOpen : styles.drawerClosed}>
-        <section className={styles.drawerItem}>
+      <nav
+        // If you want to animate the drawer sliding open, you'll need to explicitly set the
+        // height when it's open by measuring the dimensions of the inner content. You can
+        // then use CSS transitions to animate the drawer.
+        //   - https://github.com/streamich/react-use/blob/master/docs/useMeasure.md
+        //   - https://github.com/streamich/react-use/blob/master/docs/useSize.md
+        //   - https://css-tricks.com/using-css-transitions-auto-dimensions/#aa-technique-3-javascript
+        className={`grid grid-cols-2 sm:grid-cols-3 mt-9 gap-y-9 gap-x-5 overflow-hidden md:text-lg lg:text-xl ${
+          isMenuOpen ? 'h-auto' : 'h-0'
+        }`}
+      >
+        <section>
           <h3 className="font-semibold">Most Popular</h3>
           <ul>
-            <li>On Apps and Coffee</li>
-            <li>End Procrastination</li>
-            <li>Do Presentations Make You Anxious?</li>
-            <li>How To Think Different</li>
-            <li>On Monopolies, Apple, and Epic</li>
+            <li>First</li>
+            <li>Second</li>
+            <li>Third</li>
           </ul>
         </section>
-        <section className={styles.drawerItem}>
+        <section>
           <h3 className="font-semibold">Trending</h3>
           <ul>
-            <li>Useful macOS Tricks</li>
-            <li>UX Lessons In Game Design</li>
-            <li>“Ethics” and Ethics</li>
-            <li>Take the Power Back</li>
-            <li>Why We Like Distractions</li>
+            <li>First</li>
+            <li>Second</li>
+            <li>Third</li>
           </ul>
         </section>
-        <section className={styles.drawerItem}>
+        <section>
           <h3 className="font-semibold">Subscribe</h3>
           <ul>
             <li>Twitter</li>
@@ -65,15 +71,17 @@ export const Header = () => {
             <li>RSS</li>
           </ul>
         </section>
-        <section className={styles.drawerItem}>
+        <section>
           <h3 className="font-semibold">Address</h3>
-          <address className="not-italic">
+          <address className="not-italic whitespace-nowrap">
             3750 Washington Ave
             <br />
             St. Louis, MO 63108
+            <br />
+            United States
           </address>
         </section>
-        <section className={styles.drawerItem}>
+        <section>
           <h3 className="font-semibold">Downloads</h3>
           <ul>
             <li>Fonts</li>
@@ -81,7 +89,7 @@ export const Header = () => {
             <li>Apps</li>
           </ul>
         </section>
-        <section className={styles.drawerItem}>
+        <section>
           <h3 className="font-semibold">About</h3>
           <ul>
             <li>Mission</li>
