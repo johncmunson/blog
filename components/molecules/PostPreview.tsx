@@ -14,7 +14,7 @@ export const PostPreview = ({
   postSlug,
 }: PostPreviewProps) => (
   <>
-    <div className="font-mono text-sm">{date.replaceAll('-', '.')}</div>
+    <div className="font-mono text-sm">{date.replace(/-/g, '.')}</div>
     <div>
       <Link href={`/posts/${postSlug}`}>
         <a className="font-medium">{title}</a>
