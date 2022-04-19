@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Link from 'next/link'
+import { PostPreview } from '../components/molecules/PostPreview'
 import { Post } from '../types'
 import { getAllPosts } from '../utils/mdx'
 
@@ -16,14 +16,21 @@ const Home = ({ posts }: HomeProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <ul>
+      <h1 className="text-xl md:text-2xl lg:text-3xl mt-16">
+        <span className="font-medium">Howdy there.</span> Find out what
+        we&apos;re thinking about with a look behind the curtain at the things
+        that make us tick.
+      </h1>
+
+      <ul className="mt-14">
         {posts.map((post, i) => (
-          <li key={i}>
-            <Link href={`/posts/${post.slug}`}>
-              <a className="underline text-blue-500">
-                {post.frontmatter.title}
-              </a>
-            </Link>
+          <li key={i} className={i === 0 ? '' : 'mt-9'}>
+            <PostPreview
+              date={post.date}
+              title={post.frontmatter.title}
+              previewText={post.frontmatter.description}
+              postSlug={post.slug}
+            />
           </li>
         ))}
       </ul>
