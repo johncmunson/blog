@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import { PostPreview } from '../components/molecules/PostPreview'
 import { Post } from '../types'
 import { getAllPosts } from '../utils/mdx'
+import { BlogFeed } from '../components/organisms/BlogFeed'
 
 type HomeProps = {
   posts: Post[]
@@ -22,18 +22,7 @@ const Home = ({ posts }: HomeProps) => {
         that make us tick.
       </h1>
 
-      <div className="mt-14 sm:grid sm:grid-cols-3 sm:gap-y-9 sm:gap-x-4 items-start">
-        {posts.map((post, i) => (
-          <PostPreview
-            key={i}
-            date={post.date}
-            title={post.frontmatter.title}
-            previewText={post.frontmatter.description}
-            postSlug={post.slug}
-            isFirst={i === 0}
-          />
-        ))}
-      </div>
+      <BlogFeed posts={posts} />
     </>
   )
 }
