@@ -1,5 +1,7 @@
-- main page layout and blog post layout
-  - https://ia.net/design/blog
+- ~~main page layout and blog post layout~~
+  - ~~https://ia.net/design/blog~~
+- animate the header drawer
+- figure out frontmatter and finish the layout for individual blog posts
 - comments
 - google analytics
 - audit the ESLint setup
