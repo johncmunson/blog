@@ -82,6 +82,9 @@ const prepareMDX = async (
     },
   })
 
+  // Extract the date from the slug
+  const date = slug.slice(0, 10)
+
   // Use zod to validate the frontmatter
   const validatedFrontmatter = Frontmatter.safeParse(mdx.frontmatter)
   if (!validatedFrontmatter.success) {
@@ -92,7 +95,7 @@ const prepareMDX = async (
     )
   }
 
-  return { ...mdx, slug }
+  return { ...mdx, date, slug }
 }
 
 const getComponents = async (slug: string) => {
