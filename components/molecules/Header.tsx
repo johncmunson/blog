@@ -19,7 +19,9 @@ export const Header = () => {
           {router.pathname === '/' ? (
             'Ternary Town'
           ) : (
-            <Link href="/">Ternary Town</Link>
+            <Link href="/">
+              <a>Ternary Town</a>
+            </Link>
           )}
         </h1>
         <button

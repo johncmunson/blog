@@ -22,18 +22,18 @@ const Home = ({ posts }: HomeProps) => {
         that make us tick.
       </h1>
 
-      <ul className="mt-14">
+      <div className="mt-14 sm:grid sm:grid-cols-3 sm:gap-y-9 sm:gap-x-4 items-start">
         {posts.map((post, i) => (
-          <li key={i} className={i === 0 ? '' : 'mt-9'}>
-            <PostPreview
-              date={post.date}
-              title={post.frontmatter.title}
-              previewText={post.frontmatter.description}
-              postSlug={post.slug}
-            />
-          </li>
+          <PostPreview
+            key={i}
+            date={post.date}
+            title={post.frontmatter.title}
+            previewText={post.frontmatter.description}
+            postSlug={post.slug}
+            isFirst={i === 0}
+          />
         ))}
-      </ul>
+      </div>
     </>
   )
 }
