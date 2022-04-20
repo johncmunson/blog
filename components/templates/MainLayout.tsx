@@ -1,6 +1,7 @@
+import { ReactNode } from 'react'
 import { Header } from '../molecules/Header'
 
-export const MainLayout = ({ children }: { children: React.ReactNode }) => (
+export const MainLayout = ({ children }: { children: ReactNode }) => (
   <>
     <Header />
     <main>{children}</main>

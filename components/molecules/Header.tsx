@@ -2,8 +2,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import styles from './Header.module.css'
 import { useState, MouseEvent, useRef, useLayoutEffect } from 'react'
+import { UseLayoutEffectParent } from '../atoms/UseLayoutEffectParent'
 
-export const Header = () => {
+const UnsafeHeader = () => {
   const router = useRouter()
   const [isNavOpen, setNavIsOpen] = useState(false)
   const [height, setHeight] = useState(0)
@@ -26,6 +27,7 @@ export const Header = () => {
         return prev + pixels
       }, 0)
       const fullHeight = height + paddingAndMargin
+
       setHeight(fullHeight)
     }
   }, [navRef.current?.clientHeight])
@@ -135,3 +137,9 @@ export const Header = () => {
     </header>
   )
 }
+
+export const Header = () => (
+  <UseLayoutEffectParent>
+    <UnsafeHeader />
+  </UseLayoutEffectParent>
+)
