@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Fragment } from 'react'
 import { Post } from '../../types'
 
 type BlogFeedProps = {
@@ -8,7 +9,7 @@ type BlogFeedProps = {
 export const BlogFeed = ({ posts }: BlogFeedProps) => (
   <div className="mt-14 sm:grid sm:grid-cols-3 sm:gap-y-9 sm:gap-x-4 items-start">
     {posts.map((post, i) => (
-      <>
+      <Fragment key={i}>
         <div
           className={`flex flex-col sm:flex-col-reverse ${
             i === 0 ? '' : '-sm:mt-9'
@@ -34,7 +35,7 @@ export const BlogFeed = ({ posts }: BlogFeedProps) => (
             </a>
           </Link>
         </div>
-      </>
+      </Fragment>
     ))}
   </div>
 )
