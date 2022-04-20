@@ -7,7 +7,7 @@ type BlogFeedProps = {
 }
 
 export const BlogFeed = ({ posts }: BlogFeedProps) => (
-  <div className="mt-14 sm:grid sm:grid-cols-3 sm:gap-y-9 sm:gap-x-4 items-start">
+  <div className="mt-20 sm:grid sm:grid-cols-3 sm:gap-y-9 sm:gap-x-4 items-start">
     {posts.map((post, i) => (
       <Fragment key={i}>
         <div
@@ -31,7 +31,7 @@ export const BlogFeed = ({ posts }: BlogFeedProps) => (
               <span className="hover:text-sky-400">
                 {post.frontmatter.description}
               </span>{' '}
-              <span className="text-sky-400">&#8594;</span>
+              <span className="text-sky-400">→</span>
             </a>
           </Link>
         </div>

@@ -5,14 +5,20 @@ import { useState, MouseEvent, useRef, useLayoutEffect } from 'react'
 
 export const Header = () => {
   const router = useRouter()
-  const [isMenuOpen, setMenuIsOpen] = useState(false)
+  const [isNavOpen, setNavIsOpen] = useState(false)
   const [height, setHeight] = useState(0)
-  const ref = useRef<HTMLDivElement>(null)
+  const navRef = useRef<HTMLDivElement>(null)
 
+  // Animate the height of the nav drawer. Unfortunately, we can't simply use CSS transitions
+  // because the height of the drawer isn't known ahead of time. The height is variable, and
+  // transitions don't work with height: auto. So we need to set the height explicitly, but
+  // still make it dynamic by measuring the height of the content within.
   useLayoutEffect(() => {
-    if (ref.current) {
-      const height = ref.current.getBoundingClientRect().height
-      const computedStyle = window.getComputedStyle(ref.current)
+    if (navRef.current) {
+      // Because tailwind preflight applies box-sizing: border-box to all elements, clientHeight
+      // does not include padding and border-width. So we need to add it back in.
+      const height = navRef.current.clientHeight
+      const computedStyle = window.getComputedStyle(navRef.current)
       const paddingAndMargin = (
         ['paddingTop', 'paddingBottom', 'marginTop', 'marginBottom'] as const
       ).reduce((prev, current) => {
@@ -22,11 +28,11 @@ export const Header = () => {
       const fullHeight = height + paddingAndMargin
       setHeight(fullHeight)
     }
-  })
+  }, [navRef.current?.clientHeight])
 
   const handleMenuClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    setMenuIsOpen((_) => !_)
+    setNavIsOpen((_) => !_)
   }
 
   return (
@@ -50,14 +56,14 @@ export const Header = () => {
         >
           <i
             className={
-              isMenuOpen
+              isNavOpen
                 ? styles.hamburgerMenuLine1Open
                 : styles.hamburgerMenuLine1Closed
             }
           ></i>
           <i
             className={
-              isMenuOpen
+              isNavOpen
                 ? styles.hamburgerMenuLine2Open
                 : styles.hamburgerMenuLine2Closed
             }
@@ -67,11 +73,11 @@ export const Header = () => {
       <nav
         className="overflow-hidden mt-9 transition-[height] duration-700 ease-in-out"
         style={{
-          height: isMenuOpen ? `${height}px` : 0,
+          height: isNavOpen ? `${height}px` : 0,
         }}
       >
         <div
-          ref={ref}
+          ref={navRef}
           className={`grid grid-cols-2 sm:grid-cols-3 gap-y-9 gap-x-5 md:text-lg lg:text-xl`}
         >
           <section>
