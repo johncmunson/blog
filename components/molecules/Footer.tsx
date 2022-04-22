@@ -30,7 +30,7 @@ export const Footer = () => {
       </p>
       <div className="mt-10 sm:mt-12 md:mt-14">
         {subscribed ? (
-          <p className={`${textClasses} ${paddingClasses} -2xl:px-0`}>
+          <p className={`${textClasses} ${paddingClasses} !px-0`}>
             👍 Thank you for subscribing. We&apos;re excited to have you on
             board!
           </p>
