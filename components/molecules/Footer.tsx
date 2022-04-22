@@ -15,7 +15,7 @@ export const Footer = () => {
     setIsSubscribing(true)
 
     await sleep(1000)
-    console.log(e.currentTarget.email.value)
+    console.log(e.target.email.value)
 
     setIsSubscribing(false)
     setSubscribed(true)
