@@ -22,7 +22,7 @@ export const Footer = () => {
   }
 
   return (
-    <footer className="mt-14 sm:mt-16 md:mt-20 lg:mt-24">
+    <footer className="mt-16 sm:mt-20 md:mt-24 lg:mt-28">
       <p className={`${textClasses}`}>
         <span className="font-medium">Ternary Town Newsletter.</span> Subscribe
         for a look behind the scenes, insight on projects, and design philosophy
