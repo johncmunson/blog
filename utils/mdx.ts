@@ -1,10 +1,11 @@
 import fs from 'fs'
 import path from 'path'
-import { asyncForEach, paginateAsyncFn } from './index'
+import { orderBy } from 'lodash'
 import memoize from 'lodash/memoize'
 import { bundleMDX } from 'mdx-bundler'
 import { PluggableList } from 'unified'
 import { Files, Frontmatter, Post } from '../types'
+import { asyncForEach, paginateAsyncFn } from './index'
 
 // @ts-expect-error: no types available
 import addClasses from 'rehype-add-classes'
@@ -115,8 +116,9 @@ const getComponents = async (slug: string) => {
 }
 
 export const getAllSlugs = async () => {
-  // make sure to sort the posts from most recent to oldest before returning
-  return readdir(POSTS_PATH)
+  const slugs = await readdir(POSTS_PATH)
+  const orderedSlugs = orderBy(slugs, (s) => s, ['desc'])
+  return orderedSlugs
 }
 
 const _getSinglePost = async (slug: string) => {

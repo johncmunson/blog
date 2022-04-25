@@ -19,8 +19,8 @@ export const isAsyncFn = <T>(fn: any): fn is (...args: any[]) => Promise<T> =>
 type ArrayReturningFn<T> = () => T[]
 export const paginateFn = <T>(
   fn: ArrayReturningFn<T>
-): ((pagination: { limit?: number; offset?: number }) => T[]) => {
-  return ({ limit, offset }: { limit?: number; offset?: number }) => {
+): ((pagination?: { limit?: number; offset?: number }) => T[]) => {
+  return ({ limit, offset }: { limit?: number; offset?: number } = {}) => {
     const arr = fn()
 
     const offsetArr = offset ? drop(arr, offset) : arr
@@ -33,8 +33,11 @@ export const paginateFn = <T>(
 type ArrayReturningAsyncFn<T> = () => Promise<T[]>
 export const paginateAsyncFn = <T>(
   fn: ArrayReturningAsyncFn<T>
-): ((pagination: { limit?: number; offset?: number }) => Promise<T[]>) => {
-  return async ({ limit, offset }: { limit?: number; offset?: number }) => {
+): ((pagination?: { limit?: number; offset?: number }) => Promise<T[]>) => {
+  return async ({
+    limit,
+    offset,
+  }: { limit?: number; offset?: number } = {}) => {
     const arr = await fn()
 
     const offsetArr = offset ? drop(arr, offset) : arr
@@ -43,9 +46,3 @@ export const paginateAsyncFn = <T>(
     return takeArr
   }
 }
-
-// // pagination higher order function
-// const getPosts = paginateAsyncFn<Post>(getAllPosts)
-
-// const homePagePosts = getPosts({ limit: 8 })
-// const restOfPosts = getPosts({ offset: 8 })

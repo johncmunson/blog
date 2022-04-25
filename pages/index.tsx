@@ -1,13 +1,16 @@
 import { GetStaticProps } from 'next'
-import Home, {
-  HomeProps,
-  _getStaticPropsFactory,
-} from '../components/templates/HomeLayout'
 import { getPosts } from '../utils/mdx'
 import { PAGE_SIZE } from '../utils/constants'
+import Home, { HomeProps } from '../components/templates/HomeLayout'
 
 export const getStaticProps: GetStaticProps<HomeProps> = async (context) => {
-  return _getStaticPropsFactory(() => getPosts({ limit: PAGE_SIZE }))(context)
+  const posts = await getPosts({ limit: PAGE_SIZE })
+
+  return {
+    props: {
+      posts,
+    },
+  }
 }
 
 export default Home
