@@ -1,11 +1,8 @@
 import { chunk } from 'lodash'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import Home, {
-  HomePathParams,
-  HomeProps,
-} from '../components/templates/HomeLayout'
 import { PAGE_SIZE } from '../utils/constants'
 import { getAllPosts, getPosts } from '../utils/mdx'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import Home, { HomePathParams, HomeProps } from '../components/templates/Home'
 
 export const getStaticProps: GetStaticProps<HomeProps> = async (context) => {
   const pageNumber = Number((context.params as HomePathParams).pageNumber)
