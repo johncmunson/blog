@@ -4,6 +4,7 @@
 - figure out frontmatter and finish the layout for individual blog posts
 - comments
 - google analytics
+- fix the max-width breakpoint in the tailwind config. they seem to not be taking effect for some reason.
 - audit the ESLint setup
   - https://paulintrognon.fr/blog/typescript-prettier-eslint-next-js
   - https://nextjs.org/docs/basic-features/eslint#additional-configurations
