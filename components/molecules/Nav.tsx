@@ -1,8 +1,8 @@
 import { NavContent } from '../atoms/NavContent'
-import { navMarginTop } from '../../utils/constants'
+import { NAV_MARGIN_TOP } from '../../utils/constants'
 
 export const Nav = () => (
-  <nav className={`mt-${navMarginTop}`}>
+  <nav className={`mt-${NAV_MARGIN_TOP}`}>
     <NavContent />
   </nav>
 )

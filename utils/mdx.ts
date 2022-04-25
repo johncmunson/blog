@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { asyncForEach } from '.'
+import { asyncForEach, paginateAsyncFn } from './index'
 import memoize from 'lodash/memoize'
 import { bundleMDX } from 'mdx-bundler'
 import { PluggableList } from 'unified'
@@ -115,6 +115,7 @@ const getComponents = async (slug: string) => {
 }
 
 export const getAllSlugs = async () => {
+  // make sure to sort the posts from most recent to oldest before returning
   return readdir(POSTS_PATH)
 }
 
@@ -129,3 +130,5 @@ export const getAllPosts = async () => {
   const slugs = await getAllSlugs()
   return Promise.all(slugs.map(getSinglePost))
 }
+
+export const getPosts = paginateAsyncFn<Post>(getAllPosts)
