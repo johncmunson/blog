@@ -1,11 +1,9 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { Logo } from '../atoms/Logo'
 import styles from './Header.module.css'
 import { useState, MouseEvent } from 'react'
 import { NavDrawer } from '../molecules/NavDrawer'
 
 export const Header = () => {
-  const router = useRouter()
   const [isNavOpen, setNavIsOpen] = useState(false)
 
   const handleMenuClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -16,15 +14,7 @@ export const Header = () => {
   return (
     <header>
       <div className="flex justify-between items-center">
-        <h1 className={`text-2xl font-semibold tracking-wide`}>
-          {router.pathname === '/' ? (
-            'Ternary Town'
-          ) : (
-            <Link href="/">
-              <a>Ternary Town</a>
-            </Link>
-          )}
-        </h1>
+        <Logo />
         <button
           role="button"
           title="Menu"

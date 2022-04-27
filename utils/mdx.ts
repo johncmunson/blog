@@ -5,7 +5,7 @@ import memoize from 'lodash/memoize'
 import { bundleMDX } from 'mdx-bundler'
 import { PluggableList } from 'unified'
 import { Files, Frontmatter, Post } from '../types'
-import { asyncForEach, paginateAsyncFn } from './index'
+import { asyncForEach } from './index'
 
 // @ts-expect-error: no types available
 import addClasses from 'rehype-add-classes'
@@ -132,5 +132,3 @@ export const getAllPosts = async () => {
   const slugs = await getAllSlugs()
   return Promise.all(slugs.map(getSinglePost))
 }
-
-export const getPosts = paginateAsyncFn<Post>(getAllPosts)
