@@ -7,6 +7,7 @@ import { PAGE_SIZE } from '../utils/constants'
 export function useQueryStringPagination<T>(arr: T[]) {
   const router = useRouter()
   const { page } = router.query
+  // TODO: Protect against garbage like baseUrl/?page=abc
   const pageNumber = page ? Number(page) : 1
   const itemsByPage = chunk(arr, PAGE_SIZE)
   const isFirstPage = pageNumber === 1
