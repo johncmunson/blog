@@ -1,7 +1,7 @@
 import { Nav } from './Nav'
-import { sleep } from '../../utils'
+import { sleep } from '../../lib'
 import { ChangeEvent, useState } from 'react'
-import { BLOG_NAME } from '../../utils/constants'
+import { BLOG_NAME } from '../../lib/constants'
 
 const paddingClasses = 'p-3 sm:p-5 md:p-7'
 const textClasses = 'text-lg md:text-xl lg:text-2xl'

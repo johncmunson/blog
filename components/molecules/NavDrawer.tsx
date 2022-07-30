@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { NavContent } from '../atoms/NavContent'
-import { NAV_MARGIN_TOP } from '../../utils/constants'
+import { NAV_MARGIN_TOP } from '../../lib/constants'
 import { useIsomorphicLayoutEffect } from '../../hooks/useIsomorphicLayoutEffect'
 
 type NavDrawerProps = {

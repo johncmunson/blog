@@ -1,22 +1,17 @@
 import Link from 'next/link'
-import { useMemo } from 'react'
 import { Post } from '../../types'
 import { ParsedUrlQuery } from 'querystring'
-import { getMDXComponent } from 'mdx-bundler/client'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { getAllSlugs, getSinglePost } from '../../utils/mdx'
+import { getPostBySlug, getPostSlugs } from '../../lib/md'
+import markdownToHtml from '../../lib/markdownToHtml'
 
 type PostPathParams = ParsedUrlQuery & {
   slug: string
 }
 
-type PostProps = Post
+type PostProps = Post & { html: string }
 
-const Post = ({ code, frontmatter }: PostProps) => {
-  // It's generally a good idea to memoize this function call to
-  // avoid re-creating the component every render.
-  const Component = useMemo(() => getMDXComponent(code), [code])
-
+const Post = ({ html, frontmatter }: PostProps) => {
   return (
     <>
       <header className="mb-4">
@@ -32,7 +27,10 @@ const Post = ({ code, frontmatter }: PostProps) => {
         <hr />
       </header>
       <main>
-        <Component />
+        <article
+          // className="prose prose-lg md:prose-xl lg:prose-2xl"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
       </main>
     </>
   )
@@ -40,15 +38,16 @@ const Post = ({ code, frontmatter }: PostProps) => {
 
 export const getStaticProps: GetStaticProps<PostProps> = async (context) => {
   const { slug } = context.params as PostPathParams
-  const post = await getSinglePost(slug)
+  const post = await getPostBySlug(slug)
+  const html = await markdownToHtml(post.markdown)
 
   return {
-    props: post,
+    props: { ...post, html },
   }
 }
 
 export const getStaticPaths: GetStaticPaths<PostPathParams> = async () => {
-  const slugs = await getAllSlugs()
+  const slugs = getPostSlugs()
 
   return {
     paths: slugs.map((slug) => ({

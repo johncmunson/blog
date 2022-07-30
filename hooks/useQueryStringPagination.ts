@@ -2,7 +2,7 @@ import { chunk } from 'lodash'
 import { UrlObject } from 'url'
 import { SyntheticEvent } from 'react'
 import { useRouter } from 'next/router'
-import { PAGE_SIZE } from '../utils/constants'
+import { PAGE_SIZE } from '../lib/constants'
 
 export function useQueryStringPagination<T>(arr: T[]) {
   const router = useRouter()

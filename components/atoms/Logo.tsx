@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { BLOG_NAME } from '../../utils/constants'
+import { BLOG_NAME } from '../../lib/constants'
 
 export const LogoText = (props: { [prop: string]: any }) => (
   <h1

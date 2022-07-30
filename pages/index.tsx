@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { Post } from '../types'
 import { GetStaticProps } from 'next'
-import { getAllPosts } from '../utils/mdx'
+import { getAllPosts } from '../lib/md'
 import { BlogFeed } from '../components/organisms/BlogFeed'
 import { useQueryStringPagination } from '../hooks/useQueryStringPagination'
 

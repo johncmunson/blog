@@ -1,3 +1,19 @@
+- STOP USING MDX!
+
+  - It's not worth the additional complexity
+  - It makes it much more difficult to transition to a CMS
+  - It's a questionable concept to begin with
+
+- START USING MARKDOWN!
+
+  - Should be setup in a way that makes it simple to transition to a CMS later on
+  - Might make it more difficult to customize what you can actually do inside of a blog post. That's okay though. This should be treated as a creative constraint.
+  - https://github.com/remarkjs/react-markdown
+  - https://nextjs.org/blog/markdown
+  - https://nextjs-prism.vercel.app/prism
+  - https://amirardalan.com/blog/use-next-image-with-react-markdown
+  - https://tailwindcss.com/docs/typography-plugin
+
 - ~~main page layout and blog post layout~~
   - ~~https://ia.net/design/blog~~
 - animate the header drawer

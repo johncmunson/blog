@@ -26,20 +26,23 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
-    "esbuild": "^0.14.30",
     "gray-matter": "^4.0.3",
     "lodash": "^4.17.21",
-    "mdx-bundler": "^9.0.0",
     "next": "^12.1.5",
     "querystring": "^0.2.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "rehype-add-classes": "^1.0.0",
+    "rehype-stringify": "^9.0.3",
+    "remark-parse": "^10.0.1",
+    "remark-rehype": "^10.1.0",
     "unified": "^10.1.2",
+    "vfile": "^5.3.4",
     "zod": "^3.14.3"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^12.1.5",
+    "@tailwindcss/typography": "^0.5.4",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.0",
     "@types/lodash": "^4.14.181",
