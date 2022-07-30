@@ -1,10 +1,4 @@
-- STOP USING MDX!
-
-  - It's not worth the additional complexity
-  - It makes it much more difficult to transition to a CMS
-  - It's a questionable concept to begin with
-
-- START USING MARKDOWN!
+- ~~START USING MARKDOWN!~~
 
   - Should be setup in a way that makes it simple to transition to a CMS later on
   - Might make it more difficult to customize what you can actually do inside of a blog post. That's okay though. This should be treated as a creative constraint.
