@@ -24,10 +24,12 @@ const Post = ({ html, frontmatter }: PostProps) => {
             <a className="underline text-blue-500">Back to home</a>
           </Link>
         </p>
-        <hr />
       </header>
       <main>
         <article
+          // The tailwind typography plugin is a good way to style Markdown HTML,
+          // but we're using remark, rehype, and unified instead.
+          // https://tailwindcss.com/docs/typography-plugin
           // className="prose prose-lg md:prose-xl lg:prose-2xl"
           dangerouslySetInnerHTML={{ __html: html }}
         />
