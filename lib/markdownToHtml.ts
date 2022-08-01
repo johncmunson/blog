@@ -5,8 +5,9 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 import { VFile } from 'vfile'
+import { Post } from '../types'
 
-export default async function markdownToHtml(markdown: string) {
+export default async function markdownToHtml(post: Post) {
   const result = await unified()
     .use(remarkParse)
     .use(remarkRehype)
@@ -24,7 +25,7 @@ export default async function markdownToHtml(markdown: string) {
     .use(rehypeStringify)
     .process(
       new VFile({
-        value: markdown,
+        value: post.markdown,
       })
     )
   return result.toString()

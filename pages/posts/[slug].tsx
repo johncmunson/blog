@@ -41,7 +41,7 @@ const Post = ({ html, frontmatter }: PostProps) => {
 export const getStaticProps: GetStaticProps<PostProps> = async (context) => {
   const { slug } = context.params as PostPathParams
   const post = await getPostBySlug(slug)
-  const html = await markdownToHtml(post.markdown)
+  const html = await markdownToHtml(post)
 
   return {
     props: { ...post, html },
