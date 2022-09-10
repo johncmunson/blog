@@ -12,15 +12,15 @@ export default async function markdownToHtml(post: Post) {
     .use(remarkParse)
     .use(remarkRehype)
     .use(addClasses, {
-      h1: 'text-5xl mb-5',
-      h2: 'text-4xl mb-5',
-      h3: 'text-3xl mb-5',
-      h4: 'text-2xl mb-5',
-      h5: 'text-xl mb-5',
-      h6: 'text-lg mb-5',
-      p: 'mb-5',
-      ol: '-mt-4 mb-5 ml-5 list-decimal',
-      ul: '-mt-4 mb-5 ml-5 list-disc',
+      // Prefer top and left margins, b/c Adam says so -> https://twitter.com/adamwathan/status/1399473286224957442
+      // Also, we're not including h1 because the title of blog posts is already an h1 and we don't want multiple
+      // h1 tags on the page. We're not including h4 through h6 because there's really no reason to ever use those
+      // tags in a blog post. We just need a heading (h2) and a subheading (h3).
+      h2: 'text-xl sm:text-2xl md:text-3xl lg:text-4xl mt-7 sm:mt-8 md:mt-9 lg:mt-10',
+      h3: 'text-lg sm:text-xl md:text-2xl lg:text-3xl mt-6 sm:mt-7 md:mt-8 lg:mt-9',
+      p: 'text-base sm:text-lg md:text-xl lg:text-2xl mt-1 sm:mt-2 md:mt-3 lg:mt-4',
+      ol: 'ml-5 mt-0 sm:mt-1 md:mt-2 lg:mt-3 list-decimal',
+      ul: 'ml-5 mt-0 sm:mt-1 md:mt-2 lg:mt-3 list-disc',
     })
     .use(rehypeStringify)
     .process(
