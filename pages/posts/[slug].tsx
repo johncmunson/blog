@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { Post } from '../../types'
 import { ParsedUrlQuery } from 'querystring'
 import { GetStaticProps, GetStaticPaths } from 'next'
@@ -11,21 +10,23 @@ type PostPathParams = ParsedUrlQuery & {
 
 type PostProps = Post & { html: string }
 
-const Post = ({ html, frontmatter }: PostProps) => {
+const Post = ({ html, frontmatter, date }: PostProps) => {
   return (
     <>
-      <header className="mb-4">
-        <h1>Title: {frontmatter.title}</h1>
-        <p>Description: {frontmatter.description}</p>
-        <p className="text-xs">
-          This is the header. It&apos;s part of the layout that is applied to
-          every post.{' '}
-          <Link href="/">
-            <a className="underline text-blue-500">Back to home</a>
-          </Link>
+      <div className="mt-16">
+        <h1 className="font-semibold tracking-wide text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+          {frontmatter.title}
+        </h1>
+        <div className="flex gap-1 sm:gap-2 md:gap-3 lg:gap-4 font-mono mt-1 sm:mt-2 md:mt-3 lg:mt-4 text-sm sm:text-base md:text-lg lg:text-xl">
+          <p>By: {frontmatter.author}</p>
+          <p>&bull;</p>
+          <p className="">Published: {date}</p>
+        </div>
+        <p className="mt-1 sm:mt-2 md:mt-3 lg:mt-4 italic text-lg sm:text-xl md:text-2xl lg:text-3xl">
+          {frontmatter.description}
         </p>
-      </header>
-      <main>
+      </div>
+      <main className="mt-6 sm:mt-8 md:mt-10 lg:mt-12">
         <article
           // The tailwind typography plugin is a good way to style Markdown HTML,
           // but we're using remark, rehype, and unified instead.

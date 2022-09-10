@@ -25,6 +25,7 @@ export type Post = {
 export const Frontmatter = z.object({
   title: z.string(),
   description: z.string(),
+  author: z.string(),
 })
 
 export type Frontmatter = z.infer<typeof Frontmatter>
