@@ -14,6 +14,7 @@
 - figure out frontmatter and finish the layout for individual blog posts
 - comments
 - google analytics
+- see the comment about margins in markdownToHtml.ts
 - fix the max-width breakpoint in the tailwind config. they seem to not be taking effect for some reason.
 - audit the ESLint setup
 
