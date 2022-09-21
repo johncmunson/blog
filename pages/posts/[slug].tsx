@@ -17,12 +17,12 @@ const Post = ({ html, frontmatter, date }: PostProps) => {
         <h1 className="font-semibold tracking-wide text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
           {frontmatter.title}
         </h1>
-        <div className="flex gap-1 sm:gap-2 md:gap-3 lg:gap-4 font-mono mt-1 sm:mt-2 md:mt-3 lg:mt-4 text-sm sm:text-base md:text-lg lg:text-xl">
+        <div className="flex gap-1 sm:gap-2 md:gap-3 lg:gap-4 font-mono mt-2 sm:mt-3 md:mt-5 lg:mt-6 text-sm md:text-base">
           <p>By: {frontmatter.author}</p>
           <p>&bull;</p>
           <p className="">Published: {date}</p>
         </div>
-        <p className="mt-1 sm:mt-2 md:mt-3 lg:mt-4 italic text-lg sm:text-xl md:text-2xl lg:text-3xl">
+        <p className="sm:mt-1 italic text-lg sm:text-xl md:text-2xl lg:text-3xl">
           {frontmatter.description}
         </p>
       </div>
