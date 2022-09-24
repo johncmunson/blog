@@ -26,7 +26,7 @@ const Home = ({ posts }: HomeProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1 className="text-xl md:text-2xl lg:text-3xl mt-16">
+      <h1 className={`text-xl md:text-2xl lg:text-3xl`}>
         <span className="font-medium">Howdy there.</span> Find out what
         we&apos;re thinking about with a look behind the curtain at the things
         that make us tick.

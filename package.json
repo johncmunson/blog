@@ -11,8 +11,8 @@
   "name": "blog",
   "private": true,
   "engines": {
-    "node": "16.13.0",
-    "npm": "8.1.0"
+    "node": "16.17.1",
+    "npm": "8.15.0"
   },
   "scripts": {
     "dev": "next dev",
@@ -26,6 +26,7 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@sindresorhus/slugify": "^2.1.0",
     "gray-matter": "^4.0.3",
     "lodash": "^4.17.21",
     "next": "^12.1.5",

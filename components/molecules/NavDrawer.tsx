@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { NavContent } from '../atoms/NavContent'
-import { NAV_MARGIN_TOP } from '../../lib/constants'
+import { NAV_MT } from '../../lib/constants'
 import { useIsomorphicLayoutEffect } from '../../hooks/useIsomorphicLayoutEffect'
 
 type NavDrawerProps = {
@@ -42,7 +42,7 @@ export const NavDrawer = ({ isNavOpen }: NavDrawerProps) => {
 
   return (
     <nav
-      className={`overflow-hidden mt-${NAV_MARGIN_TOP} transition-[height] duration-700 ease-in-out`}
+      className={`overflow-hidden transition-[height] duration-700 ease-in-out ${NAV_MT}`}
       style={{
         height: isNavOpen ? `${height}px` : 0,
       }}

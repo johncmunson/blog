@@ -12,7 +12,7 @@ export const Header = () => {
   }
 
   return (
-    <header>
+    <header className="mb-16">
       <div className="flex justify-between items-center">
         <Logo />
         <button
