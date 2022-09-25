@@ -12,6 +12,10 @@
 10. RSS
 11. Custom 404
 12. [Layouts RFC](https://nextjs.org/blog/layouts-rfc)
+    - Nested layouts
+    - Server rendered components
+    - Suspense
+    - etc.
 13. Auth and admin panel?
 14. Monetization (ads, job board, paywall for some gated content, etc.)
 15. Dark mode
@@ -20,6 +24,7 @@
 18. Audit the eslint setup
     - https://paulintrognon.fr/blog/typescript-prettier-eslint-next-js
     - https://nextjs.org/docs/basic-features/eslint#additional-configurations
+19. Testing
 
 ## Random Links
 
