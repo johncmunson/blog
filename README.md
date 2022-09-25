@@ -15,8 +15,9 @@
 13. Auth and admin panel?
 14. Monetization (ads, job board, paywall for some gated content, etc.)
 15. Dark mode
-16. Syntx highlighting for markdown code snippets
-17. Audit the eslint setup
+16. Reorganize the code following DDD principles
+17. Syntax highlighting for markdown code snippets
+18. Audit the eslint setup
     - https://paulintrognon.fr/blog/typescript-prettier-eslint-next-js
     - https://nextjs.org/docs/basic-features/eslint#additional-configurations
 
