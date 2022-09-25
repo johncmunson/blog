@@ -1,22 +1,26 @@
-- ~~START USING MARKDOWN!~~
+## Todo
 
-  - Should be setup in a way that makes it simple to transition to a CMS later on
-  - Might make it more difficult to customize what you can actually do inside of a blog post. That's okay though. This should be treated as a creative constraint.
-  - https://github.com/remarkjs/react-markdown
-  - https://nextjs.org/blog/markdown
-  - https://nextjs-prism.vercel.app/prism
-  - https://amirardalan.com/blog/use-next-image-with-react-markdown
-  - https://tailwindcss.com/docs/typography-plugin
+1. Comment system
+2. Internationalization
+3. Image component inside markdown
+4. Hyperlinks on blog post headers
+5. Trending / Most Popular posts / Analytics
+6. SEO
+7. Newsletter
+8. Authors page and posts by author
+9. Remote content and images
+10. RSS
+11. Custom 404
+12. [Layouts RFC](https://nextjs.org/blog/layouts-rfc)
+13. Auth and admin panel?
+14. Monetization (ads, job board, paywall for some gated content, etc.)
+15. Dark mode
+16. Syntx highlighting for markdown code snippets
+17. Audit the eslint setup
+    - https://paulintrognon.fr/blog/typescript-prettier-eslint-next-js
+    - https://nextjs.org/docs/basic-features/eslint#additional-configurations
 
-- ~~main page layout and blog post layout~~
-  - ~~https://ia.net/design/blog~~
-- animate the header drawer
-- figure out frontmatter and finish the layout for individual blog posts
-- comments
-- google analytics
-- see the comment about margins in markdownToHtml.ts
-- fix the max-width breakpoint in the tailwind config. they seem to not be taking effect for some reason.
-- audit the ESLint setup
+## Random Links
 
-  - https://paulintrognon.fr/blog/typescript-prettier-eslint-next-js
-  - https://nextjs.org/docs/basic-features/eslint#additional-configurations
+- https://nextjs-prism.vercel.app/prism
+- https://amirardalan.com/blog/use-next-image-with-react-markdown
