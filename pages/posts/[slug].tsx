@@ -81,9 +81,21 @@ export const getStaticPaths: GetStaticPaths<PostPathParams> = async () => {
     paths: slugs.map((slug) => ({
       params: { slug },
     })),
-    // If user tries to access an invalid post, i.e. localhost:3000/posts/not-valid,
-    // then display a 404 page. True is used for very large sites that have a ton
-    // of pages.
+    /**
+     * fallback: true     - All dynamic pages are generated at build time. If a user tries
+     *                      to access an invalid route, then they are served a 404 page.
+     * fallback: false    - Use this option for large sites that need to optimize for quicker
+     *                      build times. Only return a subset of default pages that will get
+     *                      built during the build. At runtime, if a user tries to access a
+     *                      route that hasn't been built yet, they will get a loading screen
+     *                      while Next builds that page on the fly. Next will cache this page
+     *                      for all subsequent visits. You can always manually return a 404
+     *                      page if the route is truly invalid.
+     * fallback: blocking - Same as fallback: ture except the browser blocks until the page
+     *                      has fully loaded instead of showing a loading screen.
+     *
+     * https://thetombomb.com/posts/nextjs-optimizing-getstaticpaths-with-fallback
+     */
     fallback: false,
   }
 }
