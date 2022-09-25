@@ -24,6 +24,12 @@ export const Frontmatter = z.object({
   description: z.string(),
   author: z.string(),
   tags: z.array(z.string().min(1)).min(1) as unknown as z.Schema<Tags>,
+  coverPhoto: z
+    .string()
+    .optional()
+    .refine((str) =>
+      str ? str.endsWith('.png') || str.endsWith('.jpg') : true
+    ),
 })
 
 export type Frontmatter = z.infer<typeof Frontmatter>

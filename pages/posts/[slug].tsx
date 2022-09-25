@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Post } from '../../types'
+import FutureImage from 'next/future/image'
 import { ParsedUrlQuery } from 'querystring'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import markdownToHtml from '../../lib/markdownToHtml'
@@ -27,6 +28,17 @@ const Post = ({ html, frontmatter, date }: PostProps) => {
           {frontmatter.description}
         </p>
       </div>
+      {frontmatter.coverPhoto && (
+        <FutureImage
+          src={`/${frontmatter.coverPhoto}`}
+          alt={frontmatter.coverPhoto}
+          fill
+          // the Image component is *really* quirky to work with. By default, it is given
+          // absolute positioning. Weird. So we use !static as a hack to make it behave normally.
+          // https://nextjs.org/docs/api-reference/next/future/image#fill
+          className={`!static rounded-md ${CLEARANCE_FROM_PAGE_LEVEL_HEADER}`}
+        />
+      )}
       <main className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER}`}>
         <article
           // The tailwind typography plugin is a good way to style Markdown HTML,
