@@ -1,5 +1,5 @@
 import { Nav } from './Nav'
-import { sleep } from '../../lib'
+import { sleep } from '../../lib/utils'
 import { ChangeEvent, useState } from 'react'
 import { BLOG_NAME } from '../../lib/constants'
 

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { BLOG_NAME } from '../../lib/constants'
 
-export const LogoText = (props: { [prop: string]: any }) => (
+export const LogoText = (props: { [prop: string]: unknown }) => (
   <p
     {...props}
     className={`text-2xl font-semibold tracking-wide ${props.className}`}

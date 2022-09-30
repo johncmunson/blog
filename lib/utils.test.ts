@@ -1,4 +1,4 @@
-import { asyncForEach, sleep } from './index'
+import { asyncForEach, sleep } from './utils'
 
 it('applies the async callback to each item in the array', async () => {
   const numbers = [1, 2, 3]

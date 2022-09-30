@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { sleep } from '.'
+import { sleep } from './utils'
 import { join } from 'path'
 import matter from 'gray-matter'
 import { Frontmatter, Post, Tag, Tags, PostsByTag, Posts } from '../types'

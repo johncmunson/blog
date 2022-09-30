@@ -10,3 +10,7 @@ export async function asyncForEach<T>(
 export function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
+
+export function isDefined<T>(val: T | undefined | null): val is T {
+  return val !== undefined && val !== null
+}

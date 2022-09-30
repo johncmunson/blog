@@ -1,8 +1,8 @@
 import { GetStaticProps } from 'next'
-import { CLEARANCE_FROM_PAGE_LEVEL_HEADER } from '../../lib/constants'
 import { PostsByTag, Tags } from '../../types'
 import { getAllPostTags, getPostsByTag } from '../../lib/md'
 import { PageHeading } from '../../components/atoms/PageHeading'
+import { CLEARANCE_FROM_PAGE_LEVEL_HEADER } from '../../lib/constants'
 import { TagWithPosts } from '../../components/molecules/TagWithPosts'
 
 type TagsProps = { allTags: Tags; postsByTag: PostsByTag }
@@ -22,7 +22,7 @@ const Tags = ({ allTags, postsByTag }: TagsProps) => {
   )
 }
 
-export const getStaticProps: GetStaticProps<TagsProps> = async (context) => {
+export const getStaticProps: GetStaticProps<TagsProps> = async () => {
   const allTags = await getAllPostTags()
   const postsByTag = await getPostsByTag()
 
