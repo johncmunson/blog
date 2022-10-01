@@ -3,6 +3,7 @@
 // Upgrade to tailwind 3.1 to get...
 // https://tailwindcss.com/blog/tailwindcss-v3-1#first-party-type-script-types
 module.exports = {
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',

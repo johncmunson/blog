@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useLocalStorage } from './useLocalStorage'
 import { useMediaQuery } from './useMediaQuery'
 import { useUpdateEffect } from './useUpdateEffect'
@@ -17,6 +18,13 @@ export function useDarkMode(defaultValue?: boolean): UseDarkModeOutput {
     'dark-mode',
     defaultValue ?? isDarkOS ?? false
   )
+
+  // Tailwind watches for the presence of this
+  useEffect(() => {
+    isDarkMode
+      ? document.documentElement.classList.add('dark')
+      : document.documentElement.classList.remove('dark')
+  }, [isDarkMode])
 
   // If OS changes preference, then update the darkMode setting to match
   useUpdateEffect(() => {
