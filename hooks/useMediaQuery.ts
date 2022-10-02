@@ -21,7 +21,8 @@ export function useMediaQuery(query: string): boolean {
     // Triggered at the first client-side load and if query changes
     handleChange()
 
-    // Listen matchMedia
+    // Listen matchMedia - Some older browsers may still be using the deprecated `addListener`.
+    // If so, go ahead and use it, otherwise use the modern `addEventListener`.
     if (matchMedia.addListener) {
       matchMedia.addListener(handleChange)
     } else {

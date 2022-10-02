@@ -3,6 +3,7 @@
 1. Comment system
 2. Internationalization
 3. Image component inside markdown
+   - https://amirardalan.com/blog/use-next-image-with-react-markdown
 4. Hyperlinks on blog post headers
 5. Trending / Most Popular posts / Analytics
 6. SEO
@@ -18,38 +19,34 @@
     - etc.
 13. Auth and admin panel?
 14. Monetization (ads, job board, paywall for some gated content, etc.)
-15. [Dark mode](https://usehooks-ts.com/react-hook/use-dark-mode)
-16. Reorganize the code following DDD principles
+15. Reorganize the code following DDD or onion architecture principles
     - https://giancarlobuomprisco.com/next/a-scalable-nextjs-project-structure
     - https://khalilstemmler.com/articles/domain-driven-design-intro/
-17. Syntax highlighting for markdown code snippets
-18. Audit the eslint setup
+16. Syntax highlighting for markdown code snippets
+    - https://github.com/shikijs/twoslash/tree/main/packages/remark-shiki-twoslash
+    - https://nextjs-prism.vercel.app/prism
+17. Audit the eslint setup
     - https://paulintrognon.fr/blog/typescript-prettier-eslint-next-js
     - https://nextjs.org/docs/basic-features/eslint#additional-configurations
-19. Testing
-20. Blog post ToC
-21. Blog post footnotes
-22. [Blog post drafts](https://jekyllrb.com/docs/posts/#drafts)
-23. Blog post excerpts? We already support "description" in the frontmatter, so I'm inclined to say no on this one
-24. Bug: It appears that the markdown engine I'm currently using does not accept HTML
-25. Different layouts for different types of blog posts
-26. We already have the concept of tags... do we also need [categories](https://jekyllrb.com/docs/posts/#categories)?
-27. Permalinks???
+18. Testing
+19. Blog post ToC
+20. Blog post footnotes
+21. [Blog post drafts](https://jekyllrb.com/docs/posts/#drafts)
+22. Blog post excerpts? We already support "description" in the frontmatter, so I'm inclined to say no on this one
+23. Bug: It appears that the markdown engine I'm currently using does not accept HTML
+24. Different layouts for different types of blog posts
+25. We already have the concept of tags... do we also need [categories](https://jekyllrb.com/docs/posts/#categories)?
+26. Permalinks???
     - bitly?
     - Every page would have a uuid?
     - uuid redirects to the pretty url?
     - [Rewrites?](https://nextjs.org/docs/api-reference/next.config.js/rewrites)
-28. Feature flags
+27. Feature flags
     - This would be great for enabling "bootstrap mode", where you only have a couple of blog posts,
       but you want to be forward-thinking and build out features that only make sense once you have a
       larger backlog built up.
-29. [Blog post series](https://dev.to/kallmanation/dev-to-writing-making-a-series-3h79)
-30. [Scroll Restoration](https://mmazzarolo.com/blog/2021-04-10-nextjs-scroll-restoration/)
-
-## Random Links
-
-- https://nextjs-prism.vercel.app/prism
-- https://amirardalan.com/blog/use-next-image-with-react-markdown
+28. [Blog post series](https://dev.to/kallmanation/dev-to-writing-making-a-series-3h79)
+29. [Scroll Restoration](https://mmazzarolo.com/blog/2021-04-10-nextjs-scroll-restoration/)
 
 ## Blog Post Ideas
 

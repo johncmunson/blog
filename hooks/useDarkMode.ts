@@ -1,7 +1,18 @@
-import { useEffect } from 'react'
 import { useLocalStorage } from './useLocalStorage'
 import { useMediaQuery } from './useMediaQuery'
 import { useUpdateEffect } from './useUpdateEffect'
+
+// This hook originally taken from: https://github.com/juliencrn/usehooks-ts
+
+// This hook suffers from a slight bit of FOUC. If the site is set to dark
+// mode and then you refresh the page, here's what happens...
+//  - The browser is initially blank and white (I think this is unavoidable)
+//  - Then the page renders and for a split second all of the content is in
+//    light mode. The blog post is loaded, but the background is white. The
+//    toggle switch is showing the sun.
+//  - Then, it switches to dark mode
+// Read this article for an idea of maybe how to fix this.
+// https://www.joshwcomeau.com/react/the-perils-of-rehydration/#abstractions
 
 const COLOR_SCHEME_QUERY = '(prefers-color-scheme: dark)'
 
@@ -20,7 +31,7 @@ export function useDarkMode(defaultValue?: boolean): UseDarkModeOutput {
   )
 
   // Tailwind watches for the presence of this
-  useEffect(() => {
+  useUpdateEffect(() => {
     isDarkMode
       ? document.documentElement.classList.add('dark')
       : document.documentElement.classList.remove('dark')

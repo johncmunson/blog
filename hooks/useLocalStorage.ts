@@ -4,6 +4,14 @@ import { useEventCallback } from './useEventCallback'
 import { useEventListener } from './useEventListener'
 import { useIsFirstRender } from './useIsFirstRender'
 
+// This hook originally taken from: https://github.com/juliencrn/usehooks-ts
+// Several modifications have been made, mainly due to the fact that this hook
+// may not have been originally created with SSR in mind. When I tried to use
+// it as-is to power dark mode, I was getting hydration errors when React tried
+// to hydrate on the frontend. You could technically suppress this warning if
+// you wanted to with `<div suppressHydrationWarning>Dark Mode Enabled: {isDarkMode}</div>`.
+// But that's a hack I was wanting to avoid.
+
 declare global {
   interface WindowEventMap {
     'local-storage': CustomEvent
@@ -12,13 +20,11 @@ declare global {
 
 type SetValue<T> = Dispatch<SetStateAction<T>>
 
-// Made changes b/c trying to avoid using hydration errors and/or needing to use suppressHydrationWarning={true}
-
 export function useLocalStorage<T>(
   key: string,
   initialValue: T
 ): [T, SetValue<T>] {
-  // added this to prevent the hydration error
+  // Added this to prevent the hydration error -John
   const isFirstRender = useIsFirstRender()
 
   // Get from local storage then
@@ -39,11 +45,10 @@ export function useLocalStorage<T>(
 
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
-
-  // this used to just be readValue, which was no good because it was returning the
-  // value stored in localStorage (which might be "true"). The backend always SSRs
-  // using 'false' though, and we need the initial hydration to match the SSR value
   const [storedValue, setStoredValue] = useState<T>(
+    // This used to just be readValue, which was no good because it was returning the
+    // value stored in localStorage (which might be "true"). The backend always SSRs
+    // using 'false' though, and we need the initial hydration to match the SSR value -John
     isFirstRender ? initialValue : readValue
   )
 
@@ -74,10 +79,9 @@ export function useLocalStorage<T>(
     }
   })
 
-  // this used to be... setStoredValue(readValue())
-  // changed it b/c on the first render or page load, if localStorage wasn't already set,
-  // it wasn't getting populated someone toggled the dark mode state and triggered another
-  // render. Also, change to using 'useEffectOnce' b/c why not.
+  // This used to be... setStoredValue(readValue())
+  // Changed it b/c on the first render or page load, if localStorage wasn't already set
+  // it wasn't getting populated until, for example, someone toggle the dark mode slider. -John
   useEffectOnce(() => {
     setValue(readValue())
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -96,8 +100,7 @@ export function useLocalStorage<T>(
   // this only works for other documents, not the current one
   useEventListener('storage', handleStorageChange)
 
-  // this is a custom event, triggered in writeValueToLocalStorage
-  // See: useLocalStorage()
+  // this is a custom event, triggered in `setValue`
   useEventListener('local-storage', handleStorageChange)
 
   return [storedValue, setValue]

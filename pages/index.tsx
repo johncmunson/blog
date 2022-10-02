@@ -5,16 +5,6 @@ import { getAllPosts } from '../lib/md'
 import { BlogFeed } from '../components/organisms/BlogFeed'
 import { useQueryStringPagination } from '../hooks/useQueryStringPagination'
 
-// Don't forget about this stuff
-/**
- * - Figure out better solution for suppressHydrationWarning. Don't want to litter the JSX with it.
- * - Leave comments in the hooks pointing to https://usehooks-ts.com/
- * - Leave a comment saying why I decided to use a context provider after all
- * - Actually implement dark mode
- * - Cleanup comments in useLocalStorage explaining changes
- *    - Possibly make some of my changes conditional, based on the presence of an SSR=true param
- */
-
 export type HomeProps = {
   posts: Post[]
 }
