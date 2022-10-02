@@ -44,6 +44,7 @@
       but you want to be forward-thinking and build out features that only make sense once you have a
       larger backlog built up.
 29. [Blog post series](https://dev.to/kallmanation/dev-to-writing-making-a-series-3h79)
+30. [Scroll Restoration](https://mmazzarolo.com/blog/2021-04-10-nextjs-scroll-restoration/)
 
 ## Random Links
 

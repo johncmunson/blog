@@ -46,7 +46,7 @@ export const Footer = () => {
               name="email"
               placeholder="you@email.com"
               aria-label="email"
-              className={`${inputClasses} ${paddingClasses} rounded-l-sm bg-gray-300 grow-[2]`}
+              className={`${inputClasses} ${paddingClasses} rounded-l-sm bg-neutral-300 dark:bg-neutral-700 grow-[2]`}
             />
             <input
               type="submit"
@@ -54,7 +54,7 @@ export const Footer = () => {
               value="Submit"
               disabled={isSubscribing ? true : false}
               aria-label="submit"
-              className={`${inputClasses} ${paddingClasses} rounded-r-sm font-medium bg-gray-100 grow-[1] hover:cursor-pointer hover:bg-gray-200 disabled:cursor-wait`}
+              className={`${inputClasses} ${paddingClasses} rounded-r-sm font-medium bg-neutral-200 dark:bg-neutral-800 grow-[1] hover:cursor-pointer hover:bg-neutral-300 dark:hover:bg-neutral-700 disabled:cursor-wait`}
             />
           </form>
         )}

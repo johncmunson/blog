@@ -1,8 +1,8 @@
 import { Logo } from '../atoms/Logo'
-import styles from './Header.module.css'
 import { useState, MouseEvent } from 'react'
 import { NavDrawer } from '../molecules/NavDrawer'
 import { DarkModeSwitch } from './DarkModeSwitch'
+import { HamburgerMenu } from '../atoms/HamburgerMenu'
 
 export const Header = () => {
   const [isNavOpen, setNavIsOpen] = useState(false)
@@ -18,28 +18,7 @@ export const Header = () => {
         <Logo />
         <div className="flex items-center gap-3 md:gap-4">
           <DarkModeSwitch />
-          <button
-            role="button"
-            title="Menu"
-            value="Menu"
-            className={styles.hamburgerMenuButton}
-            onClick={handleMenuClick}
-          >
-            <i
-              className={
-                isNavOpen
-                  ? styles.hamburgerMenuLine1Open
-                  : styles.hamburgerMenuLine1Closed
-              }
-            ></i>
-            <i
-              className={
-                isNavOpen
-                  ? styles.hamburgerMenuLine2Open
-                  : styles.hamburgerMenuLine2Closed
-              }
-            ></i>
-          </button>
+          <HamburgerMenu isOpen={isNavOpen} handleClick={handleMenuClick} />
         </div>
       </div>
       <NavDrawer isNavOpen={isNavOpen} />
