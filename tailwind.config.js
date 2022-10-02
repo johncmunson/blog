@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const colors = require('tailwindcss/colors')
+
 // https://tailwindcss.com/docs/configuration
 
 // Upgrade to tailwind 3.1 to get...
@@ -30,6 +33,9 @@ module.exports = {
         '-lg': { max: '1023px' },
         '-md': { max: '767px' },
         '-sm': { max: '639px' },
+      },
+      colors: {
+        primary: colors.sky,
       },
     },
   },

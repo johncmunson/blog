@@ -19,7 +19,7 @@ export const BlogFeed = ({ posts }: BlogFeedProps) => (
             {post.date.replace(/-/g, '.')}
           </div>
           <Link href={`/posts/${post.slug}`}>
-            <a className="font-medium md:text-lg lg:text-xl hover:text-sky-400">
+            <a className="font-medium md:text-lg lg:text-xl hover:text-primary-400">
               {post.frontmatter.title}
             </a>
           </Link>
@@ -28,10 +28,10 @@ export const BlogFeed = ({ posts }: BlogFeedProps) => (
         <div className="col-span-2 md:text-lg lg:text-xl">
           <Link href={`/posts/${post.slug}`}>
             <a>
-              <span className="hover:text-sky-400">
+              <span className="hover:text-primary-400">
                 {post.frontmatter.description}
               </span>{' '}
-              <span className="text-sky-400">→</span>
+              <span className="text-primary-400">→</span>
             </a>
           </Link>
         </div>

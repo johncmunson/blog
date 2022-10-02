@@ -55,7 +55,7 @@ const Post = ({ html, frontmatter, date }: PostProps) => {
         </Link>
         {frontmatter.tags.map((tag, i) => (
           <Link key={i} href={`/posts/tags/${tag}`}>
-            <a className="bg-gray-100 rounded-full mr-3 px-3 py-1 outline outline-gray-300 outline-offset-1 hover:outline-sky-400">
+            <a className="bg-gray-100 rounded-full mr-3 px-3 py-1 outline outline-gray-300 outline-offset-1 hover:outline-primary-400">
               {tag}
             </a>
           </Link>

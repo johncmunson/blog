@@ -5,7 +5,7 @@ import { BLOG_NAME } from '../../lib/constants'
 
 const paddingClasses = 'p-3 sm:p-5 md:p-7'
 const textClasses = 'text-lg md:text-xl lg:text-2xl'
-const inputClasses = `md:text-lg lg:text-xl focus:outline-sky-400`
+const inputClasses = `md:text-lg lg:text-xl focus:outline-primary-400`
 
 export const Footer = () => {
   const [subscribed, setSubscribed] = useState(false)

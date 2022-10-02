@@ -12,7 +12,7 @@ export const TagWithPosts = ({ tag, posts }: TagWithPostsProps) => (
   <div>
     <h2 className={`${H2} -99xl:mt-0`}>
       <Link href={`/posts/tags/${tag}`}>
-        <a className={`hover:text-sky-400`}>{tag}</a>
+        <a className={`hover:text-primary-400`}>{tag}</a>
       </Link>
     </h2>
     <Posts posts={posts} />

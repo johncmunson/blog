@@ -11,7 +11,7 @@ export const Posts = ({ posts }: PostsProps) => (
     {posts.map((post, i) => (
       <li key={i}>
         <Link href={`/posts/${post.slug}`}>
-          <a className={`hover:text-sky-400`}>{post.frontmatter.title}</a>
+          <a className={`hover:text-primary-400`}>{post.frontmatter.title}</a>
         </Link>
       </li>
     ))}
