@@ -11,7 +11,7 @@ export const DarkModeSwitch = () => {
 
   return (
     <div className={classes} onClick={toggle}>
-      <div className={styles['react-toggle-track']}>
+      <div className={`${styles['react-toggle-track']} dark:bg-neutral-700`}>
         <div className={styles['react-toggle-track-check']}>
           <Image
             src="/moon.png"
