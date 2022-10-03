@@ -2,51 +2,54 @@
 
 1. Comment system
 2. Internationalization
-3. Image component inside markdown
-   - https://amirardalan.com/blog/use-next-image-with-react-markdown
-4. Hyperlinks on blog post headers
-5. Trending / Most Popular posts / Analytics
-6. SEO
-7. Newsletter
-8. Authors page and posts by author
-9. Remote content and images
-10. RSS
-11. Custom 404
-12. [Layouts RFC](https://nextjs.org/blog/layouts-rfc)
+3. Hyperlinks on blog post headers
+4. Trending / Most Popular posts / Analytics
+5. SEO
+6. Newsletter
+7. Authors page and posts by author
+8. Remote content and images
+9. RSS
+10. Custom 404
+11. [Layouts RFC](https://nextjs.org/blog/layouts-rfc)
     - Nested layouts
     - Server rendered components
     - Suspense
     - etc.
-13. Auth and admin panel?
-14. Monetization (ads, job board, paywall for some gated content, etc.)
-15. Reorganize the code following DDD or onion architecture principles
+12. Auth and admin panel?
+13. Monetization (ads, job board, paywall for some gated content, etc.)
+14. Reorganize the code following DDD or onion architecture principles
     - https://giancarlobuomprisco.com/next/a-scalable-nextjs-project-structure
     - https://khalilstemmler.com/articles/domain-driven-design-intro/
-16. Syntax highlighting for markdown code snippets
+15. Syntax highlighting for markdown code snippets
     - https://github.com/shikijs/twoslash/tree/main/packages/remark-shiki-twoslash
     - https://nextjs-prism.vercel.app/prism
-17. Audit the eslint setup
+16. Audit the eslint setup
     - https://paulintrognon.fr/blog/typescript-prettier-eslint-next-js
     - https://nextjs.org/docs/basic-features/eslint#additional-configurations
-18. Testing
-19. Blog post ToC
-20. Blog post footnotes
-21. [Blog post drafts](https://jekyllrb.com/docs/posts/#drafts)
-22. Blog post excerpts? We already support "description" in the frontmatter, so I'm inclined to say no on this one
-23. Bug: It appears that the markdown engine I'm currently using does not accept HTML
-24. Different layouts for different types of blog posts
-25. We already have the concept of tags... do we also need [categories](https://jekyllrb.com/docs/posts/#categories)?
-26. Permalinks???
+17. Testing
+18. Blog post ToC
+19. Blog post footnotes
+20. [Blog post drafts](https://jekyllrb.com/docs/posts/#drafts)
+21. Blog post excerpts? We already support "description" in the frontmatter, so I'm inclined to say no on this one
+22. Bug: It appears that the markdown engine I'm currently using does not accept HTML
+23. Different layouts for different types of blog posts
+24. We already have the concept of tags... do we also need [categories](https://jekyllrb.com/docs/posts/#categories)?
+25. Permalinks???
     - bitly?
     - Every page would have a uuid?
     - uuid redirects to the pretty url?
     - [Rewrites?](https://nextjs.org/docs/api-reference/next.config.js/rewrites)
-27. Feature flags
+26. Feature flags
     - This would be great for enabling "bootstrap mode", where you only have a couple of blog posts,
       but you want to be forward-thinking and build out features that only make sense once you have a
       larger backlog built up.
-28. [Blog post series](https://dev.to/kallmanation/dev-to-writing-making-a-series-3h79)
-29. [Scroll Restoration](https://mmazzarolo.com/blog/2021-04-10-nextjs-scroll-restoration/)
+27. [Blog post series](https://dev.to/kallmanation/dev-to-writing-making-a-series-3h79)
+28. [Scroll Restoration](https://mmazzarolo.com/blog/2021-04-10-nextjs-scroll-restoration/)
+
+## Random Links
+
+- https://www.ryanfiller.com/blog/remark-and-rehype-plugins
+- https://using-remark.gatsbyjs.org/custom-components/
 
 ## Blog Post Ideas
 

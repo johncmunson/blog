@@ -7,6 +7,7 @@ import markdownToHtml from '../../lib/markdownToHtml'
 import { getPostBySlug, getPostSlugs } from '../../lib/md'
 import { PageHeading } from '../../components/atoms/PageHeading'
 import { CLEARANCE_FROM_PAGE_LEVEL_HEADER } from '../../lib/constants'
+import { BlogPostImage } from '../../components/atoms/BlogPostImage'
 
 type PostPathParams = ParsedUrlQuery & {
   slug: string
@@ -29,15 +30,10 @@ const Post = ({ html, frontmatter, date }: PostProps) => {
         </p>
       </div>
       {frontmatter.coverPhoto && (
-        <Image
-          src={`/${frontmatter.coverPhoto}`}
+        <BlogPostImage
+          src={frontmatter.coverPhoto}
           alt={frontmatter.coverPhoto}
-          fill
-          // the Image component is *really* quirky to work with. By default, it is given
-          // absolute positioning when using the fill property. Weird. So we use !static
-          // as a hack to make it behave normally.
-          // https://nextjs.org/docs/api-reference/next/future/image#fill
-          className={`!static rounded-md ${CLEARANCE_FROM_PAGE_LEVEL_HEADER}`}
+          className={CLEARANCE_FROM_PAGE_LEVEL_HEADER}
         />
       )}
       <main className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER}`}>
