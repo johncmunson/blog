@@ -31,20 +31,19 @@
 19. Blog post footnotes
 20. [Blog post drafts](https://jekyllrb.com/docs/posts/#drafts)
 21. Blog post excerpts? We already support "description" in the frontmatter, so I'm inclined to say no on this one
-22. Bug: It appears that the markdown engine I'm currently using does not accept HTML
-23. Different layouts for different types of blog posts
-24. We already have the concept of tags... do we also need [categories](https://jekyllrb.com/docs/posts/#categories)?
-25. Permalinks???
+22. Different layouts for different types of blog posts
+23. We already have the concept of tags... do we also need [categories](https://jekyllrb.com/docs/posts/#categories)?
+24. Permalinks???
     - bitly?
     - Every page would have a uuid?
     - uuid redirects to the pretty url?
     - [Rewrites?](https://nextjs.org/docs/api-reference/next.config.js/rewrites)
-26. Feature flags
+25. Feature flags
     - This would be great for enabling "bootstrap mode", where you only have a couple of blog posts,
       but you want to be forward-thinking and build out features that only make sense once you have a
       larger backlog built up.
-27. [Blog post series](https://dev.to/kallmanation/dev-to-writing-making-a-series-3h79)
-28. [Scroll Restoration](https://mmazzarolo.com/blog/2021-04-10-nextjs-scroll-restoration/)
+26. [Blog post series](https://dev.to/kallmanation/dev-to-writing-making-a-series-3h79)
+27. [Scroll Restoration](https://mmazzarolo.com/blog/2021-04-10-nextjs-scroll-restoration/)
 
 ## Random Links
 
