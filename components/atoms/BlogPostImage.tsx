@@ -7,7 +7,7 @@ type BlogPostImageProps = {
 }
 export const BlogPostImage = ({ src, alt, className }: BlogPostImageProps) => (
   <Image
-    src={`/${src}`}
+    src={src}
     alt={alt}
     // We use the fill property instead of the width property b/c width requires
     // the value to be in pixels. That just won't work when we're trying to make

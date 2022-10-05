@@ -6,7 +6,7 @@ import remarkRehype from 'remark-rehype'
 // @ts-expect-error: no types available
 import addClasses from 'rehype-add-classes'
 import rehypeStringify from 'rehype-stringify'
-import { BODY_TEXT, UL, OL, H2, H3, BODY_TEXT_TOP_MARGIN } from './constants'
+import { BODY_TEXT, UL, OL, H2, H3 } from './constants'
 import rehypeParse from 'rehype-parse'
 import rehypeReact from 'rehype-react'
 import { createElement, Fragment } from 'react'
@@ -57,7 +57,7 @@ export default async function markdownToHtml(post: Post) {
           const { node } = castedProps
           return (
             <div
-              className={`w-full sm:w-5/6 md:w-4/5 lg:w-3/4 mx-auto ${BODY_TEXT_TOP_MARGIN}`}
+              className={`w-11/12 sm:w-5/6 md:w-4/5 lg:w-3/4 mx-auto mt-3 sm:mt-4 md:mt-5 lg:mt-6`}
             >
               <BlogPostImage
                 src={node.properties.src}

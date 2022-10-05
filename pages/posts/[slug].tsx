@@ -25,7 +25,7 @@ const Post = ({ html, frontmatter, date }: PostProps) => {
           <p>&bull;</p>
           <p>Published: {date}</p>
         </div>
-        <p className="sm:mt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl">
+        <p className="mt-0.5 sm:mt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl">
           {frontmatter.description}
         </p>
       </div>

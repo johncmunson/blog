@@ -22,8 +22,7 @@ export const H2 =
   'text-xl sm:text-2xl md:text-3xl lg:text-4xl mt-7 sm:mt-8 md:mt-9 lg:mt-10'
 export const H3 =
   'text-lg sm:text-xl md:text-2xl lg:text-3xl mt-6 sm:mt-7 md:mt-8 lg:mt-9'
-export const BODY_TEXT_TOP_MARGIN = 'mt-1 sm:mt-2 md:mt-3 lg:mt-4'
-export const BODY_TEXT = `text-base sm:text-lg md:text-xl lg:text-2xl ${BODY_TEXT_TOP_MARGIN}`
+export const BODY_TEXT = `text-base sm:text-lg md:text-xl lg:text-2xl mt-1 sm:mt-2 md:mt-3 lg:mt-4`
 const LIST = 'ml-6 md:ml-8 mt-0 sm:mt-0 md:mt-2 lg:mt-2 list-outside'
 export const UL = `${BODY_TEXT} ${LIST} list-disc`
 export const OL = `${BODY_TEXT} ${LIST} list-decimal`
