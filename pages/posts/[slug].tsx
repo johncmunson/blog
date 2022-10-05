@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { Post } from '../../types'
-import Image from 'next/future/image'
 import { ParsedUrlQuery } from 'querystring'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import markdownToHtml from '../../lib/markdownToHtml'

@@ -5,7 +5,7 @@ export const ConditionalWrapper = ({
   ...wrapperProps
 }: {
   condition: boolean
-  /* eslint-disable @typescript-eslint/no-explicit-any */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Wrapper: (...args: any[]) => JSX.Element
   children: React.ReactNode
   [wrapperProps: string]: any

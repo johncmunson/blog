@@ -14,17 +14,46 @@ import remarkUnwrapImages from 'remark-unwrap-images'
 import { Element } from 'rehype-react/lib'
 import { renderToString } from 'react-dom/server'
 import { BlogPostImage } from '../components/atoms/BlogPostImage'
+import rehypeRaw from 'rehype-raw'
+import rehypeSanitize from 'rehype-sanitize'
 
 type ImgProps = {
   node: Element & { properties: { src: string; alt: string } }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [k: string]: any
 }
 
+// Supports adding captions to markdown images like so...
+// ![Business Meeting{caption=Fig. 1: A very important business meeting}](/business-meeting.jpg)
+function extractCaptionFromAltText(altText?: string | null) {
+  if (!altText) throw new Error('Missing alt text on image')
+
+  const captionRegex = /(\{caption=([^{}]+)\})/
+
+  if (!captionRegex.test(altText)) {
+    return { alt: altText }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const [captionWithControl, , caption] = captionRegex.exec(altText)!
+
+  return {
+    caption,
+    alt: altText.replace(captionWithControl, ''),
+  }
+}
+
+// If you ever have the need to write a custom Remark/Rehype plugin, this article is pretty helpful...
+// https://jeffchen.dev/posts/Markdown-Image-Captions/
 export default async function markdownToHtml(post: Post) {
   const htmlHast = await unified()
     .use(remarkParse)
     .use(remarkUnwrapImages)
-    .use(remarkRehype)
+    // Allow writing plain HTML inside markdown
+    // https://github.com/remarkjs/remark-rehype#example-supporting-html-in-markdown-properly
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
+    .use(rehypeSanitize)
     .use(addClasses, {
       // Prefer top and left margins, b/c Adam says so -> https://twitter.com/adamwathan/status/1399473286224957442
       // Also, we're not including h1 because the title of blog posts is already an h1 and we don't want multiple
@@ -52,18 +81,25 @@ export default async function markdownToHtml(post: Post) {
       Fragment,
       passNode: true,
       components: {
-        img: (props: any) => {
+        img: (props: unknown) => {
           const castedProps = props as ImgProps
           const { node } = castedProps
+
+          const { alt, caption } = extractCaptionFromAltText(
+            node.properties.alt
+          )
+
           return (
-            <div
+            <figure
               className={`w-11/12 sm:w-5/6 md:w-4/5 lg:w-3/4 mx-auto mt-3 sm:mt-4 md:mt-5 lg:mt-6`}
             >
-              <BlogPostImage
-                src={node.properties.src}
-                alt={node.properties.alt}
-              />
-            </div>
+              <BlogPostImage src={node.properties.src} alt={alt} />
+              {caption && (
+                <figcaption className="italic text-center text-xs sm:text-base md:text-lg lg:text-lx">
+                  {caption}
+                </figcaption>
+              )}
+            </figure>
           )
         },
       },
