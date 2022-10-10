@@ -17,7 +17,7 @@ import rehypeSanitize from 'rehype-sanitize'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
 
-// If you ever have the need to write a custom Remark/Rehype plugin, this article is pretty helpful...
+// FYI, if you ever have the need to write a custom Remark/Rehype plugin, this article is pretty helpful...
 // https://jeffchen.dev/posts/Markdown-Image-Captions/
 
 /**
