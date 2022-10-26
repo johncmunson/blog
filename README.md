@@ -1,51 +1,50 @@
 ## Todo
 
-1. Hyperlinks on blog post headers
-2. Github Flavored Markdown. Give it a shot. https://github.com/remarkjs/remark-gfm
-3. https://safeql.dev/ has a better moon/sun dark mode toggle
-4. Testing
-5. [Blog post series](https://dev.to/kallmanation/dev-to-writing-making-a-series-3h79)
-6. Feature flags
+1. Github Flavored Markdown. Give it a shot. https://github.com/remarkjs/remark-gfm
+2. https://safeql.dev/ has a better moon/sun dark mode toggle
+3. Testing
+4. [Blog post series](https://dev.to/kallmanation/dev-to-writing-making-a-series-3h79)
+5. Feature flags
    - This would be great for enabling "bootstrap mode", where you only have a couple of blog posts,
      but you want to be forward-thinking and build out features that only make sense once you have a
      larger backlog built up.
-7. Comment system
-8. Internationalization
-9. Trending / Most Popular posts / Analytics
-10. SEO
-11. Newsletter
-12. Authors page and posts by author
-13. Remote content and images
-14. RSS
-15. Custom 404
-16. [Layouts RFC](https://nextjs.org/blog/layouts-rfc)
+6. Comment system
+7. Internationalization
+8. Trending / Most Popular posts / Analytics
+9. SEO
+10. Newsletter
+11. Authors page and posts by author
+12. Remote content and images
+13. RSS
+14. Custom 404
+15. [Layouts RFC](https://nextjs.org/blog/layouts-rfc)
     - Nested layouts
     - Server rendered components
     - Suspense
     - etc.
-17. Auth and admin panel?
-18. Monetization (ads, job board, paywall for some gated content, etc.)
-19. Reorganize the code following DDD or onion architecture principles
+16. Auth and admin panel?
+17. Monetization (ads, job board, paywall for some gated content, etc.)
+18. Reorganize the code following DDD or onion architecture principles
     - https://giancarlobuomprisco.com/next/a-scalable-nextjs-project-structure
     - https://khalilstemmler.com/articles/domain-driven-design-intro/
-20. Syntax highlighting for markdown code snippets
+19. Syntax highlighting for markdown code snippets
     - https://github.com/shikijs/twoslash/tree/main/packages/remark-shiki-twoslash
     - https://nextjs-prism.vercel.app/prism
-21. Audit the eslint setup
+20. Audit the eslint setup
     - https://paulintrognon.fr/blog/typescript-prettier-eslint-next-js
     - https://nextjs.org/docs/basic-features/eslint#additional-configurations
-22. Blog post ToC
-23. Blog post footnotes
-24. [Blog post drafts](https://jekyllrb.com/docs/posts/#drafts)
-25. Blog post excerpts? We already support "description" in the frontmatter, so I'm inclined to say no on this one
-26. Different layouts for different types of blog posts
-27. We already have the concept of tags... do we also need [categories](https://jekyllrb.com/docs/posts/#categories)?
-28. Permalinks???
+21. Blog post ToC
+22. Blog post footnotes
+23. [Blog post drafts](https://jekyllrb.com/docs/posts/#drafts)
+24. Blog post excerpts? We already support "description" in the frontmatter, so I'm inclined to say no on this one
+25. Different layouts for different types of blog posts
+26. We already have the concept of tags... do we also need [categories](https://jekyllrb.com/docs/posts/#categories)?
+27. Permalinks???
     - bitly?
     - Every page would have a uuid?
     - uuid redirects to the pretty url?
     - [Rewrites?](https://nextjs.org/docs/api-reference/next.config.js/rewrites)
-29. [Scroll Restoration](https://mmazzarolo.com/blog/2021-04-10-nextjs-scroll-restoration/)
+28. [Scroll Restoration](https://mmazzarolo.com/blog/2021-04-10-nextjs-scroll-restoration/)
 
 ## Random Links
 
