@@ -48,6 +48,9 @@ export default async function markdownToHtml(post: Post) {
       ol: `${OL}`,
     })
     // 5. Add self-referencing links to the headers
+    //    - rehypeSlug simply adds id's to headers
+    //    - rehypeAutolinkHeadings takes headings that have id's and wraps their text content with an anchor tag
+    //      linking back to itself
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings, { behavior: 'wrap' })
     // 6. Compile HTML AST to a React node. Swap in some React components.
