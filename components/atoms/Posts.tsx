@@ -10,8 +10,8 @@ export const Posts = ({ posts }: PostsProps) => (
   <ul className={`${UL}`}>
     {posts.map((post, i) => (
       <li key={i}>
-        <Link href={`/posts/${post.slug}`}>
-          <a className={`hover:text-primary-400`}>{post.frontmatter.title}</a>
+        <Link href={`/posts/${post.slug}`} className={`hover:text-primary-400`}>
+          {post.frontmatter.title}
         </Link>
       </li>
     ))}

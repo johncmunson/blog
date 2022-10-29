@@ -6,9 +6,7 @@ export const LogoText = (props: { [prop: string]: unknown }) => (
     {...props}
     className={`text-2xl font-semibold tracking-wide ${props.className}`}
   >
-    <Link href="/">
-      <a>{BLOG_NAME}</a>
-    </Link>
+    <Link href="/">{BLOG_NAME}</Link>
   </p>
 )
 

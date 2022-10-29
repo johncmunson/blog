@@ -18,21 +18,20 @@ export const BlogFeed = ({ posts }: BlogFeedProps) => (
           <div className="font-mono text-sm md:text-base lg:text-lg">
             {post.date.replace(/-/g, '.')}
           </div>
-          <Link href={`/posts/${post.slug}`}>
-            <a className="font-medium md:text-lg lg:text-xl hover:text-primary-400">
-              {post.frontmatter.title}
-            </a>
+          <Link
+            href={`/posts/${post.slug}`}
+            className="font-medium md:text-lg lg:text-xl hover:text-primary-400"
+          >
+            {post.frontmatter.title}
           </Link>
         </div>
 
         <div className="col-span-2 md:text-lg lg:text-xl">
           <Link href={`/posts/${post.slug}`}>
-            <a>
-              <span className="hover:text-primary-400">
-                {post.frontmatter.description}
-              </span>{' '}
-              <span className="text-primary-400">→</span>
-            </a>
+            <span className="hover:text-primary-400">
+              {post.frontmatter.description}
+            </span>{' '}
+            <span className="text-primary-400">→</span>
           </Link>
         </div>
       </Fragment>
