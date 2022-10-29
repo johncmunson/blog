@@ -1,4 +1,4 @@
-import Image from 'next/future/image'
+import Image from 'next/image'
 
 type BlogPostImageProps = {
   src: string
@@ -11,13 +11,13 @@ export const BlogPostImage = ({ src, alt, className }: BlogPostImageProps) => (
     alt={alt}
     // We use the fill property instead of the width property b/c width requires
     // the value to be in pixels. That just won't work when we're trying to make
-    // responsive layouts. It's a pretty big shortcoming of next/future/image.
+    // responsive layouts. It's a pretty big shortcoming of next/image.
     // So, we use the hack below.
     fill
     // the Image component is *really* quirky to work with. By default, it is given
     // absolute positioning when using the fill property. Weird. So we use !static
     // as a hack to make it behave normally.
-    // https://nextjs.org/docs/api-reference/next/future/image#fill
+    // https://nextjs.org/docs/api-reference/next/image#fill
     className={`!static rounded-md ${className}`}
   />
 )

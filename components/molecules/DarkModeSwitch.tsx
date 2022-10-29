@@ -1,5 +1,5 @@
 import { useDarkModeCtx } from '../../context/darkMode'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import styles from './DarkModeSwitch.module.css'
 
 export const DarkModeSwitch = () => {
