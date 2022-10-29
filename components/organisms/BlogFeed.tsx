@@ -28,10 +28,12 @@ export const BlogFeed = ({ posts }: BlogFeedProps) => (
 
         <div className="col-span-2 md:text-lg lg:text-xl">
           <Link href={`/posts/${post.slug}`}>
-            <span className="hover:text-primary-400">
-              {post.frontmatter.description}
-            </span>{' '}
-            <span className="text-primary-400">→</span>
+            <span>
+              <span className="hover:text-primary-400">
+                {post.frontmatter.description}
+              </span>{' '}
+              <span className="text-primary-400">→</span>
+            </span>
           </Link>
         </div>
       </Fragment>
