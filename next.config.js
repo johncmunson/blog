@@ -3,7 +3,15 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   eslint: {
-    dirs: ['components', 'context', 'hooks', 'lib', 'pages', 'types'], // https://nextjs.org/docs/basic-features/eslint#linting-custom-directories-and-files
+    dirs: [
+      'components',
+      'context',
+      'hooks',
+      'lib',
+      'pages',
+      'types',
+      'cypress',
+    ], // https://nextjs.org/docs/basic-features/eslint#linting-custom-directories-and-files
   },
 }
 
