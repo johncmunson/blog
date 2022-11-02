@@ -10,7 +10,7 @@ export const DarkModeSwitch = () => {
     (isDarkMode ? ` ${styles['react-toggle--checked']}` : '')
 
   return (
-    <div className={classes} onClick={toggle}>
+    <div data-cy="dark-mode-switch" className={classes} onClick={toggle}>
       <div className={`${styles['react-toggle-track']} dark:bg-neutral-700`}>
         <div className={styles['react-toggle-track-check']}>
           <Image

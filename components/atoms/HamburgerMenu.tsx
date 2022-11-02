@@ -9,6 +9,7 @@ type HamburgerMenuProps = {
 export const HamburgerMenu = ({ isOpen, handleClick }: HamburgerMenuProps) => {
   return (
     <button
+      data-cy="hamburger-menu"
       role="button"
       title="Menu"
       value="Menu"

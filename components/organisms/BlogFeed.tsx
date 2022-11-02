@@ -7,7 +7,10 @@ type BlogFeedProps = {
 }
 
 export const BlogFeed = ({ posts }: BlogFeedProps) => (
-  <div className="mt-20 sm:grid sm:grid-cols-3 sm:gap-y-9 sm:gap-x-4 items-start">
+  <div
+    data-cy="blog-feed"
+    className="mt-20 sm:grid sm:grid-cols-3 sm:gap-y-9 sm:gap-x-4 items-start"
+  >
     {posts.map((post, i) => (
       <Fragment key={i}>
         <div
@@ -15,10 +18,14 @@ export const BlogFeed = ({ posts }: BlogFeedProps) => (
             i === 0 ? '' : '-sm:mt-9'
           }`}
         >
-          <div className="font-mono text-sm md:text-base lg:text-lg">
+          <div
+            data-cy={`publish-date-${i}`}
+            className="font-mono text-sm md:text-base lg:text-lg"
+          >
             {post.date.replace(/-/g, '.')}
           </div>
           <Link
+            data-cy={`title-${i}`}
             href={`/posts/${post.slug}`}
             className="font-medium md:text-lg lg:text-xl hover:text-primary-400"
           >
@@ -27,7 +34,7 @@ export const BlogFeed = ({ posts }: BlogFeedProps) => (
         </div>
 
         <div className="col-span-2 md:text-lg lg:text-xl">
-          <Link href={`/posts/${post.slug}`}>
+          <Link data-cy={`description-${i}`} href={`/posts/${post.slug}`}>
             <span>
               <span className="hover:text-primary-400">
                 {post.frontmatter.description}

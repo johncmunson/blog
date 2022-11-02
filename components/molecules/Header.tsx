@@ -1,4 +1,4 @@
-import { Logo } from '../atoms/Logo'
+import { BlogTitle } from '../atoms/BlogTitle'
 import { useState, MouseEvent } from 'react'
 import { NavDrawer } from '../molecules/NavDrawer'
 import { DarkModeSwitch } from './DarkModeSwitch'
@@ -15,7 +15,7 @@ export const Header = () => {
   return (
     <header className="mb-16">
       <div className="flex justify-between items-center">
-        <Logo />
+        <BlogTitle />
         <div className="flex items-center gap-3 md:gap-4">
           <DarkModeSwitch />
           <HamburgerMenu isOpen={isNavOpen} handleClick={handleMenuClick} />

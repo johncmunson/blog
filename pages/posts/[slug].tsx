@@ -36,13 +36,7 @@ const Post = ({ html, frontmatter, date }: PostProps) => {
         />
       )}
       <main className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER}`}>
-        <article
-          // The tailwind typography plugin is a good way to style Markdown HTML,
-          // but we're using remark, rehype, and unified instead.
-          // https://tailwindcss.com/docs/typography-plugin
-          // className="prose prose-lg md:prose-xl lg:prose-2xl"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        <article dangerouslySetInnerHTML={{ __html: html }} />
       </main>
       <div className="italic mt-9 sm:mt-10 md:mt-11 lg:mt-12 text-base sm:text-lg md:text-xl lg:text-2xl">
         <Link href="/posts/tags" className="mr-4 hover:underline">

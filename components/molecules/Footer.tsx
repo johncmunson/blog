@@ -37,6 +37,7 @@ export const Footer = () => {
           </p>
         ) : (
           <form
+            data-cy="newsletter-form"
             onSubmit={subscribeToNewsletter}
             method="post"
             className="flex gap-1"

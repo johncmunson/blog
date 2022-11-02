@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { Post } from '../types'
 import { GetStaticProps } from 'next'
 import { getAllPosts } from '../lib/md'
@@ -35,17 +36,23 @@ const Home = ({ posts }: HomeProps) => {
       <BlogFeed posts={postsToDisplay} />
 
       <div className="flex items-center italic gap-4 sm:gap-5 md:gap-6 lg:gap-7 mt-14 sm:mt-16 md:mt-20 lg:mt-24 md:text-lg lg:text-xl">
-        <a
+        <Link
+          data-cy="previous"
           href="#"
           onClick={previous}
           className={`${isFirstPage ? 'hidden' : ''}`}
         >
           Previous
-        </a>
+        </Link>
         <div className={`grow h-px bg-gray-300`}></div>
-        <a href="#" onClick={next} className={`${isLastPage ? 'hidden' : ''}`}>
+        <Link
+          data-cy="next"
+          href="#"
+          onClick={next}
+          className={`${isLastPage ? 'hidden' : ''}`}
+        >
           Next
-        </a>
+        </Link>
       </div>
     </>
   )

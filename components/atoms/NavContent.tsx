@@ -9,6 +9,7 @@ export const NavContent = ({ rootProps }: NavContentProps) => (
   <div
     {...rootProps}
     className={`grid grid-cols-2 sm:grid-cols-3 gap-y-9 gap-x-5 md:text-lg lg:text-xl`}
+    data-cy="nav-content"
   >
     <section>
       <h3 className="font-medium">Most Popular</h3>
