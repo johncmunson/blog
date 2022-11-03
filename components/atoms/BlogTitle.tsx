@@ -2,12 +2,13 @@ import Link from 'next/link'
 import { BLOG_NAME } from '../../lib/constants'
 
 const BlogTitleText = (props: { [prop: string]: unknown }) => (
-  <p
+  <Link
     {...props}
     className={`text-2xl font-semibold tracking-wide ${props.className}`}
+    href="/"
   >
-    <Link href="/">{BLOG_NAME}</Link>
-  </p>
+    {BLOG_NAME}
+  </Link>
 )
 
 // All this work just to animate the fading in and out of the text underline. It doesn't seem that CSS can natively do this. Sigh.
