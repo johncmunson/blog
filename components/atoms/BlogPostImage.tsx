@@ -4,9 +4,16 @@ type BlogPostImageProps = {
   src: string
   alt: string
   className?: string
+  dataCy?: string
 }
-export const BlogPostImage = ({ src, alt, className }: BlogPostImageProps) => (
+export const BlogPostImage = ({
+  src,
+  alt,
+  className,
+  dataCy,
+}: BlogPostImageProps) => (
   <Image
+    {...(dataCy ? { 'data-cy': dataCy } : {})}
     src={src}
     alt={alt}
     // We use the fill property instead of the width property b/c width requires

@@ -53,11 +53,7 @@ describe('homepage', () => {
   describe('pagination', () => {
     it('has a "next" link on the first page, but not a "previous" link', () => {
       cy.dataCy('next')
-      cy.dataCy('previous').then((prev) => {
-        if (prev.is(':visible')) {
-          throw new Error('the previous link should not be visible')
-        }
-      })
+      cy.dataCy('previous').should('not.be.visible')
     })
 
     it('has a "next" and a "previous" link on the second page and the links work correctly', () => {

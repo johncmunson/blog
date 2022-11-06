@@ -20,16 +20,20 @@ const Post = ({ html, frontmatter, date }: PostProps) => {
       <div>
         <PageHeading>{frontmatter.title}</PageHeading>
         <div className="flex gap-1 sm:gap-2 md:gap-3 lg:gap-4 font-mono mt-2 sm:mt-3 md:mt-5 lg:mt-6 text-sm md:text-base">
-          <p>By: {frontmatter.author}</p>
+          <p data-cy="author">By: {frontmatter.author}</p>
           <p>&bull;</p>
-          <p>Published: {date}</p>
+          <p data-cy="publish-date">Published: {date}</p>
         </div>
-        <p className="mt-0.5 sm:mt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl">
+        <p
+          data-cy="description"
+          className="mt-0.5 sm:mt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl"
+        >
           {frontmatter.description}
         </p>
       </div>
       {frontmatter.coverPhoto && (
         <BlogPostImage
+          dataCy="cover-photo"
           src={frontmatter.coverPhoto}
           alt={frontmatter.coverPhoto}
           className={CLEARANCE_FROM_PAGE_LEVEL_HEADER}
@@ -38,12 +42,20 @@ const Post = ({ html, frontmatter, date }: PostProps) => {
       <main className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER}`}>
         <article dangerouslySetInnerHTML={{ __html: html }} />
       </main>
-      <div className="italic mt-9 sm:mt-10 md:mt-11 lg:mt-12 text-base sm:text-lg md:text-xl lg:text-2xl">
-        <Link href="/posts/tags" className="mr-4 hover:underline">
+      <div
+        data-cy="tags-bar"
+        className="italic mt-9 sm:mt-10 md:mt-11 lg:mt-12 text-base sm:text-lg md:text-xl lg:text-2xl"
+      >
+        <Link
+          data-cy="tags-link"
+          href="/posts/tags"
+          className="mr-4 hover:underline"
+        >
           Tags:
         </Link>
         {frontmatter.tags.map((tag, i) => (
           <Link
+            data-cy={`tag-${i}-link`}
             key={i}
             href={`/posts/tags/${tag}`}
             className="bg-neutral-200 dark:bg-neutral-700 rounded-full mr-3 px-3 py-1 hover:py-2 outline outline-neutral-300 dark:outline-neutral-600 outline-offset-1 hover:outline-primary-400 dark:hover:outline-primary-400"
