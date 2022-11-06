@@ -38,9 +38,27 @@
 //   }
 // }
 
-Cypress.Commands.add('dataCy', (value, modifier) => {
+Cypress.Commands.add('dataCy', (value: string, modifier?: string) => {
   return cy.get(`[data-cy=${value}]${modifier ? modifier : ''}`)
 })
+
+Cypress.Commands.add(
+  'assertLength',
+  // @ts-expect-error - Typing a dual command is weird. The public interface is different from
+  // the actual interface because Cypress injects the subject and shifts the other args to the right.
+  { prevSubject: 'optional' },
+  (
+    subject: Cypress.Chainable<JQuery<HTMLElement>> | undefined,
+    arg1: number | string,
+    arg2?: number
+  ) => {
+    if (subject) {
+      return cy.wrap(subject).should('have.length', arg1)
+    }
+    // @ts-expect-error - See comment above
+    return cy.get(arg1).should('have.length', arg2)
+  }
+)
 
 declare global {
   namespace Cypress {
@@ -51,6 +69,17 @@ declare global {
        * @example cy.dataCy('blog-post', ':visible')
        */
       dataCy(value: string, modifier?: string): Chainable<JQuery<HTMLElement>>
+
+      /**
+       * Custom dual command to assert the length of DOM elements
+       * @example cy.get('h2').assertLength(3)
+       * @example cy.assertLength('h2', 3)
+       */
+      assertLength(length: number): Chainable<JQuery<HTMLElement>>
+      assertLength(
+        selector: string,
+        length: number
+      ): Chainable<JQuery<HTMLElement>>
     }
   }
 }
