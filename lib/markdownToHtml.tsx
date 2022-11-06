@@ -13,9 +13,10 @@ import { Element } from 'rehype-react/lib'
 import { renderToString } from 'react-dom/server'
 import { BlogPostImage } from '../components/atoms/BlogPostImage'
 import rehypeRaw from 'rehype-raw'
-import rehypeSanitize from 'rehype-sanitize'
+import rehypeSanitize, { defaultSchema } from 'rehype-sanitize'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeSlug from 'rehype-slug'
+import deepmerge from 'deepmerge'
 
 // FYI, if you ever have the need to write a custom Remark/Rehype plugin, this article is pretty helpful...
 // https://jeffchen.dev/posts/Markdown-Image-Captions/
@@ -34,7 +35,17 @@ export default async function markdownToHtml(post: Post) {
     //    https://github.com/remarkjs/remark-rehype#example-supporting-html-in-markdown-properly
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
-    .use(rehypeSanitize)
+    .use(
+      rehypeSanitize,
+      // The default sanitation behavior is a little aggressive, so we need to explicitly tell it to allow through
+      // certain attributes.
+      deepmerge(defaultSchema, {
+        attributes: {
+          '*': ['class', 'className', 'dataCy'],
+          img: ['alt'],
+        },
+      })
+    )
     // 4. Add some styles
     //    Prefer top and left margins, b/c Adam says so -> https://twitter.com/adamwathan/status/1399473286224957442
     //    Also, we're not including h1 because the title of blog posts is already an h1 and we don't want multiple
@@ -117,9 +128,13 @@ function imgToFigureWithCaption(props: unknown) {
     <figure
       className={`w-11/12 sm:w-5/6 md:w-4/5 lg:w-3/4 mx-auto mt-3 sm:mt-4 md:mt-5 lg:mt-6`}
     >
-      <BlogPostImage src={node.properties.src} alt={alt} />
+      <BlogPostImage
+        dataCy="blog-post-image"
+        src={node.properties.src}
+        alt={alt}
+      />
       {caption && (
-        <figcaption className="italic text-center text-xs sm:text-base md:text-lg lg:text-lx">
+        <figcaption className="italic text-center mt-1 md:mt-2 text-xs sm:text-base md:text-lg lg:text-xl">
           {caption}
         </figcaption>
       )}
