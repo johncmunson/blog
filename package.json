@@ -6,7 +6,12 @@
     "the package manager more freedom to dedupe node_modules. For @types packages from Definitely Typed, if possible it's",
     "best for the major and minor version to match the corresponding library. In rare cases, a package may need to pinned",
     "to an exact version.",
-    "https://github.com/DefinitelyTyped/DefinitelyTyped#how-do-definitely-typed-package-versions-relate-to-versions-of-the-corresponding-library"
+    "https://github.com/DefinitelyTyped/DefinitelyTyped#how-do-definitely-typed-package-versions-relate-to-versions-of-the-corresponding-library",
+    "",
+    "scripts.test:ci",
+    "----------------",
+    "We are piping the output through grep b/c there is a minor Cypress bug causing a bunch of console spam at the moment.",
+    "https://github.com/cypress-io/cypress/issues/7245#issuecomment-1129928726"
   ],
   "name": "blog",
   "private": true,
@@ -23,7 +28,7 @@
     "lint": "next lint",
     "prepare": "husky install",
     "test": "cypress open",
-    "test:ci": "cypress run"
+    "test:ci": "cypress run 2>&1| grep -v 'CoreText note:'"
   },
   "dependencies": {
     "@sindresorhus/slugify": "^2.1.1",

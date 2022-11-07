@@ -1,3 +1,5 @@
+// This entire test suite could possibly be made dynamic similar to how the tests for the tagging system are dynamic
+
 describe('blog post', () => {
   beforeEach(() => {
     cy.visit('/posts/2022-01-01-lorem-ipsum')

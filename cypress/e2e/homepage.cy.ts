@@ -1,3 +1,5 @@
+// This test suite could possibly be a little more dynamic by using some of the functions in lib/md.ts, similar to how the tests for the tagging system work.
+
 describe('homepage', () => {
   beforeEach(() => {
     cy.visit('/')

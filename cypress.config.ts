@@ -1,11 +1,14 @@
 import { defineConfig } from 'cypress'
+import { getPostsByTag } from './lib/md'
 
 export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:3000',
     video: false,
-    // setupNodeEvents(on, config) {
-    //  // implement node event listeners here
-    // },
+    async setupNodeEvents(on, config) {
+      const postsByTag = await getPostsByTag()
+      config.env.postsByTag = postsByTag
+      return config
+    },
   },
 })

@@ -9,7 +9,7 @@ type TagWithPostsProps = {
 }
 
 export const TagWithPosts = ({ tag, posts }: TagWithPostsProps) => (
-  <div>
+  <div data-cy={`tag-${tag}-with-posts`}>
     <h2 className={`${H2} -99xl:mt-0`}>
       <Link href={`/posts/tags/${tag}`} className={`hover:text-primary-400`}>
         {tag}
