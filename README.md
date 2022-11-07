@@ -59,22 +59,6 @@
 
 ## Cypress Tests
 
-- Blog post
-  - frontmatter
-    - autolink title
-    - description
-    - author
-    - coverphoto
-    - publishDate
-    - tags
-    - url
-  - content
-    - autolink headers
-    - paragraph
-    - img
-    - img caption
-    - raw html
-- Newsletter
 - Tag system
   - click a tag on a blog post, then go to /posts/tags/one and view a list of other posts with the same tag
   - click on “tags”, then go to the /posts/tags page to see all posts grouped by tag
