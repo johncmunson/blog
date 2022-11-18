@@ -1,51 +1,50 @@
 ## Todo
 
 1. The individual blog posts are missing next/previous functionality
-2. Custom 404 page with dark mode
-3. Github Flavored Markdown. Give it a shot. https://github.com/remarkjs/remark-gfm
-4. https://safeql.dev/ has a better moon/sun dark mode toggle
-5. Testing
-6. [Blog post series](https://dev.to/kallmanation/dev-to-writing-making-a-series-3h79)
-7. Feature flags
+1. Increase line spacing in the body text
+1. Github Flavored Markdown. Give it a shot. https://github.com/remarkjs/remark-gfm
+1. https://safeql.dev/ has a better moon/sun dark mode toggle
+1. [Blog post series](https://dev.to/kallmanation/dev-to-writing-making-a-series-3h79)
+1. Feature flags
    - This would be great for enabling "bootstrap mode", where you only have a couple of blog posts,
      but you want to be forward-thinking and build out features that only make sense once you have a
      larger backlog built up.
-8. Comment system
-9. Internationalization
-10. Trending / Most Popular posts / Analytics
-11. SEO
-12. Newsletter
-13. Authors page and posts by author
-14. Remote content and images
-15. RSS
-16. [Layouts RFC](https://nextjs.org/blog/layouts-rfc)
-    - Nested layouts
-    - Server rendered components
-    - Suspense
-    - etc.
-17. Auth and admin panel?
-18. Monetization (ads, job board, paywall for some gated content, etc.)
-19. Reorganize the code following DDD or onion architecture principles
-    - https://giancarlobuomprisco.com/next/a-scalable-nextjs-project-structure
-    - https://khalilstemmler.com/articles/domain-driven-design-intro/
-20. Syntax highlighting for markdown code snippets
-    - https://github.com/shikijs/twoslash/tree/main/packages/remark-shiki-twoslash
-    - https://nextjs-prism.vercel.app/prism
-21. Audit the eslint setup
-    - https://paulintrognon.fr/blog/typescript-prettier-eslint-next-js
-    - https://nextjs.org/docs/basic-features/eslint#additional-configurations
-22. Blog post ToC
-23. Blog post footnotes
-24. [Blog post drafts](https://jekyllrb.com/docs/posts/#drafts)
-25. Blog post excerpts? We already support "description" in the frontmatter, so I'm inclined to say no on this one
-26. Different layouts for different types of blog posts
-27. We already have the concept of tags... do we also need [categories](https://jekyllrb.com/docs/posts/#categories)?
-28. Permalinks???
-    - bitly?
-    - Every page would have a uuid?
-    - uuid redirects to the pretty url?
-    - [Rewrites?](https://nextjs.org/docs/api-reference/next.config.js/rewrites)
-29. [Scroll Restoration](https://mmazzarolo.com/blog/2021-04-10-nextjs-scroll-restoration/)
+1. Comment system
+1. Internationalization
+1. Trending / Most Popular posts / Analytics
+1. SEO
+1. Newsletter
+1. Authors page and posts by author
+1. Remote content and images
+1. RSS
+1. [Layouts RFC](https://nextjs.org/blog/layouts-rfc)
+   - Nested layouts
+   - Server rendered components
+   - Suspense
+   - etc.
+1. Auth and admin panel?
+1. Monetization (ads, job board, paywall for some gated content, etc.)
+1. Reorganize the code following DDD or onion architecture principles
+   - https://giancarlobuomprisco.com/next/a-scalable-nextjs-project-structure
+   - https://khalilstemmler.com/articles/domain-driven-design-intro/
+1. Syntax highlighting for markdown code snippets
+   - https://github.com/shikijs/twoslash/tree/main/packages/remark-shiki-twoslash
+   - https://nextjs-prism.vercel.app/prism
+1. Audit the eslint setup
+   - https://paulintrognon.fr/blog/typescript-prettier-eslint-next-js
+   - https://nextjs.org/docs/basic-features/eslint#additional-configurations
+1. Blog post ToC
+1. Blog post footnotes
+1. [Blog post drafts](https://jekyllrb.com/docs/posts/#drafts)
+1. Blog post excerpts? We already support "description" in the frontmatter, so I'm inclined to say no on this one
+1. Different layouts for different types of blog posts
+1. We already have the concept of tags... do we also need [categories](https://jekyllrb.com/docs/posts/#categories)?
+1. Permalinks???
+   - bitly?
+   - Every page would have a uuid?
+   - uuid redirects to the pretty url?
+   - [Rewrites?](https://nextjs.org/docs/api-reference/next.config.js/rewrites)
+1. [Scroll Restoration](https://mmazzarolo.com/blog/2021-04-10-nextjs-scroll-restoration/)
 
 ## Random Links
 
