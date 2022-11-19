@@ -13,8 +13,5 @@
       "error",
       { "ts-expect-error": "allow-with-description" }
     ]
-  },
-  "globals": {
-    "jest": "readonly"
   }
 }
