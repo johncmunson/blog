@@ -26,7 +26,6 @@
 1. Blog post ToC
 1. Blog post footnotes
 1. Different layouts for different types of blog posts
-
 1. Permalinks???
    - bitly?
    - Every page would have a uuid?
