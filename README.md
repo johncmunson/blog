@@ -3,6 +3,7 @@
 1. [Blog post drafts](https://jekyllrb.com/docs/posts/#drafts)
 1. [Blog post series](https://dev.to/kallmanation/dev-to-writing-making-a-series-3h79)
 1. Authors page and posts by author
+1. Swap anchor tags in markdown with next/link
 1. Comment system
 1. Increase line spacing in the body text
 1. Github Flavored Markdown. Give it a shot. https://github.com/remarkjs/remark-gfm
@@ -26,11 +27,6 @@
 1. Blog post ToC
 1. Blog post footnotes
 1. Different layouts for different types of blog posts
-1. Permalinks???
-   - bitly?
-   - Every page would have a uuid?
-   - uuid redirects to the pretty url?
-   - [Rewrites?](https://nextjs.org/docs/api-reference/next.config.js/rewrites)
 1. [Scroll Restoration](https://mmazzarolo.com/blog/2021-04-10-nextjs-scroll-restoration/)
 
 ## Probably won't do
