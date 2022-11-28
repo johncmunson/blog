@@ -37,12 +37,17 @@ const Post = ({ html, frontmatter, date, nextSlug, prevSlug }: PostProps) => {
           {frontmatter.description}
         </p>
       </div>
-      {frontmatter.coverPhoto && (
+      {frontmatter.coverPhoto ? (
         <BlogPostImage
           dataCy="cover-photo"
           src={frontmatter.coverPhoto}
           alt={frontmatter.coverPhoto}
           className={CLEARANCE_FROM_PAGE_LEVEL_HEADER}
+        />
+      ) : (
+        <hr
+          data-cy="no-cover-photo-spacer"
+          className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER}`}
         />
       )}
       <main className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER}`}>
