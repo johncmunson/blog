@@ -1,13 +1,28 @@
 import fs from 'fs'
-import { sleep } from './utils'
 import { join } from 'path'
+import { sleep } from './utils'
 import matter from 'gray-matter'
 import { Frontmatter, Post, Tag, Tags, PostsByTag, Posts } from '../types'
 
 const postsDirectory = join(process.cwd(), 'content')
 
 export function getPostSlugs() {
-  return fs.readdirSync(postsDirectory).map((slug) => slug.replace(/\.md$/, ''))
+  return fs
+    .readdirSync(postsDirectory)
+    .map((slug) => slug.replace(/\.md$/, ''))
+    .sort((slug1, slug2) => (slug1 > slug2 ? -1 : 1))
+}
+
+export function getNextSlug(slug: string): string | undefined {
+  const slugs = getPostSlugs()
+  const index = slugs.indexOf(slug)
+  return slugs[index + 1]
+}
+
+export function getPrevSlug(slug: string): string | undefined {
+  const slugs = getPostSlugs()
+  const index = slugs.indexOf(slug)
+  return slugs[index - 1]
 }
 
 export async function getPostBySlug(slug: string): Promise<Post> {
@@ -41,10 +56,7 @@ export async function getPostBySlug(slug: string): Promise<Post> {
 
 export async function getAllPosts() {
   const slugs = getPostSlugs()
-  const posts = (await Promise.all(slugs.map(getPostBySlug))).sort(
-    (post1, post2) => (post1.date > post2.date ? -1 : 1)
-  )
-  return posts
+  return await Promise.all(slugs.map(getPostBySlug))
 }
 
 export async function getPostsByTag(): Promise<PostsByTag>

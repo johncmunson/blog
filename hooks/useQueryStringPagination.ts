@@ -1,8 +1,16 @@
 import { chunk } from 'lodash'
 import { UrlObject } from 'url'
-import { SyntheticEvent } from 'react'
 import { useRouter } from 'next/router'
 import { PAGE_SIZE } from '../lib/constants'
+import { ParsedUrlQueryInput } from 'querystring'
+
+export type PaginationHref =
+  | {
+      pathname: string
+      query: ParsedUrlQueryInput
+    }
+  | string
+  | undefined
 
 export function useQueryStringPagination<T>(arr: T[]) {
   const router = useRouter()
@@ -14,40 +22,36 @@ export function useQueryStringPagination<T>(arr: T[]) {
   const isLastPage = pageNumber === itemsByPage.length
   const currentItems = itemsByPage[pageNumber - 1]
 
-  const next = (e?: SyntheticEvent) => {
-    e?.preventDefault()
-    if (!isLastPage) {
-      router.push({
-        pathname: router.pathname,
-        query: { ...router.query, page: pageNumber + 1 },
-      })
-    }
+  const nextQuery: UrlObject['query'] = {
+    ...router.query,
+    page: pageNumber + 1,
   }
+  const nextHref: PaginationHref = !isLastPage
+    ? {
+        pathname: router.pathname,
+        query: nextQuery,
+      }
+    : undefined
 
-  const previous = (e?: SyntheticEvent) => {
-    e?.preventDefault()
-    if (!isFirstPage) {
-      const query: UrlObject['query'] = {
-        ...router.query,
-        page: pageNumber - 1,
-      }
-      if (pageNumber === 2) {
-        delete query.page
-      }
-      router.push({
-        pathname: router.pathname,
-        query,
-      })
-    }
+  const prevQuery: UrlObject['query'] = {
+    ...router.query,
+    page: pageNumber - 1,
   }
+  if (pageNumber === 2) {
+    delete prevQuery.page
+  }
+  const prevHref: PaginationHref = !isFirstPage
+    ? {
+        pathname: router.pathname,
+        query: prevQuery,
+      }
+    : undefined
 
   return {
     pageNumber,
     itemsByPage,
-    isFirstPage,
-    isLastPage,
     currentItems,
-    next,
-    previous,
+    nextHref,
+    prevHref,
   }
 }

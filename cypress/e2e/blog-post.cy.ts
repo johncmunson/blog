@@ -75,4 +75,22 @@ describe('blog post', () => {
       cy.dataCy('raw-div')
     })
   })
+
+  describe('pagination', () => {
+    it('has a "next" link on the first blog post, but not a "previous" link', () => {
+      cy.dataCy('next')
+      cy.dataCy('previous').should('not.be.visible')
+    })
+
+    it('has a "next" and a "previous" link on the second blog post and the links work correctly', () => {
+      cy.dataCy('next').click()
+      cy.url().should(
+        'include',
+        '2021-12-29-why-is-facebook-not-paying-the-apple-tax'
+      )
+      cy.dataCy('next')
+      cy.dataCy('previous').click()
+      cy.url().should('include', '2022-01-01-lorem-ipsum')
+    })
+  })
 })

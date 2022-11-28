@@ -3,18 +3,24 @@ import { Post } from '../../types'
 import { ParsedUrlQuery } from 'querystring'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import markdownToHtml from '../../lib/markdownToHtml'
-import { getPostBySlug, getPostSlugs } from '../../lib/md'
 import { PageHeading } from '../../components/atoms/PageHeading'
-import { CLEARANCE_FROM_PAGE_LEVEL_HEADER } from '../../lib/constants'
 import { BlogPostImage } from '../../components/atoms/BlogPostImage'
+import { CLEARANCE_FROM_PAGE_LEVEL_HEADER } from '../../lib/constants'
+import {
+  getNextSlug,
+  getPostBySlug,
+  getPostSlugs,
+  getPrevSlug,
+} from '../../lib/md'
+import { NextPrev } from '../../components/molecules/NextPrev'
 
 type PostPathParams = ParsedUrlQuery & {
   slug: string
 }
 
-type PostProps = Post & { html: string }
+type PostProps = Post & { html: string; nextSlug?: string; prevSlug?: string }
 
-const Post = ({ html, frontmatter, date }: PostProps) => {
+const Post = ({ html, frontmatter, date, nextSlug, prevSlug }: PostProps) => {
   return (
     <>
       <div>
@@ -64,17 +70,24 @@ const Post = ({ html, frontmatter, date }: PostProps) => {
           </Link>
         ))}
       </div>
+      <NextPrev prevHref={prevSlug} nextHref={nextSlug} />
     </>
   )
 }
 
 export const getStaticProps: GetStaticProps<PostProps> = async (context) => {
   const { slug } = context.params as PostPathParams
+  const nextSlug = getNextSlug(slug)
+  const prevSlug = getPrevSlug(slug)
   const post = await getPostBySlug(slug)
   const html = await markdownToHtml(post)
 
+  const props: PostProps = { ...post, html }
+  if (nextSlug) props.nextSlug = nextSlug
+  if (prevSlug) props.prevSlug = prevSlug
+
   return {
-    props: { ...post, html },
+    props,
   }
 }
 

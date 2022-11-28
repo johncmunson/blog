@@ -1,9 +1,9 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import { Post } from '../types'
 import { GetStaticProps } from 'next'
 import { getAllPosts } from '../lib/md'
 import { BlogFeed } from '../components/organisms/BlogFeed'
+import { NextPrev } from '../components/molecules/NextPrev'
 import { useQueryStringPagination } from '../hooks/useQueryStringPagination'
 
 export type HomeProps = {
@@ -13,10 +13,8 @@ export type HomeProps = {
 const Home = ({ posts }: HomeProps) => {
   const {
     currentItems: postsToDisplay,
-    isFirstPage,
-    isLastPage,
-    next,
-    previous,
+    nextHref,
+    prevHref,
   } = useQueryStringPagination(posts)
 
   return (
@@ -34,26 +32,7 @@ const Home = ({ posts }: HomeProps) => {
       </h1>
 
       <BlogFeed posts={postsToDisplay} />
-
-      <div className="flex items-center italic gap-4 sm:gap-5 md:gap-6 lg:gap-7 mt-14 sm:mt-16 md:mt-20 lg:mt-24 md:text-lg lg:text-xl">
-        <Link
-          data-cy="previous"
-          href="#"
-          onClick={previous}
-          className={`${isFirstPage ? 'hidden' : ''}`}
-        >
-          Previous
-        </Link>
-        <div className={`grow h-px bg-gray-300`}></div>
-        <Link
-          data-cy="next"
-          href="#"
-          onClick={next}
-          className={`${isLastPage ? 'hidden' : ''}`}
-        >
-          Next
-        </Link>
-      </div>
+      <NextPrev prevHref={prevHref} nextHref={nextHref} />
     </>
   )
 }
