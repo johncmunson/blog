@@ -47,7 +47,7 @@ const Post = ({ html, frontmatter, date, nextSlug, prevSlug }: PostProps) => {
       ) : (
         <hr
           data-cy="no-cover-photo-spacer"
-          className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER}`}
+          className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER} border-neutral-300`}
         />
       )}
       <main className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER}`}>

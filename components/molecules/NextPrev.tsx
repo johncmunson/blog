@@ -15,7 +15,7 @@ export const NextPrev = ({ prevHref, nextHref }: NextPrevProps) => (
     >
       Previous
     </Link>
-    <div className={`grow h-px bg-gray-300`}></div>
+    <div className={`grow h-px bg-neutral-300`}></div>
     <Link
       data-cy="next"
       href={nextHref ?? ''}
