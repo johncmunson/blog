@@ -1,6 +1,5 @@
 ## Todo
 
-1. The individual blog posts are missing next/previous functionality
 1. Increase line spacing in the body text
 1. Github Flavored Markdown. Give it a shot. https://github.com/remarkjs/remark-gfm
 1. https://safeql.dev/ has a better moon/sun dark mode toggle
