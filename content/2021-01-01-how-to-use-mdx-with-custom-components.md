@@ -4,6 +4,7 @@ description: MDX is an authorable format that lets you seamlessly write JSX in y
 author: John Munson
 tags: [one, two, three]
 coverPhoto: /stock-photo.png
+series: abc
 ---
 
 ## This is a heading

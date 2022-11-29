@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Post } from '../../types'
+import { Post, Posts } from '../../types'
 import { ParsedUrlQuery } from 'querystring'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import markdownToHtml from '../../lib/markdownToHtml'
@@ -9,6 +9,7 @@ import { CLEARANCE_FROM_PAGE_LEVEL_HEADER } from '../../lib/constants'
 import {
   getNextSlug,
   getPostBySlug,
+  getPostsBySeries,
   getPostSlugs,
   getPrevSlug,
 } from '../../lib/md'
@@ -18,9 +19,21 @@ type PostPathParams = ParsedUrlQuery & {
   slug: string
 }
 
-type PostProps = Post & { html: string; nextSlug?: string; prevSlug?: string }
+type PostProps = Post & {
+  html: string
+  nextSlug?: string
+  prevSlug?: string
+  otherPostsInSeries?: Posts
+}
 
-const Post = ({ html, frontmatter, date, nextSlug, prevSlug }: PostProps) => {
+const Post = ({
+  html,
+  frontmatter,
+  date,
+  nextSlug,
+  prevSlug,
+  otherPostsInSeries,
+}: PostProps) => {
   return (
     <>
       <div>
@@ -50,6 +63,12 @@ const Post = ({ html, frontmatter, date, nextSlug, prevSlug }: PostProps) => {
           className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER} border-neutral-300`}
         />
       )}
+
+      {otherPostsInSeries &&
+        otherPostsInSeries.map((p, i) => (
+          <div key={i}>{p.frontmatter.title}</div>
+        ))}
+
       <main className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER}`}>
         <article dangerouslySetInnerHTML={{ __html: html }} />
       </main>
@@ -82,14 +101,18 @@ const Post = ({ html, frontmatter, date, nextSlug, prevSlug }: PostProps) => {
 
 export const getStaticProps: GetStaticProps<PostProps> = async (context) => {
   const { slug } = context.params as PostPathParams
-  const nextSlug = getNextSlug(slug)
-  const prevSlug = getPrevSlug(slug)
+  const nextSlug = await getNextSlug(slug)
+  const prevSlug = await getPrevSlug(slug)
   const post = await getPostBySlug(slug)
   const html = await markdownToHtml(post)
 
   const props: PostProps = { ...post, html }
   if (nextSlug) props.nextSlug = nextSlug
   if (prevSlug) props.prevSlug = prevSlug
+  if (post.frontmatter.series) {
+    const otherPostsInSeries = await getPostsBySeries(post.frontmatter.series)
+    if (otherPostsInSeries) props.otherPostsInSeries = otherPostsInSeries
+  }
 
   return {
     props,
@@ -97,7 +120,7 @@ export const getStaticProps: GetStaticProps<PostProps> = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths<PostPathParams> = async () => {
-  const slugs = getPostSlugs()
+  const slugs = await getPostSlugs()
 
   return {
     paths: slugs.map((slug) => ({
