@@ -3,17 +3,18 @@ import { Post, Posts } from '../../types'
 import { ParsedUrlQuery } from 'querystring'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import markdownToHtml from '../../lib/markdownToHtml'
+import { NextPrev } from '../../components/molecules/NextPrev'
 import { PageHeading } from '../../components/atoms/PageHeading'
 import { BlogPostImage } from '../../components/atoms/BlogPostImage'
 import { CLEARANCE_FROM_PAGE_LEVEL_HEADER } from '../../lib/constants'
+import { BlogPostSeries } from '../../components/molecules/BlogPostSeries'
 import {
   getNextSlug,
+  getPrevSlug,
+  getPostSlugs,
   getPostBySlug,
   getPostsBySeries,
-  getPostSlugs,
-  getPrevSlug,
 } from '../../lib/md'
-import { NextPrev } from '../../components/molecules/NextPrev'
 
 type PostPathParams = ParsedUrlQuery & {
   slug: string
@@ -28,33 +29,32 @@ type PostProps = Post & {
 
 const Post = ({
   html,
-  frontmatter,
-  date,
   nextSlug,
   prevSlug,
   otherPostsInSeries,
+  ...post
 }: PostProps) => {
   return (
     <>
       <div>
-        <PageHeading>{frontmatter.title}</PageHeading>
+        <PageHeading>{post.frontmatter.title}</PageHeading>
         <div className="flex gap-1 sm:gap-2 md:gap-3 lg:gap-4 font-mono mt-2 sm:mt-3 md:mt-5 lg:mt-6 text-sm md:text-base">
-          <p data-cy="author">By: {frontmatter.author}</p>
+          <p data-cy="author">By: {post.frontmatter.author}</p>
           <p>&bull;</p>
-          <p data-cy="publish-date">Published: {date}</p>
+          <p data-cy="publish-date">Published: {post.date}</p>
         </div>
         <p
           data-cy="description"
           className="mt-0.5 sm:mt-1 text-lg sm:text-xl md:text-2xl lg:text-3xl"
         >
-          {frontmatter.description}
+          {post.frontmatter.description}
         </p>
       </div>
-      {frontmatter.coverPhoto ? (
+      {post.frontmatter.coverPhoto ? (
         <BlogPostImage
           dataCy="cover-photo"
-          src={frontmatter.coverPhoto}
-          alt={frontmatter.coverPhoto}
+          src={post.frontmatter.coverPhoto}
+          alt={post.frontmatter.coverPhoto}
           className={CLEARANCE_FROM_PAGE_LEVEL_HEADER}
         />
       ) : (
@@ -63,12 +63,13 @@ const Post = ({
           className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER} border-neutral-300`}
         />
       )}
-
-      {otherPostsInSeries &&
-        otherPostsInSeries.map((p, i) => (
-          <div key={i}>{p.frontmatter.title}</div>
-        ))}
-
+      {otherPostsInSeries && post.frontmatter.series && (
+        <BlogPostSeries
+          series={post.frontmatter.series}
+          currentPost={post}
+          postsInSeries={otherPostsInSeries}
+        />
+      )}
       <main className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER}`}>
         <article dangerouslySetInnerHTML={{ __html: html }} />
       </main>
@@ -83,7 +84,7 @@ const Post = ({
         >
           Tags:
         </Link>
-        {frontmatter.tags.map((tag, i) => (
+        {post.frontmatter.tags.map((tag, i) => (
           <Link
             data-cy={`tag-${i}-link`}
             key={i}
@@ -101,8 +102,8 @@ const Post = ({
 
 export const getStaticProps: GetStaticProps<PostProps> = async (context) => {
   const { slug } = context.params as PostPathParams
-  const nextSlug = await getNextSlug(slug)
-  const prevSlug = await getPrevSlug(slug)
+  const nextSlug = getNextSlug(slug)
+  const prevSlug = getPrevSlug(slug)
   const post = await getPostBySlug(slug)
   const html = await markdownToHtml(post)
 
@@ -120,7 +121,7 @@ export const getStaticProps: GetStaticProps<PostProps> = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths<PostPathParams> = async () => {
-  const slugs = await getPostSlugs()
+  const slugs = getPostSlugs()
 
   return {
     paths: slugs.map((slug) => ({

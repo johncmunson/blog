@@ -11,32 +11,37 @@ import {
   Posts,
   PostsBySeries,
   Series,
-  AllSeries,
+  Serieses,
 } from '../types'
 
 const postsDirectory = join(process.cwd(), 'content')
 
-export async function getPostSlugs() {
-  const posts = await getAllPosts()
-  return posts.map((p) => p.slug)
+export function getPostSlugs(includeDrafts = false) {
+  const slugs = fs
+    .readdirSync(postsDirectory)
+    .map((slug) => slug.replace(/\.md$/, ''))
+    .sort((slug1, slug2) => (slug1 > slug2 ? -1 : 1))
+
+  return includeDrafts ? slugs : slugs.filter((s) => !s.startsWith('DRAFT'))
 }
 
-export async function getNextSlug(slug: string): Promise<string | undefined> {
-  const slugs = await getPostSlugs()
+export function getNextSlug(slug: string): string | undefined {
+  const slugs = getPostSlugs()
   const index = slugs.indexOf(slug)
   return slugs[index + 1]
 }
 
-export async function getPrevSlug(slug: string): Promise<string | undefined> {
-  const slugs = await getPostSlugs()
+export function getPrevSlug(slug: string): string | undefined {
+  const slugs = getPostSlugs()
   const index = slugs.indexOf(slug)
   return slugs[index - 1]
 }
 
 export async function getPostBySlug(slug: string): Promise<Post> {
-  const date = slug.slice(0, 10)
+  const date = slug.startsWith('DRAFT') ? 'DRAFT' : slug.slice(0, 10)
   const fullPath = join(postsDirectory, `${slug}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
+  // Consider using Remark to parse the frontmatter, since we're using that anyway to parse the markdown
   const { data: frontmatter, content: markdown } = matter(fileContents)
 
   const validatedFrontmatter = Frontmatter.safeParse(frontmatter)
@@ -62,21 +67,8 @@ export async function getPostBySlug(slug: string): Promise<Post> {
 }
 
 export async function getAllPosts(includeDrafts = false) {
-  const slugs = fs
-    .readdirSync(postsDirectory)
-    .map((slug) => slug.replace(/\.md$/, ''))
-    .sort((slug1, slug2) => (slug1 > slug2 ? -1 : 1))
-
-  // Exclude posts that are still in a draft state
-  const posts = (await Promise.all(slugs.map(getPostBySlug))).filter((p) => {
-    if (includeDrafts) return true
-    if (p.frontmatter.status === 'published') return true
-    if (p.frontmatter.status === 'infer' && new Date(p.date) <= new Date())
-      return true
-    return false
-  })
-
-  return posts
+  const slugs = getPostSlugs(includeDrafts)
+  return await Promise.all(slugs.map(getPostBySlug))
 }
 
 export async function getPostsByTag(): Promise<PostsByTag>
@@ -139,9 +131,9 @@ export async function getAllPostTags(): Promise<Tags> {
   return sortedTags
 }
 
-export async function getAllPostSeries(): Promise<AllSeries> {
+export async function getAllPostSeries(): Promise<Serieses> {
   const postsBySeries = await getPostsBySeries()
-  const allSeries = Object.keys(postsBySeries) as AllSeries
+  const allSeries = Object.keys(postsBySeries) as Serieses
   const sortedSeries = [...allSeries].sort((a, b) => a.localeCompare(b))
   return sortedSeries
 }

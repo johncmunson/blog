@@ -16,6 +16,13 @@ export type Post = {
   markdown: string
   frontmatter: Frontmatter
   slug: string
+  // Can be 'YYYY-MM-DD' or 'DRAFT'
+  // I would prefer to make the type Date | 'DRAFT', but Next doesn't allow date objects to be
+  // returned from getStaticProps, etc. You have to first serialize them yourself. In addition,
+  // it's not readily apparent how to customize the deserialize behavior, so that date strings
+  // can be parsed back into date objects before being passed as props to the page components.
+  // JSON.parse accepts a "reviver" function, but Next doesn't seem to expose this. Although,
+  // I know this is somehow possible, since the next-superjson-plugin is doing this.
   date: string
 }
 export type Posts = Post[]
@@ -25,15 +32,8 @@ export type Tags = Tag[]
 export type PostsByTag = { [tag: Tag]: Posts }
 
 export type Series = Tagged<string, 'series'>
-export type AllSeries = Series[]
+export type Serieses = Series[]
 export type PostsBySeries = { [series: Series]: Posts }
-
-/**
- * 'published' will get built
- * 'draft' will not
- * 'infer' is the default and will look at the publish date to determine whether or not to build a post
- */
-export type Status = 'published' | 'draft' | 'infer'
 
 export const Frontmatter = z.object({
   title: z.string(),
@@ -47,11 +47,6 @@ export const Frontmatter = z.object({
       str ? str.endsWith('.png') || str.endsWith('.jpg') : true
     ),
   series: z.string().optional() as unknown as z.Schema<Series | undefined>,
-  status: z
-    .string()
-    .regex(/^published$|^draft$|^infer$/)
-    .optional()
-    .default('infer') as unknown as z.Schema<Status>,
 })
 
 export type Frontmatter = z.infer<typeof Frontmatter>

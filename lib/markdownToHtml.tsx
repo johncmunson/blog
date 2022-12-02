@@ -3,7 +3,7 @@ import { Post } from '../types'
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
-// @ts-expect-error: no types available
+// @ts-expect-error - no types available
 import addClasses from 'rehype-add-classes'
 import { BODY_TEXT, UL, OL, H2, H3 } from './constants'
 import rehypeReact from 'rehype-react'
