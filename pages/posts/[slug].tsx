@@ -50,17 +50,12 @@ const Post = ({
           {post.frontmatter.description}
         </p>
       </div>
-      {post.frontmatter.coverPhoto ? (
+      {post.frontmatter.coverPhoto && (
         <BlogPostImage
           dataCy="cover-photo"
           src={post.frontmatter.coverPhoto}
           alt={post.frontmatter.coverPhoto}
           className={CLEARANCE_FROM_PAGE_LEVEL_HEADER}
-        />
-      ) : (
-        <hr
-          data-cy="no-cover-photo-spacer"
-          className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER} border-neutral-300`}
         />
       )}
       {otherPostsInSeries && post.frontmatter.series && (
@@ -68,6 +63,12 @@ const Post = ({
           series={post.frontmatter.series}
           currentPost={post}
           postsInSeries={otherPostsInSeries}
+        />
+      )}
+      {!post.frontmatter.coverPhoto && !otherPostsInSeries && (
+        <hr
+          data-cy="no-cover-photo-spacer"
+          className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER} border-neutral-300 dark:border-neutral-700`}
         />
       )}
       <main className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER}`}>
