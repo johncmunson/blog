@@ -7,6 +7,10 @@ describe('all tags page', () => {
 
   const postsByTag = Cypress.env('postsByTag') as PostsByTag
 
+  it('does not include tags from draft posts', () => {
+    expect(Object.keys(postsByTag)).not.to.contain('draft')
+  })
+
   Object.entries(postsByTag).forEach(([tag, posts]) => {
     it(`has a section for the "${tag}" tag that includes all of it's associated posts`, () => {
       cy.dataCy(`tag-${tag}-with-posts`)

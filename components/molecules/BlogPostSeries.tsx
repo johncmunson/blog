@@ -18,6 +18,7 @@ export const BlogPostSeries = ({
 }: BlogPostSeriesProps) => {
   return (
     <div
+      data-cy="blog-post-series"
       className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER} ${BODY_TEXT_FONT_SIZE} divide-y divide-neutral-300 dark:divide-neutral-700 py-4 px-8 border-2 rounded-md border-neutral-300 dark:border-neutral-700`}
     >
       <p className="font-medium">

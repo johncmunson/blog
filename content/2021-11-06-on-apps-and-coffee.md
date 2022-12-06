@@ -3,7 +3,7 @@ title: On Apps and Coffee
 description: No matter how many times developers compare their apps to coffee... apps are not coffee. The question is not 'How many coffees does an app cost.' It's 'How many apps does a cup of coffee cost?' And the answer is 'Apps are not coffee but coffee machines.'
 author: John Munson
 tags: [one]
-series: abc
+series: This Is A Series
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc laoreet risus sed neque venenatis fermentum. In sollicitudin massa a enim venenatis, pellentesque venenatis libero lacinia. In mollis hendrerit mi in accumsan. Donec sed varius neque, sit amet pretium nunc. Nunc eu placerat tellus, sit amet semper massa. Nullam et neque a massa euismod hendrerit. Sed vitae dui non leo accumsan efficitur semper at sapien. Nullam maximus magna tellus, eu auctor libero sodales in. Morbi consectetur mattis urna.
