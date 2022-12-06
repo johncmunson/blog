@@ -1,7 +1,5 @@
 ## Todo
 
-1. [Blog post drafts](https://jekyllrb.com/docs/posts/#drafts)
-1. [Blog post series](https://dev.to/kallmanation/dev-to-writing-making-a-series-3h79)
 1. Authors page and posts by author
 1. Swap anchor tags in markdown with next/link
 1. Comment system
