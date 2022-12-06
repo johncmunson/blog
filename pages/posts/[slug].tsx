@@ -67,7 +67,7 @@ const Post = ({
       )}
       {!post.frontmatter.coverPhoto && !otherPostsInSeries && (
         <hr
-          data-cy="no-cover-photo-spacer"
+          data-cy="content-divider"
           className={`${CLEARANCE_FROM_PAGE_LEVEL_HEADER} border-neutral-300 dark:border-neutral-700`}
         />
       )}

@@ -26,12 +26,28 @@ describe('blog post', () => {
       cy.dataCy('author')
     })
 
-    it("shows the cover photo if there is one, or a spacer if there isn't", () => {
+    it('shows the cover photo if there is one, and does not show the content divider', () => {
       cy.dataCy('cover-photo')
-      cy.dataCy('no-cover-photo-spacer').should('not.exist')
+      cy.dataCy('content-divider').should('not.exist')
+    })
+
+    it('shows the blog post series widget if the post belongs to a series, and does not show the content divider', () => {
+      cy.visit('/posts/2020-11-13-end-procrastination')
+      cy.dataCy('blog-post-series')
+      cy.dataCy('content-divider').should('not.exist')
+    })
+
+    it('shows a content divider if there is no cover photo or series widget', () => {
       cy.visit('/posts/2021-12-29-why-is-facebook-not-paying-the-apple-tax')
-      cy.dataCy('no-cover-photo-spacer')
+      cy.dataCy('content-divider')
       cy.dataCy('cover-photo').should('not.exist')
+      cy.dataCy('blog-post-series').should('not.exist')
+    })
+
+    it('does not publish draft posts', () => {
+      cy.visit('/posts/DRAFT-this-is-a-draft', {
+        failOnStatusCode: false,
+      }).dataCy('404-text')
     })
 
     it('shows the publish date', () => {
