@@ -27,6 +27,10 @@ module.exports = {
         // re-apply min-width classes once you've used -99xl to reset the top margin.
         // In other words, this will not work...
         //   className={`${MY_CLASSES} -99xl:mt-0 sm:mt-4`}
+        //
+        // UPDATE: Tailwind now supports max-width breakpoints, which might make this
+        // solution obsolete. Or maybe not, I'm not sure. Give it a try...
+        // https://tailwindcss.com/blog/tailwindcss-v3-2#max-width-and-dynamic-breakpoints
         '-99xl': { max: '99999px' },
         '-2xl': { max: '1535px' },
         '-xl': { max: '1279px' },
