@@ -2,6 +2,8 @@
 
 1. Change the series widget to a collapsible list. If there are 5 or fewer posts, it should be open by default. If there are more than 5 posts, it should be closed by default.
 1. Authors page and posts by author
+1. Treat the first tag on a post as the "primary" tag, kinda how Quanta Magazine does it
+1. Improve the tertiary pages (posts by author, posts by tag, posts by series) by adding pagination, top read posts, etc.
 1. Swap anchor tags in markdown with next/link
 1. Comment system
 1. Increase line spacing in the body text

@@ -16,24 +16,24 @@ import {
   getPostsBySeries,
 } from '../../lib/md'
 
-type PostPathParams = ParsedUrlQuery & {
+type BlogPostPathParams = ParsedUrlQuery & {
   slug: string
 }
 
-type PostProps = Post & {
+type BlogPostProps = Post & {
   html: string
   nextSlug?: string
   prevSlug?: string
   otherPostsInSeries?: Posts
 }
 
-const Post = ({
+const BlogPost = ({
   html,
   nextSlug,
   prevSlug,
   otherPostsInSeries,
   ...post
-}: PostProps) => {
+}: BlogPostProps) => {
   return (
     <>
       <div>
@@ -41,7 +41,7 @@ const Post = ({
         <div className="flex gap-1 sm:gap-2 md:gap-3 lg:gap-4 font-mono mt-2 sm:mt-3 md:mt-5 lg:mt-6 text-sm md:text-base">
           <p data-cy="author">By: {post.frontmatter.author}</p>
           <p>&bull;</p>
-          <p data-cy="publish-date">Published: {post.date}</p>
+          <p data-cy="publish-date">Published: {post.publishDate}</p>
         </div>
         <p
           data-cy="description"
@@ -101,14 +101,16 @@ const Post = ({
   )
 }
 
-export const getStaticProps: GetStaticProps<PostProps> = async (context) => {
-  const { slug } = context.params as PostPathParams
+export const getStaticProps: GetStaticProps<BlogPostProps> = async (
+  context
+) => {
+  const { slug } = context.params as BlogPostPathParams
   const nextSlug = getNextSlug(slug)
   const prevSlug = getPrevSlug(slug)
   const post = await getPostBySlug(slug)
   const html = await markdownToHtml(post)
 
-  const props: PostProps = { ...post, html }
+  const props: BlogPostProps = { ...post, html }
   if (nextSlug) props.nextSlug = nextSlug
   if (prevSlug) props.prevSlug = prevSlug
   if (post.frontmatter.series) {
@@ -121,7 +123,7 @@ export const getStaticProps: GetStaticProps<PostProps> = async (context) => {
   }
 }
 
-export const getStaticPaths: GetStaticPaths<PostPathParams> = async () => {
+export const getStaticPaths: GetStaticPaths<BlogPostPathParams> = async () => {
   const slugs = getPostSlugs()
 
   return {
@@ -147,4 +149,4 @@ export const getStaticPaths: GetStaticPaths<PostPathParams> = async () => {
   }
 }
 
-export default Post
+export default BlogPost
