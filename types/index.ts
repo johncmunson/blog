@@ -12,19 +12,6 @@ type Tagged<T, Tag> = T & { __tag: Tag }
 
 export type Files = Record<string, string>
 
-export type Post = {
-  markdown: string
-  frontmatter: Frontmatter
-  slug: string
-  // Can be 'YYYY-MM-DD' or 'DRAFT'
-  // I would prefer to make the type Date | 'DRAFT', but Next doesn't allow date objects to be
-  // returned from getStaticProps, etc. You have to first serialize them yourself. In addition,
-  // it's not readily apparent how to customize the deserialize behavior, so that date strings
-  // can be parsed back into date objects before being passed as props to the page components.
-  // JSON.parse accepts a "reviver" function, but Next doesn't seem to expose this. Although,
-  // I know this is somehow possible, since the next-superjson-plugin is doing this.
-  date: string
-}
 export type Posts = Post[]
 
 export type Tag = Tagged<string, 'tag'>
@@ -35,7 +22,7 @@ export type Series = Tagged<string, 'series'>
 export type Serieses = Series[]
 export type PostsBySeries = { [series: Series]: Posts }
 
-export const Frontmatter = z.object({
+const Frontmatter = z.object({
   title: z.string(),
   description: z.string(),
   author: z.string(),
@@ -49,4 +36,23 @@ export const Frontmatter = z.object({
   series: z.string().optional() as unknown as z.Schema<Series | undefined>,
 })
 
-export type Frontmatter = z.infer<typeof Frontmatter>
+const PublishDate = z
+  .string()
+  .regex(/20\d{2}-[01]\d-[0123]\d/)
+  .or(z.literal('DRAFT'))
+
+export const Post = z.object({
+  markdown: z.string(),
+  frontmatter: Frontmatter,
+  slug: z.string(),
+  // Can be 'YYYY-MM-DD' or 'DRAFT'
+  // I would prefer to make the type Date | 'DRAFT', but Next doesn't allow date objects to be
+  // returned from getStaticProps, etc. You have to first serialize them yourself. In addition,
+  // it's not readily apparent how to customize the deserialize behavior, so that date strings
+  // can be parsed back into date objects before being passed as props to the page components.
+  // JSON.parse accepts a "reviver" function, but Next doesn't seem to expose this. Although,
+  // I know this is somehow possible, since the next-superjson-plugin is doing this.
+  publishDate: PublishDate,
+})
+
+export type Post = z.infer<typeof Post>

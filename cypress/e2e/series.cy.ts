@@ -10,16 +10,21 @@ describe('blog post series', () => {
   })
 
   it('shows the series title and says how many posts are in the series', () => {
-    cy.dataCy('blog-post-series').contains('This Is A Series (4 Part Series)')
+    cy.dataCy('blog-post-series').contains('This Is A Series (5 Part Series)')
   })
 
   it('renders the correct number of posts in the series in the correct order', () => {
     cy.dataCy('blog-post-series')
       .find('ol')
       .children()
-      .assertLength(4)
+      .assertLength(5)
       .first()
       .contains('End Procrastination')
+    cy.dataCy('blog-post-series')
+      .find('ol')
+      .children()
+      .last()
+      .contains('This Is Another Draft In A Series')
   })
 
   it('does not render a link for the current post', () => {
@@ -42,7 +47,7 @@ describe('blog post series', () => {
     cy.dataCy('blog-post-series')
       .find('ol')
       .last()
-      .contains('This Is A Draft')
+      .contains('This Is Another Draft In A Series')
       .click()
       .url()
       .should('include', '2020-11-13-end-procrastination')

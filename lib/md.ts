@@ -3,15 +3,14 @@ import { join } from 'path'
 import { sleep } from './utils'
 import matter from 'gray-matter'
 import {
-  Frontmatter,
-  Post,
   Tag,
   Tags,
-  PostsByTag,
+  Post,
   Posts,
-  PostsBySeries,
   Series,
   Serieses,
+  PostsByTag,
+  PostsBySeries,
 } from '../types'
 
 const postsDirectory = join(process.cwd(), 'content')
@@ -38,32 +37,33 @@ export function getPrevSlug(slug: string): string | undefined {
 }
 
 export async function getPostBySlug(slug: string): Promise<Post> {
-  const date = slug.startsWith('DRAFT') ? 'DRAFT' : slug.slice(0, 10)
+  const publishDate = slug.startsWith('DRAFT') ? 'DRAFT' : slug.slice(0, 10)
   const fullPath = join(postsDirectory, `${slug}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   // Consider using Remark to parse the frontmatter, since we're using that anyway to parse the markdown
   const { data: frontmatter, content: markdown } = matter(fileContents)
-
-  const validatedFrontmatter = Frontmatter.safeParse(frontmatter)
-  if (!validatedFrontmatter.success) {
-    throw new Error(
-      `Error parsing frontmatter for post '${slug}': ${JSON.stringify(
-        validatedFrontmatter.error.issues
-      )}`
-    )
-  }
 
   // This function doesn't actually need to be async because the content is all on the local filesystem.
   // But if we were fetching posts from an external source, such as a CMS or something, then this function
   // would definitely be async. So it's good to get in the async mindset.
   await sleep(1)
 
-  return {
+  const validatedPost = Post.safeParse({
     markdown,
-    frontmatter: validatedFrontmatter.data,
+    frontmatter,
     slug,
-    date,
+    publishDate,
+  })
+
+  if (!validatedPost.success) {
+    throw new Error(
+      `Error parsing the data for post '${slug}': ${JSON.stringify(
+        validatedPost.error.issues
+      )}`
+    )
   }
+
+  return validatedPost.data
 }
 
 export async function getAllPosts(includeDrafts = false) {
@@ -77,7 +77,7 @@ export async function getPostsByTag(
   tag?: Tag
 ): Promise<PostsByTag | Posts | undefined> {
   const posts = await getAllPosts()
-  const postsByTag = posts.reduce<{ [tag: Tag]: Post[] }>(
+  const postsByTag = posts.reduce<{ [tag: Tag]: Posts }>(
     (postsByTag, currentPost) => {
       const { tags } = currentPost.frontmatter
       tags.forEach((t) => {
@@ -102,7 +102,7 @@ export async function getPostsBySeries(
 ): Promise<PostsBySeries | Posts | undefined> {
   // Include drafts as well so we can show upcoming posts in a series
   const posts = await getAllPosts(true)
-  const postsBySeries = posts.reduce<{ [series: Series]: Post[] }>(
+  const postsBySeries = posts.reduce<{ [series: Series]: Posts }>(
     (postsBySeries, currentPost) => {
       const { series } = currentPost.frontmatter
       if (series) {

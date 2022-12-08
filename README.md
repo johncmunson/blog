@@ -1,5 +1,6 @@
 ## Todo
 
+1. Change the series widget to a collapsible list. If there are 5 or fewer posts, it should be open by default. If there are more than 5 posts, it should be closed by default.
 1. Authors page and posts by author
 1. Swap anchor tags in markdown with next/link
 1. Comment system

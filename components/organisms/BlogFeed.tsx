@@ -22,7 +22,7 @@ export const BlogFeed = ({ posts }: BlogFeedProps) => (
             data-cy={`publish-date-${i}`}
             className="font-mono text-sm md:text-base lg:text-lg"
           >
-            {post.date.replace(/-/g, '.')}
+            {post.publishDate.replace(/-/g, '.')}
           </div>
           <Link
             data-cy={`title-${i}`}

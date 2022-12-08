@@ -11,6 +11,18 @@ type BlogPostSeriesProps = {
   postsInSeries: Posts
 }
 
+// Note that this component will show upcoming drafts that are in the blog post series. However, if you have multiple
+// upcoming drafts you may be wondering how they are supposed to sort in the correct order since drafts do not have
+// a publishDate.
+//   2020-06-25-lorem-ipsum.md
+//   DRAFT-dolor-sit-amet.md
+//   DRAFT-enim-ad-minum.md
+// The answer... you can simply add a number! This won't mess anything up, since the actual blog post title is coming
+// from the frontmatter, and it will allow draft posts in a series to get sorted correctly.
+//   2020-06-25-lorem-ipsum.md
+//   DRAFT-1-dolor-sit-amet.md
+//   DRAFT-2-enim-ad-minum.md
+
 export const BlogPostSeries = ({
   series,
   currentPost,
@@ -31,7 +43,7 @@ export const BlogPostSeries = ({
               <span className="before:content-['*'] before:absolute before:-left-5 before:font-mono before:text-primary-400">
                 {post.frontmatter.title}
               </span>
-            ) : post.date === 'DRAFT' ? (
+            ) : post.publishDate === 'DRAFT' ? (
               <span>
                 {post.frontmatter.title}{' '}
                 <span className="italic" style={{ fontSize: '0.8em' }}>
