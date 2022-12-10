@@ -3,7 +3,7 @@
 1. Change the series widget to a collapsible list. If there are 5 or fewer posts, it should be open by default. If there are more than 5 posts, it should be closed by default.
 1. Authors page and posts by author
 1. Treat the first tag on a post as the "primary" tag, kinda how Quanta Magazine does it
-1. Improve the tertiary pages (posts by author, posts by tag, posts by series) by adding pagination, top read posts, etc.
+1. Improve the tertiary pages (posts by author, posts by tag, posts by series) by adding pagination, most read posts, on the /posts/tags/abc page add a small link back to the all tags page, etc.
 1. Swap anchor tags in markdown with next/link
 1. Comment system
 1. Increase line spacing in the body text
@@ -37,6 +37,7 @@
 1. [SafeQL](https://safeql.dev/) has a better moon/sun dark mode toggle. Not a high priority though.
 1. Admin panel and/or authoriing posts in the browser. Too much work for not enough gain.
 1. Remote content and images. Again, too much work for right now. Push the local filesystem workflow to it's limits first.
+1. 1. [Preview Mode](https://nextjs.org/docs/advanced-features/preview-mode). It doesn't seem to be implemented in Next 13 yet.
 
 ## General Notes
 

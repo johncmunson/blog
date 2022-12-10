@@ -1,7 +1,7 @@
 ---
 title: End Procrastination
 description: The most influential companies in the world put all their energy into getting us to click, react, and consume. If you work on a computer, procrastination awaits you everywhere, all the time. How do you beat it and get things done?
-author: John Munson
+author: Sarah Schneider
 tags: [one, two, aaa]
 series: This Is A Series
 ---

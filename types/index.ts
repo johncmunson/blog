@@ -22,6 +22,18 @@ export type Series = Tagged<string, 'series'>
 export type Serieses = Series[]
 export type PostsBySeries = { [series: Series]: Posts }
 
+export const Author = z.object({
+  first: z.string(),
+  last: z.string(),
+  avatar: z.string(),
+  bio: z.string().min(100).max(1000),
+  twitter: z.string().optional(),
+  numberOfPosts: z.number(),
+})
+export type Author = z.infer<typeof Author>
+export type Authors = Author[]
+export type PostsByAuthors = { [author: string]: Posts }
+
 const Frontmatter = z.object({
   title: z.string(),
   description: z.string(),

@@ -17,7 +17,7 @@ const Tag = ({ tag, posts }: TagProps) => {
     <>
       <PageHeading>
         <span>
-          Posts tagged with <span className="underline">{tag}</span>...
+          Posts tagged with <span className="underline">{tag}</span>
         </span>
       </PageHeading>
       <div className={CLEARANCE_FROM_PAGE_LEVEL_HEADER} />

@@ -2,15 +2,19 @@ import fs from 'fs'
 import { join } from 'path'
 import { sleep } from './utils'
 import matter from 'gray-matter'
+import authors from '../public/authors.json'
 import {
   Tag,
   Tags,
   Post,
   Posts,
   Series,
+  Author,
+  Authors,
   Serieses,
   PostsByTag,
   PostsBySeries,
+  PostsByAuthors,
 } from '../types'
 
 const postsDirectory = join(process.cwd(), 'content')
@@ -124,16 +128,74 @@ export async function getPostsBySeries(
   return series ? postsBySeries[series] : postsBySeries
 }
 
+export async function getPostsByAuthor(): Promise<PostsByAuthors>
+export async function getPostsByAuthor(
+  fullName: string
+): Promise<Posts | undefined>
+export async function getPostsByAuthor(
+  fullName?: string
+): Promise<PostsByAuthors | Posts | undefined> {
+  const posts = await getAllPosts()
+  const postsByAuthor = posts.reduce<{ [author: string]: Posts }>(
+    (postsByAuthor, currentPost) => {
+      const { author } = currentPost.frontmatter
+      postsByAuthor[author] = postsByAuthor[author]
+        ? [...postsByAuthor[author], currentPost]
+        : [currentPost]
+      return postsByAuthor
+    },
+    {}
+  )
+
+  return fullName ? postsByAuthor[fullName] : postsByAuthor
+}
+
 export async function getAllPostTags(): Promise<Tags> {
   const postsByTag = await getPostsByTag()
   const allTags = Object.keys(postsByTag) as Tags
-  const sortedTags = [...allTags].sort((a, b) => a.localeCompare(b))
-  return sortedTags
+  allTags.sort((a, b) => a.localeCompare(b))
+
+  return allTags
 }
 
 export async function getAllPostSeries(): Promise<Serieses> {
   const postsBySeries = await getPostsBySeries()
   const allSeries = Object.keys(postsBySeries) as Serieses
-  const sortedSeries = [...allSeries].sort((a, b) => a.localeCompare(b))
-  return sortedSeries
+  allSeries.sort((a, b) => a.localeCompare(b))
+
+  return allSeries
+}
+
+export async function getAllPostAuthors(): Promise<Authors> {
+  const postsByAuthor = await getPostsByAuthor()
+
+  const publishedAuthors = Object.keys(postsByAuthor)
+    .map((authorName) => {
+      const publishedAuthor = authors.find(
+        (c) => `${c.first} ${c.last}` === authorName
+      )
+      if (!publishedAuthor)
+        throw new Error(
+          `${authorName} has not been registered in /public/authors.json`
+        )
+      return {
+        ...publishedAuthor,
+        numberOfPosts: postsByAuthor[authorName].length,
+      }
+    })
+    .sort((a, b) => b.numberOfPosts - a.numberOfPosts)
+
+  const validatedAuthors = publishedAuthors.map((author) => {
+    const validatedAuthor = Author.safeParse(author)
+    if (!validatedAuthor.success) {
+      throw new Error(
+        `Error parsing the data for author '${author}': ${JSON.stringify(
+          validatedAuthor.error.issues
+        )}`
+      )
+    }
+    return validatedAuthor.data
+  })
+
+  return validatedAuthors
 }

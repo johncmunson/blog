@@ -1,0 +1,21 @@
+[
+  {
+    "first": "John",
+    "last": "Munson",
+    "avatar": "/john-munson.png",
+    "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec mattis ipsum. Sed eu nulla commodo, ullamcorper leo quis, fringilla eros.",
+    "twitter": "curtismunson"
+  },
+  {
+    "first": "Sarah",
+    "last": "Schneider",
+    "avatar": "/sarah-schneider.png",
+    "bio": "Curabitur vel est at magna ullamcorper eleifend. Duis nec elit malesuada velit tincidunt eleifend. Maecenas vitae ante feugiat magna interdum convallis at in dolor. Nunc condimentum, lorem a vulputate suscipit."
+  },
+  {
+    "first": "David",
+    "last": "Beckham",
+    "avatar": "/david-beckham.png",
+    "bio": "Phasellus posuere dolor id augue condimentum, ut aliquet est lobortis. Etiam sed lobortis odio. Quisque at pellentesque neque, ornare convallis nulla. Aenean sit amet sollicitudin est, semper sodales elit."
+  }
+]
