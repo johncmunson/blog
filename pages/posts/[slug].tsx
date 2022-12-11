@@ -39,7 +39,12 @@ const BlogPost = ({
       <div>
         <PageHeading>{post.frontmatter.title}</PageHeading>
         <div className="flex gap-1 sm:gap-2 md:gap-3 lg:gap-4 font-mono mt-2 sm:mt-3 md:mt-5 lg:mt-6 text-sm md:text-base">
-          <p data-cy="author">By: {post.frontmatter.author}</p>
+          <p data-cy="author">
+            By:{' '}
+            <Link href={`/posts/authors/${post.frontmatter.author}`}>
+              {post.frontmatter.author}
+            </Link>
+          </p>
           <p>&bull;</p>
           <p data-cy="publish-date">Published: {post.publishDate}</p>
         </div>

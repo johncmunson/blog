@@ -170,17 +170,17 @@ export async function getAllPostAuthors(): Promise<Authors> {
   const postsByAuthor = await getPostsByAuthor()
 
   const publishedAuthors = Object.keys(postsByAuthor)
-    .map((authorName) => {
-      const publishedAuthor = authors.find(
-        (c) => `${c.first} ${c.last}` === authorName
+    .map((fullName) => {
+      const jsonAuthor = authors.find(
+        (a) => `${a.first} ${a.last}` === fullName
       )
-      if (!publishedAuthor)
+      if (!jsonAuthor)
         throw new Error(
-          `${authorName} has not been registered in /public/authors.json`
+          `${fullName} has not been registered in /public/authors.json`
         )
       return {
-        ...publishedAuthor,
-        numberOfPosts: postsByAuthor[authorName].length,
+        ...jsonAuthor,
+        numberOfPosts: postsByAuthor[fullName].length,
       }
     })
     .sort((a, b) => b.numberOfPosts - a.numberOfPosts)
@@ -198,4 +198,22 @@ export async function getAllPostAuthors(): Promise<Authors> {
   })
 
   return validatedAuthors
+}
+
+export async function getAuthorByName(fullName: string): Promise<Author> {
+  const authorPosts = await getPostsByAuthor(fullName)
+  if (!authorPosts) throw new Error(`${fullName} has not published any posts`)
+  const jsonAuthor = authors.find((a) => `${a.first} ${a.last}` === fullName)
+  const validatedAuthor = Author.safeParse({
+    ...jsonAuthor,
+    numberOfPosts: authorPosts.length,
+  })
+  if (!validatedAuthor.success) {
+    throw new Error(
+      `Error parsing the data for author '${fullName}': ${JSON.stringify(
+        validatedAuthor.error.issues
+      )}`
+    )
+  }
+  return validatedAuthor.data
 }

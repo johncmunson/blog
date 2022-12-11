@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next'
-import { Authors, PostsByAuthors } from '../../types'
+import { Authors } from '../../types'
 import { PageHeading } from '../../components/atoms/PageHeading'
-import { getAllPostAuthors, getPostsByAuthor } from '../../lib/md'
+import { getAllPostAuthors } from '../../lib/md'
 import { AuthorCard } from '../../components/molecules/AuthorCard'
 import { CLEARANCE_FROM_PAGE_LEVEL_HEADER } from '../../lib/constants'
 

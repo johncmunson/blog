@@ -31,7 +31,7 @@ const Home = ({ posts }: HomeProps) => {
         that make us tick.
       </h1>
 
-      <BlogFeed posts={postsToDisplay} />
+      <BlogFeed posts={postsToDisplay} className="mt-20" />
       <NextPrev prevHref={prevHref} nextHref={nextHref} />
     </>
   )

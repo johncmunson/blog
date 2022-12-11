@@ -1,10 +1,9 @@
 import { ParsedUrlQuery } from 'querystring'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { getAllPostTags, getPostsByTag } from '../../../lib/md'
 import { Posts as PostsType, Tag } from '../../../types'
+import { getAllPostTags, getPostsByTag } from '../../../lib/md'
+import { BlogFeed } from '../../../components/organisms/BlogFeed'
 import { PageHeading } from '../../../components/atoms/PageHeading'
-import { Posts } from '../../../components/atoms/Posts'
-import { CLEARANCE_FROM_PAGE_LEVEL_HEADER } from '../../../lib/constants'
 
 type TagPathParams = ParsedUrlQuery & {
   tag: Tag
@@ -20,18 +19,17 @@ const Tag = ({ tag, posts }: TagProps) => {
           Posts tagged with <span className="underline">{tag}</span>
         </span>
       </PageHeading>
-      <div className={CLEARANCE_FROM_PAGE_LEVEL_HEADER} />
-      <Posts posts={posts} />
+      <BlogFeed posts={posts} className="mt-10 sm:mt-12 md:mt-14 lg:mt-16" />
     </>
   )
 }
 
 export const getStaticProps: GetStaticProps<TagProps> = async (context) => {
   const { tag } = context.params as TagPathParams
-  const postsForTag = (await getPostsByTag(tag)) ?? []
+  const posts = (await getPostsByTag(tag)) ?? []
 
   return {
-    props: { tag, posts: postsForTag },
+    props: { tag, posts },
   }
 }
 

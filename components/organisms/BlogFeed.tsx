@@ -4,12 +4,15 @@ import { Post } from '../../types'
 
 type BlogFeedProps = {
   posts: Post[]
+  className?: string
 }
 
-export const BlogFeed = ({ posts }: BlogFeedProps) => (
+export const BlogFeed = ({ posts, className }: BlogFeedProps) => (
   <div
     data-cy="blog-feed"
-    className="mt-20 sm:grid sm:grid-cols-3 sm:gap-y-9 sm:gap-x-4 items-start"
+    className={`sm:grid sm:grid-cols-3 sm:gap-y-9 sm:gap-x-4 items-start ${
+      className ? className : ''
+    }`}
   >
     {posts.map((post, i) => (
       <Fragment key={i}>

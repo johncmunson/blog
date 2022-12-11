@@ -18,7 +18,10 @@ export const AuthorCard = ({ author }: AuthorCardProps) => (
       />
     </div>
     <div className={`${BODY_TEXT_FONT_SIZE} min-w-0`}>
-      <div className="font-medium whitespace-nowrap overflow-hidden text-ellipsis">{`${author.first} ${author.last}`}</div>
+      <Link
+        href={`/posts/authors/${author.first} ${author.last}`}
+        className="font-medium whitespace-nowrap overflow-hidden text-ellipsis"
+      >{`${author.first} ${author.last}`}</Link>
       {author.twitter && (
         <Link
           href={`https://twitter.com/${author.twitter}`}

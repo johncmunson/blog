@@ -2,7 +2,7 @@
 title: Lorem Ipsum
 description: A brief history of lorem ipsum
 author: John Munson
-tags: [one, two]
+tags: [one, two, abc xyz]
 coverPhoto: /lorem-ipsum.png
 ---
 

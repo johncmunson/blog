@@ -25,3 +25,13 @@ export function ordinal(n: number) {
 export function dedupeArray<T>(arr: T[]) {
   return Array.from(new Set(arr))
 }
+
+export function isPositiveInteger(str: string) {
+  const num = Number(str)
+
+  if (Number.isInteger(num) && num > 0) {
+    return true
+  }
+
+  return false
+}

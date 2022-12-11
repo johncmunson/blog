@@ -1,7 +1,6 @@
 import Link from 'next/link'
-import { H2 } from '../../lib/constants'
+import { H2, UL } from '../../lib/constants'
 import { Tag, Posts as PostsType } from '../../types'
-import { Posts } from '../atoms/Posts'
 
 type TagWithPostsProps = {
   tag: Tag
@@ -15,6 +14,17 @@ export const TagWithPosts = ({ tag, posts }: TagWithPostsProps) => (
         {tag}
       </Link>
     </h2>
-    <Posts posts={posts} />
+    <ul className={`${UL}`}>
+      {posts.map((post, i) => (
+        <li key={i}>
+          <Link
+            href={`/posts/${post.slug}`}
+            className={`hover:text-primary-400`}
+          >
+            {post.frontmatter.title}
+          </Link>
+        </li>
+      ))}
+    </ul>
   </div>
 )
