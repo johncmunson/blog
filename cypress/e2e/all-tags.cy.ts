@@ -15,7 +15,7 @@ describe('all tags page', () => {
     it(`has a section for the "${tag}" tag that includes all of it's associated posts`, () => {
       cy.dataCy(`tag-${tag}-with-posts`)
         .find(`h2:contains(${tag})`)
-        .find(`a[href="/posts/tags/${tag}"]`)
+        .find(`a[href="/posts/tags/${encodeURI(tag)}"]`)
       posts.forEach((post) => {
         cy.dataCy(`tag-${tag}-with-posts`).find(`a[href="/posts/${post.slug}"]`)
       })

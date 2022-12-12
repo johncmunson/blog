@@ -32,7 +32,7 @@ export const Author = z.object({
 })
 export type Author = z.infer<typeof Author>
 export type Authors = Author[]
-export type PostsByAuthors = { [author: string]: Posts }
+export type PostsByAuthor = { [author: string]: Posts }
 
 const Frontmatter = z.object({
   title: z.string(),

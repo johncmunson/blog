@@ -26,7 +26,10 @@ const Author = ({ author, posts }: AuthorProps) => {
   return (
     <>
       <AuthorCard author={author} />
-      <p className={`${BODY_TEXT_FONT_SIZE} mt-2 sm:mt-3 md:mt-4`}>
+      <p
+        data-cy="author-bio"
+        className={`${BODY_TEXT_FONT_SIZE} mt-2 sm:mt-3 md:mt-4`}
+      >
         {author.bio}
       </p>
       <hr

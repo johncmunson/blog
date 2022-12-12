@@ -55,7 +55,7 @@ describe('blog post', () => {
     })
 
     it('shows the tag(s) and they link to the tags pages', () => {
-      cy.dataCy('tags-bar').children().assertLength(3)
+      cy.dataCy('tags-bar').children().assertLength(4)
       cy.dataCy('tags-link')
         .click()
         .url()

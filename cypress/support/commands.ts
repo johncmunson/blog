@@ -39,7 +39,7 @@
 // }
 
 Cypress.Commands.add('dataCy', (value: string, modifier?: string) => {
-  return cy.get(`[data-cy=${value}]${modifier ? modifier : ''}`)
+  return cy.get(`[data-cy="${value}"]${modifier ? modifier : ''}`)
 })
 
 Cypress.Commands.add(

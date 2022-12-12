@@ -8,7 +8,7 @@ type AuthorCardProps = {
 }
 
 export const AuthorCard = ({ author }: AuthorCardProps) => (
-  <div className="flex gap-x-3 sm:gap-x-4 md:gap-x-5">
+  <div data-cy="author-card" className="flex gap-x-3 sm:gap-x-4 md:gap-x-5">
     <div className="relative h-24 w-24 md:h-28 md:w-28 flex-none">
       <Image
         alt={`${author.first} ${author.last}`}
@@ -30,7 +30,7 @@ export const AuthorCard = ({ author }: AuthorCardProps) => (
           @{author.twitter}
         </Link>
       )}
-      <div>
+      <div data-cy="number-of-posts">
         {author.numberOfPosts} {author.numberOfPosts === 1 ? 'post' : 'posts'}
       </div>
     </div>

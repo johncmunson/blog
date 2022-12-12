@@ -66,6 +66,8 @@ describe('main layout', () => {
     cy.visit('/posts/2022-01-01-lorem-ipsum').get('header').get('footer')
     cy.visit('/posts/tags').get('header').get('footer')
     cy.visit('/posts/tags/one').get('header').get('footer')
+    cy.visit('/posts/authors').get('header').get('footer')
+    cy.visit('/posts/authors/John%20Munson').get('header').get('footer')
     // Even the 404 page should have the main layout
     cy.visit('/abcxyz', { failOnStatusCode: false }).get('header').get('footer')
   })

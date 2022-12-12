@@ -17,5 +17,11 @@
     "last": "Beckham",
     "avatar": "/david-beckham.png",
     "bio": "Phasellus posuere dolor id augue condimentum, ut aliquet est lobortis. Etiam sed lobortis odio. Quisque at pellentesque neque, ornare convallis nulla. Aenean sit amet sollicitudin est, semper sodales elit."
+  },
+  {
+    "first": "George",
+    "last": "Washington",
+    "avatar": "/george-washington.png",
+    "bio": "Duis nec elit malesuada velit tincidunt eleifend. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec mattis ipsum."
   }
 ]

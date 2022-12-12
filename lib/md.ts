@@ -14,7 +14,7 @@ import {
   Serieses,
   PostsByTag,
   PostsBySeries,
-  PostsByAuthors,
+  PostsByAuthor,
 } from '../types'
 
 const postsDirectory = join(process.cwd(), 'content')
@@ -128,13 +128,13 @@ export async function getPostsBySeries(
   return series ? postsBySeries[series] : postsBySeries
 }
 
-export async function getPostsByAuthor(): Promise<PostsByAuthors>
+export async function getPostsByAuthor(): Promise<PostsByAuthor>
 export async function getPostsByAuthor(
   fullName: string
 ): Promise<Posts | undefined>
 export async function getPostsByAuthor(
   fullName?: string
-): Promise<PostsByAuthors | Posts | undefined> {
+): Promise<PostsByAuthor | Posts | undefined> {
   const posts = await getAllPosts()
   const postsByAuthor = posts.reduce<{ [author: string]: Posts }>(
     (postsByAuthor, currentPost) => {
