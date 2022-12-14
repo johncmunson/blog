@@ -26,6 +26,7 @@
 1. Blog post footnotes
 1. Different layouts for different types of blog posts
 1. [Scroll Restoration](https://mmazzarolo.com/blog/2021-04-10-nextjs-scroll-restoration/)
+1. Feature to allow users to report typos or suggest changes
 
 ## Probably won't do (for now)
 
