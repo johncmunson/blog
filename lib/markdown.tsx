@@ -8,6 +8,7 @@ import remarkRehype from "remark-rehype";
 import rehypeReact from "rehype-react";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeShiki from "@shikijs/rehype";
 import { jsx, jsxs } from "react/jsx-runtime";
 import Image from "next/image";
 import Link from "next/link";
@@ -100,6 +101,14 @@ export async function getPostData(slug: string): Promise<PostData> {
     .use(remarkImageSize)
     .use(remarkGfm)
     .use(remarkRehype)
+    .use(rehypeShiki, {
+      themes: {
+        // light: "one-light",
+        // dark: "one-dark-pro",
+        light: "github-light",
+        dark: "github-dark",
+      },
+    })
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings)
     .use(rehypeReact, {
