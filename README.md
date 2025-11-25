@@ -1,4 +1,3 @@
-- GFM
 - next-image / rehype-unwrap-images
 - autolink headings
 - syntax highlighting
