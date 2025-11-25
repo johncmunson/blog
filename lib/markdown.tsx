@@ -3,6 +3,7 @@ import path from "path";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkFrontmatter from "remark-frontmatter";
+import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import rehypeReact from "rehype-react";
 import { jsx, jsxs } from "react/jsx-runtime";
@@ -57,6 +58,7 @@ export async function getPostData(slug: string): Promise<PostData> {
   const file = await unified()
     .use(remarkParse)
     .use(remarkFrontmatter)
+    .use(remarkGfm)
     .use(() => (_: unknown, file: VFile) => {
       matter(file);
     })

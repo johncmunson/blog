@@ -1,4 +1,5 @@
 - GFM
-- rehype-unwrap-images
-- next-image
--
+- next-image / rehype-unwrap-images
+- autolink headings
+- syntax highlighting
+- improve styling
