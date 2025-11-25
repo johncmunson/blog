@@ -58,10 +58,10 @@ export async function getPostData(slug: string): Promise<PostData> {
   const file = await unified()
     .use(remarkParse)
     .use(remarkFrontmatter)
-    .use(remarkGfm)
     .use(() => (_: unknown, file: VFile) => {
       matter(file);
     })
+    .use(remarkGfm)
     .use(remarkRehype)
     .use(rehypeReact, {
       ...production,
