@@ -6,6 +6,8 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import rehypeReact from "rehype-react";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { jsx, jsxs } from "react/jsx-runtime";
 import Link from "next/link";
 import React, { Fragment } from "react";
@@ -63,6 +65,8 @@ export async function getPostData(slug: string): Promise<PostData> {
     })
     .use(remarkGfm)
     .use(remarkRehype)
+    .use(rehypeSlug)
+    .use(rehypeAutolinkHeadings)
     .use(rehypeReact, {
       ...production,
       components: {
