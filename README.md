@@ -3,3 +3,4 @@
 - autolink headings
 - syntax highlighting
 - improve styling
+- remark-directive
