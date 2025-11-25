@@ -9,16 +9,17 @@ import rehypeReact from "rehype-react";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { jsx, jsxs } from "react/jsx-runtime";
+import Image from "next/image";
 import Link from "next/link";
 import React, { Fragment } from "react";
 import { type VFile } from "vfile";
 import { read } from "to-vfile";
 import { matter } from "vfile-matter";
+import { remarkImageSize } from "./remark-image-size";
 
 const contentDirectory = path.join(process.cwd(), "content");
 const filenames = fs.readdirSync(contentDirectory);
 
-// Custom Link Component
 const CustomLink = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
   const { href, children, ...rest } = props;
 
@@ -34,6 +35,39 @@ const CustomLink = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
     <a href={href} target="_blank" rel="noopener noreferrer" {...rest}>
       {children}
     </a>
+  );
+};
+
+const MarkdownImage = (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
+  const { src, alt = "", width, height, ...rest } = props;
+
+  if (typeof src !== "string" || src.length === 0) {
+    throw new Error("[markdown] Missing image src while rendering markdown.");
+  }
+
+  const parsedWidth =
+    typeof width === "number"
+      ? width
+      : Number.parseInt(String(width ?? ""), 10);
+  const parsedHeight =
+    typeof height === "number"
+      ? height
+      : Number.parseInt(String(height ?? ""), 10);
+
+  if (!Number.isFinite(parsedWidth) || !Number.isFinite(parsedHeight)) {
+    throw new Error(
+      `[markdown] Missing image dimensions for "${src}". Did remark-image-size run?`
+    );
+  }
+
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      width={parsedWidth}
+      height={parsedHeight}
+      {...rest}
+    />
   );
 };
 
@@ -63,6 +97,7 @@ export async function getPostData(slug: string): Promise<PostData> {
     .use(() => (_: unknown, file: VFile) => {
       matter(file);
     })
+    .use(remarkImageSize)
     .use(remarkGfm)
     .use(remarkRehype)
     .use(rehypeSlug)
@@ -71,6 +106,7 @@ export async function getPostData(slug: string): Promise<PostData> {
       ...production,
       components: {
         a: CustomLink,
+        img: MarkdownImage,
       },
     })
     .process(await read(fullPath));

@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "image-size": "^2.0.2",
     "next": "16.0.4",
     "react": "19.2.0",
     "react-dom": "19.2.0",
@@ -22,6 +23,7 @@
     "remark-rehype": "^11.1.2",
     "to-vfile": "^8.0.0",
     "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0",
     "vfile": "^6.0.3",
     "vfile-matter": "^5.0.1"
   },
