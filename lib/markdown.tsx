@@ -16,7 +16,9 @@ import React, { Fragment } from "react";
 import { type VFile } from "vfile";
 import { read } from "to-vfile";
 import { matter } from "vfile-matter";
+import type { ComponentPropsWithoutRef } from "react";
 import { remarkImageSize } from "./remark-image-size";
+import { LinkIcon } from "@/components/link-icon";
 
 const contentDirectory = path.join(process.cwd(), "content");
 const filenames = fs.readdirSync(contentDirectory);
@@ -110,12 +112,34 @@ export async function getPostData(slug: string): Promise<PostData> {
       },
     })
     .use(rehypeSlug)
-    .use(rehypeAutolinkHeadings)
+    .use(rehypeAutolinkHeadings, {
+      behavior: "append",
+      content: [
+        {
+          type: "element",
+          tagName: "span",
+          properties: { "data-link-icon": "" },
+          children: [],
+        },
+      ],
+      properties: {
+        class: "heading-anchor",
+        ariaHidden: true,
+        tabIndex: -1,
+      },
+      headingProperties: { class: "with-heading-anchor" },
+    })
     .use(rehypeReact, {
       ...production,
       components: {
         a: CustomLink,
         img: MarkdownImage,
+        span: (props: ComponentPropsWithoutRef<"span">) => {
+          if ("data-link-icon" in props) {
+            return <LinkIcon className="size-3.5" />;
+          }
+          return <span {...props} />;
+        },
       },
     })
     .process(await read(fullPath));

@@ -38,3 +38,21 @@ body {
     text-decoration: var(--shiki-dark-text-decoration) !important;
   }
 }
+
+/* Styles for autolinked headings */
+.with-heading-anchor {
+  position: relative;
+}
+.heading-anchor {
+  display: inline-flex;
+  margin-left: 0.35rem;
+  text-decoration: none;
+}
+.with-heading-anchor:hover .heading-anchor svg {
+  opacity: 1;
+}
+.heading-anchor svg {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
