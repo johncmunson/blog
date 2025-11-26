@@ -6,31 +6,31 @@ export default async function Home() {
 
   return (
     <main>
-      <h1>John Munson</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
+      <h1 className="font-black">John Munson’s Blog</h1>
+      <p className="mt-6">
+        Hello there. Welcome to my website. This is where I post very important
+        things on extremely serious topics--none of which are likely to improve
+        your life in any measurable way.
       </p>
-      <p>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      <p className="mt-2">
+        Think of this space as a carefully curated archive of thoughts no one
+        asked for, arranged with just enough enthusiasm to suggest purpose
+        without actually providing any. If you’re looking for practical advice,
+        profound wisdom, or even a mildly useful tip, you may be disappointed.
       </p>
 
-      <hr />
+      <hr className="mt-8" />
 
-      <ul>
+      <ul className="mt-6">
         {allPosts.map((post) => (
           <li
             key={post.slug}
-            style={{ display: "flex", justifyContent: "space-between" }}
+            className="flex items-center justify-between w-full"
           >
-            <Link href={`/${post.slug}`} style={{ textAlign: "left" }}>
+            <Link href={`/${post.slug}`} className="truncate max-w-full">
               {post.title}
             </Link>
-            <span style={{ textAlign: "right" }}>{post.date}</span>
+            <span className="shrink-0 ml-8">{post.date}</span>
           </li>
         ))}
       </ul>
