@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { getAllPosts } from "../lib/markdown";
+import { formatDate } from "@/lib/utils";
 
 export default async function Home() {
   const allPosts = await getAllPosts();
 
   return (
     <main>
-      <h1 className="font-black">John Munson’s Blog</h1>
+      <h1 className="font-bold text-xl">John Munson’s Blog</h1>
       <p className="mt-6">
         Hello there. Welcome to my website. This is where I post very important
         things on extremely serious topics--none of which are likely to improve
@@ -30,7 +31,9 @@ export default async function Home() {
             <Link href={`/${post.slug}`} className="truncate max-w-full">
               {post.title}
             </Link>
-            <span className="shrink-0 ml-8">{post.date}</span>
+            <span className="shrink-0 ml-8 font-mono text-sm text-gray-600">
+              {formatDate(post.date)}
+            </span>
           </li>
         ))}
       </ul>

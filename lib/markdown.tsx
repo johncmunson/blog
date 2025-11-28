@@ -19,6 +19,7 @@ import { matter } from "vfile-matter";
 import type { ComponentPropsWithoutRef } from "react";
 import { remarkImageSize } from "./remark-image-size";
 import { LinkIcon } from "@/components/link-icon";
+import { cn } from "./utils";
 
 const contentDirectory = path.join(process.cwd(), "content");
 const filenames = fs.readdirSync(contentDirectory);
@@ -132,6 +133,27 @@ export async function getPostData(slug: string): Promise<PostData> {
     .use(rehypeReact, {
       ...production,
       components: {
+        h1: (props: ComponentPropsWithoutRef<"h1">) => (
+          <h1 {...props} className={cn(props.className, "mt-6 font-bold")} />
+        ),
+        h2: (props: ComponentPropsWithoutRef<"h1">) => (
+          <h1 {...props} className={cn(props.className, "mt-6 font-bold")} />
+        ),
+        h3: (props: ComponentPropsWithoutRef<"h1">) => (
+          <h1 {...props} className={cn(props.className, "mt-6 font-bold")} />
+        ),
+        h4: (props: ComponentPropsWithoutRef<"h1">) => (
+          <h1 {...props} className={cn(props.className, "mt-6 font-bold")} />
+        ),
+        h5: (props: ComponentPropsWithoutRef<"h1">) => (
+          <h1 {...props} className={cn(props.className, "mt-6 font-bold")} />
+        ),
+        h6: (props: ComponentPropsWithoutRef<"h1">) => (
+          <h1 {...props} className={cn(props.className, "mt-6 font-bold")} />
+        ),
+        p: (props: ComponentPropsWithoutRef<"p">) => (
+          <p className="mt-3" {...props} />
+        ),
         a: CustomLink,
         img: MarkdownImage,
         span: (props: ComponentPropsWithoutRef<"span">) => {
