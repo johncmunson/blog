@@ -16,10 +16,9 @@ import React, { Fragment } from "react";
 import { type VFile } from "vfile";
 import { read } from "to-vfile";
 import { matter } from "vfile-matter";
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentProps } from "react";
 import { remarkImageSize } from "./remark-image-size";
 import { LinkIcon } from "@/components/link-icon";
-import { cn } from "./utils";
 
 const contentDirectory = path.join(process.cwd(), "content");
 const filenames = fs.readdirSync(contentDirectory);
@@ -133,21 +132,25 @@ export async function getPostData(slug: string): Promise<PostData> {
     .use(rehypeReact, {
       ...production,
       components: {
-        h1: (props: ComponentPropsWithoutRef<"h1">) => (
+        h1: (props: ComponentProps<"h1">) => (
           <h2 {...props} />
           // If adding additional classes, do it like this:
           // <h2 {...props} className={cn(props.className, "foo bar")} />
         ),
-        h2: (props: ComponentPropsWithoutRef<"h2">) => <h2 {...props} />,
-        h3: (props: ComponentPropsWithoutRef<"h3">) => <h2 {...props} />,
-        h4: (props: ComponentPropsWithoutRef<"h4">) => <h2 {...props} />,
-        h5: (props: ComponentPropsWithoutRef<"h5">) => <h2 {...props} />,
-        h6: (props: ComponentPropsWithoutRef<"h6">) => <h2 {...props} />,
+        h2: (props: ComponentProps<"h2">) => <h2 {...props} />,
+        h3: (props: ComponentProps<"h3">) => <h2 {...props} />,
+        h4: (props: ComponentProps<"h4">) => <h2 {...props} />,
+        h5: (props: ComponentProps<"h5">) => <h2 {...props} />,
+        h6: (props: ComponentProps<"h6">) => <h2 {...props} />,
         a: CustomLink,
         img: MarkdownImage,
-        span: (props: ComponentPropsWithoutRef<"span">) => {
+        span: (props: ComponentProps<"span">) => {
           if ("data-link-icon" in props) {
-            return <LinkIcon className="size-3.5" />;
+            return (
+              <span {...props}>
+                <LinkIcon className="size-3.5" />
+              </span>
+            );
           }
           return <span {...props} />;
         },

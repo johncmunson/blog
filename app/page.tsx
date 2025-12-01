@@ -31,7 +31,7 @@ export default async function Home() {
             <Link href={`/${post.slug}`} className="truncate">
               {post.title}
             </Link>
-            <span className="shrink-0 ml-8 font-mono text-sm text-gray-600">
+            <span className="font-mono shrink-0 ml-8 text-sm text-gray-600">
               {formatDate(post.date)}
             </span>
           </li>
