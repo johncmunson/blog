@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { getAllPosts } from "../lib/markdown";
 import { formatDate } from "@/lib/utils";
+import { DateText } from "@/components/date-text";
 
 export default async function Home() {
   const allPosts = await getAllPosts();
 
   return (
-    <main className="font-sans prose prose-h1:text-xl prose-h1:font-bold prose-ul:pl-0 prose-li:pl-0">
+    <main className="prose-h1:text-xl prose-h1:font-bold prose-ul:pl-0 prose-li:pl-0">
       <h1>John Munson’s Blog</h1>
       <p>
         Hello there. Welcome to my website. This is where I post very important
@@ -20,7 +21,7 @@ export default async function Home() {
         profound wisdom, or even a mildly useful tip, you may be disappointed.
       </p>
 
-      <hr />
+      <hr className="border-gray-500" />
 
       <ul>
         {allPosts.map((post) => (
@@ -31,9 +32,9 @@ export default async function Home() {
             <Link href={`/${post.slug}`} className="truncate">
               {post.title}
             </Link>
-            <span className="font-mono shrink-0 ml-8 text-sm text-gray-600">
+            <DateText className="shrink-0 ml-8">
               {formatDate(post.date)}
-            </span>
+            </DateText>
           </li>
         ))}
       </ul>

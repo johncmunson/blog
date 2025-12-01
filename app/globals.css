@@ -4,6 +4,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* See color-scheme comment below */
+  color-scheme: light;
 }
 
 @theme inline {
@@ -17,6 +19,9 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    /* Tells the browser which native color palette to use for built‑in UI (scrollbars, form controls, focus rings, etc.). */
+    /* Without it, those elements stay “light” even when the site background and text switch to dark */
+    color-scheme: dark;
   }
 }
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getPostData, getAllPosts } from "../../lib/markdown";
 import { formatDate } from "@/lib/utils";
+import { DateText } from "@/components/date-text";
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
@@ -18,15 +19,11 @@ export default async function Post({
   const postData = await getPostData(slug);
 
   return (
-    <main className="font-sans prose prose-h2:text-base prose-h2:font-bold prose-h2:mt-0">
+    <main className="prose-h2:text-base prose-h2:font-bold prose-h2:mt-0">
       <Link href="/">{"<<"} back</Link>
-
       <article className="mt-6">
         <h1 className="font-bold text-xl mb-0">{postData.title}</h1>
-        <p className="font-mono text-sm text-gray-600 mt-0">
-          {formatDate(postData.date)}
-        </p>
-
+        <DateText>{formatDate(postData.date)}</DateText>
         <div className="mt-8">{postData.content}</div>
       </article>
     </main>
