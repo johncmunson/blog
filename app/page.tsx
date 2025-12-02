@@ -15,19 +15,16 @@ export default async function Home() {
           <RssIcon className="size-5 ml-2.5" />
         </Link>
       </div>
+
       <p>
-        Hello there. Welcome to my website. This is where I post very important
-        things on extremely serious topics--none of which are likely to improve
-        your life in any measurable way.
-      </p>
-      <p>
-        Think of this space as a carefully curated archive of thoughts no one
-        asked for, arranged with just enough enthusiasm to suggest purpose
-        without actually providing any. If you’re looking for practical advice,
-        profound wisdom, or even a mildly useful tip, you may be disappointed.
+        Hello there. Think of this space as a carefully curated archive of
+        thoughts no one asked for, arranged with just enough enthusiasm to
+        suggest purpose without actually providing any. If you’re looking for
+        practical advice, profound wisdom, or even a mildly useful tip, you may
+        be disappointed.
       </p>
 
-      <hr className="border-gray-500" />
+      <hr />
 
       <ul>
         {allPosts.map((post) => (
