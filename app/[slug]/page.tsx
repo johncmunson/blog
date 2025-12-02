@@ -3,6 +3,8 @@ import { getPostData, getAllPosts } from "../../lib/markdown";
 import { formatDate } from "@/lib/utils";
 import { DateText } from "@/components/date-text";
 
+export const dynamic = "force-static";
+
 export async function generateStaticParams() {
   const posts = await getAllPosts();
   return posts.map((post) => ({
