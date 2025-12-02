@@ -105,10 +105,10 @@ export async function getPostData(slug: string): Promise<PostData> {
     .use(remarkRehype)
     .use(rehypeShiki, {
       themes: {
-        // light: "one-light",
-        // dark: "one-dark-pro",
-        light: "github-light",
-        dark: "github-dark",
+        light: "one-light",
+        dark: "one-dark-pro",
+        // light: "github-light",
+        // dark: "github-dark",
       },
     })
     .use(rehypeSlug)

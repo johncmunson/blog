@@ -62,3 +62,12 @@ body {
   transition: opacity 0.15s ease;
   pointer-events: none;
 }
+
+/* The tailwind typography plugin inserts quotes around blockquote text by default. */
+/* I don't like this behavior, so I'm removing it here. */
+.prose blockquote p:first-of-type::before {
+  content: none;
+}
+.prose blockquote p:last-of-type::after {
+  content: none;
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>John Munson&apos;s Blog</title>
+    <link>https://johnmunson.com</link>
+    <atom:link href="https://johnmunson.com/rss.xml" rel="self" type="application/rss+xml" />
+    <description><![CDATA[A blog of John Munson's thoughts and writings on assorted topics.]]></description>
+    <item>
+      <title>Interesting, unsolved technical problems for really cool people to solve when they get older in life</title>
+      <link>https://johnmunson.com/second-post</link>
+      <guid>https://johnmunson.com/second-post</guid>
+      <pubDate>Thu, 05 Oct 2023 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Hello World</title>
+      <link>https://johnmunson.com/hello-world</link>
+      <guid>https://johnmunson.com/hello-world</guid>
+      <pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

@@ -2,13 +2,19 @@ import Link from "next/link";
 import { getAllPosts } from "../lib/markdown";
 import { formatDate } from "@/lib/utils";
 import { DateText } from "@/components/date-text";
+import { RssIcon } from "@/components/rss-icon";
 
 export default async function Home() {
   const allPosts = await getAllPosts();
 
   return (
-    <main className="prose-h1:text-xl prose-h1:font-bold prose-ul:pl-0 prose-li:pl-0">
-      <h1>John Munson’s Blog</h1>
+    <main className="prose-ul:pl-0 prose-li:pl-0">
+      <div className="not-prose flex items-center">
+        <h1 className="text-xl font-bold">{process.env.SITE_TITLE}</h1>
+        <Link href="/rss.xml" aria-label="RSS feed">
+          <RssIcon className="size-5 ml-2.5" />
+        </Link>
+      </div>
       <p>
         Hello there. Welcome to my website. This is where I post very important
         things on extremely serious topics--none of which are likely to improve

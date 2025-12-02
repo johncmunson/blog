@@ -13,9 +13,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "John Munson’s Blog",
-  description:
-    "This is where I post very important things on extremely serious topics.",
+  title: process.env.SITE_TITLE!,
+  description: process.env.SITE_DESCRIPTION!,
 };
 
 export default function RootLayout({
@@ -26,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-[70ch] m-2.5 prose dark:prose-invert`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-[70ch] m-2.5 prose dark:prose-invert prose-hr:my-10`}
       >
         <div className="font-sans">{children}</div>
       </body>
