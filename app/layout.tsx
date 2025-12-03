@@ -32,24 +32,21 @@ export default function RootLayout({
         <div className="font-sans">{children}</div>
         <hr />
         <footer className="text-xs flex items-center">
-          <Image
-            src="/logo-light.svg"
-            alt="Logo"
-            width={42}
-            height={42}
-            className="m-0!"
-          />
+          <a href="https://github.com/johncmunson/blog">
+            <Image
+              src="/logo-light.svg"
+              alt="Logo"
+              width={42}
+              height={42}
+              className="m-0!"
+            />
+          </a>
           <div className="ml-2.5">
             <p className="mb-0">
-              <Link href="https://github.com/johncmunson">Github</Link> •{" "}
-              <Link href="https://x.com/curtismunson">Twitter</Link> •{" "}
-              <Link href="https://www.instagram.com/john_munson_91/">
-                Instagram
-              </Link>{" "}
-              •{" "}
-              <Link href="https://www.linkedin.com/in/john-munson/">
-                LinkedIn
-              </Link>
+              <a href="https://github.com/johncmunson">Github</a> •{" "}
+              <a href="https://x.com/curtismunson">Twitter</a> •{" "}
+              <a href="https://www.instagram.com/john_munson_91/">Instagram</a>{" "}
+              • <a href="https://www.linkedin.com/in/john-munson/">LinkedIn</a>
             </p>
             <p className="mt-1.5">
               Code: MIT License // Content: Licensed under CC BY 4.0
