@@ -37,7 +37,16 @@ export default function RootLayout({
               alt="Logo"
               width={42}
               height={42}
-              className="m-0!"
+              className="m-0! dark:hidden"
+              priority
+            />
+            <Image
+              src="/logo-dark.svg"
+              alt="Logo (dark mode)"
+              width={42}
+              height={42}
+              className="m-0! hidden dark:inline"
+              priority
             />
           </a>
           <div className="ml-2.5">
