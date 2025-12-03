@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Link from "next/link";
+import Image from "next/image";
 
 const geistSans = localFont({
   variable: "--font-geist-sans",
@@ -30,15 +31,30 @@ export default function RootLayout({
       >
         <div className="font-sans">{children}</div>
         <hr />
-        <footer className="text-xs">
-          <p>
-            <Link href="https://github.com/johncmunson">Github</Link> •{" "}
-            <Link href="https://x.com/curtismunson">Twitter</Link> •{" "}
-            <Link href="https://www.linkedin.com/in/john-munson/">
-              LinkedIn
-            </Link>
-          </p>
-          <p>Code: MIT License // Content: Licensed under CC BY 4.0</p>
+        <footer className="text-xs flex items-center">
+          <Image
+            src="/logo-light.svg"
+            alt="Logo"
+            width={42}
+            height={42}
+            className="m-0!"
+          />
+          <div className="ml-2.5">
+            <p className="mb-0">
+              <Link href="https://github.com/johncmunson">Github</Link> •{" "}
+              <Link href="https://x.com/curtismunson">Twitter</Link> •{" "}
+              <Link href="https://www.instagram.com/john_munson_91/">
+                Instagram
+              </Link>{" "}
+              •{" "}
+              <Link href="https://www.linkedin.com/in/john-munson/">
+                LinkedIn
+              </Link>
+            </p>
+            <p className="mt-1.5">
+              Code: MIT License // Content: Licensed under CC BY 4.0
+            </p>
+          </div>
         </footer>
       </body>
     </html>
