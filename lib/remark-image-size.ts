@@ -1,6 +1,8 @@
 import path from "node:path";
 import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
+import type { Root, Image as MdastImage } from "mdast";
+import type { VFile } from "vfile";
 
 export interface RemarkImageSizeOptions {
   /**
@@ -10,23 +12,7 @@ export interface RemarkImageSizeOptions {
   publicDir?: string;
 }
 
-interface UnistNode {
-  type: string;
-  [key: string]: unknown;
-}
-
-interface MdastRoot extends UnistNode {
-  type: "root";
-  children: UnistNode[];
-}
-
-interface MdastImage extends UnistNode {
-  type: "image";
-  url: string;
-  alt?: string | null;
-  title?: string | null;
-}
-
+// mdast image node plus the `data.hProperties` shape
 type ImageNode = MdastImage & {
   data?: {
     hProperties?: Record<string, unknown>;
@@ -36,13 +22,12 @@ type ImageNode = MdastImage & {
 
 const EXTERNAL_URL_REGEX = /^https?:\/\//i;
 
-export const remarkImageSize: Plugin<[RemarkImageSizeOptions?], MdastRoot> = (
+export const remarkImageSize: Plugin<[RemarkImageSizeOptions?], Root> = (
   options = {}
 ) => {
   const { publicDir = path.join(process.cwd(), "public") } = options;
 
-  // @ts-expect-error - missing types for unified plugins
-  return async (tree, file) => {
+  return async (tree: Root, file: VFile): Promise<void> => {
     const tasks: Promise<void>[] = [];
 
     visit(tree, "image", (node) => {
