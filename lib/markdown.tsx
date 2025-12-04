@@ -20,6 +20,7 @@ import type { ComponentProps } from "react";
 import { remarkImageSize } from "./remark-image-size";
 import { LinkIcon } from "@/components/link-icon";
 import rehypeRaw from "rehype-raw";
+import "@/tmp/reload-trigger";
 
 const contentDirectory = path.join(process.cwd(), "content");
 const filenames = fs.readdirSync(contentDirectory);
