@@ -26,7 +26,36 @@ import type { Root, Blockquote, ListItem, Paragraph } from "mdast";
 import "@/tmp/reload-trigger";
 
 const contentDirectory = path.join(process.cwd(), "content");
-const filenames = fs.readdirSync(contentDirectory);
+
+let cachedContentFilenames: string[] | null = null;
+
+function getContentFilenames(): string[] {
+  if (!cachedContentFilenames) {
+    cachedContentFilenames = fs.readdirSync(contentDirectory);
+  }
+
+  return cachedContentFilenames;
+}
+
+function findFilenameBySlug(slug: string): string | undefined {
+  return getContentFilenames().find((filename) =>
+    filename.endsWith(`.${slug}.md`)
+  );
+}
+
+function parsePostFilename(filename: string): { date: string; slug: string } {
+  const parts = filename.split(".");
+
+  if (parts.length < 3) {
+    throw new Error(
+      `[markdown] Invalid content filename "${filename}". Expected format "YYYY-MM-DD.post-slug.md".`
+    );
+  }
+
+  const [date, slug] = parts;
+
+  return { date, slug };
+}
 
 const CustomLink = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
   const { href, children, ...rest } = props;
@@ -70,7 +99,9 @@ export const tightenBlockquoteLists: Plugin<[], Root> = () => {
   };
 };
 
-const MarkdownImage = (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
+// Expects width/height to be present on the img element, which is ensured
+// by running remark-image-size before remarkRehype in the markdown pipeline.
+const MarkdownImage = (props: ComponentProps<"img">) => {
   const { src, alt = "", width, height, ...rest } = props;
 
   if (typeof src !== "string" || src.length === 0) {
@@ -112,84 +143,107 @@ interface PostData {
   content: React.ReactNode;
 }
 
+interface Frontmatter {
+  title: string;
+  // Allow additional frontmatter properties without constraining them here.
+  [key: string]: unknown;
+}
+
+const markdownComponents = {
+  h1: (props: ComponentProps<"h1">) => (
+    <h2 {...props} />
+    // If adding additional classes, merge them in like this:
+    // <h2 {...props} className={cn(props.className, "foo bar")} />
+  ),
+  h2: (props: ComponentProps<"h2">) => <h2 {...props} />,
+  h3: (props: ComponentProps<"h3">) => <h2 {...props} />,
+  h4: (props: ComponentProps<"h4">) => <h2 {...props} />,
+  h5: (props: ComponentProps<"h5">) => <h2 {...props} />,
+  h6: (props: ComponentProps<"h6">) => <h2 {...props} />,
+  a: CustomLink,
+  img: MarkdownImage,
+  span: (props: ComponentProps<"span">) => {
+    if ("data-link-icon" in props) {
+      return (
+        <span {...props}>
+          <LinkIcon className="size-3.5" />
+        </span>
+      );
+    }
+    return <span {...props} />;
+  },
+};
+
+function createMarkdownProcessor() {
+  return (
+    unified()
+      .use(remarkParse)
+      .use(remarkFrontmatter)
+      .use(() => (_: unknown, file: VFile) => {
+        matter(file);
+      })
+      .use(remarkImageSize)
+      .use(remarkGfm)
+      .use(tightenBlockquoteLists)
+      // Intentionally allow raw HTML in markdown and pass it through.
+      .use(remarkRehype, { allowDangerousHtml: true })
+      .use(rehypeRaw)
+      .use(rehypeShiki, {
+        themes: {
+          light: "one-light",
+          dark: "one-dark-pro",
+          // light: "github-light",
+          // dark: "github-dark",
+        },
+      })
+      .use(rehypeSlug)
+      .use(rehypeAutolinkHeadings, {
+        behavior: "append",
+        content: [
+          {
+            type: "element",
+            tagName: "span",
+            properties: { "data-link-icon": "" },
+            children: [],
+          },
+        ],
+        properties: {
+          class: "heading-anchor",
+          ariaHidden: true,
+          tabIndex: -1,
+        },
+        headingProperties: { class: "with-heading-anchor" },
+      })
+      .use(rehypeReact, {
+        ...production,
+        components: markdownComponents,
+      })
+  );
+}
+
 export async function getPostData(slug: string): Promise<PostData> {
-  const filename = filenames.find((fn) => fn.endsWith(`.${slug}.md`));
+  const filename = findFilenameBySlug(slug);
 
   if (!filename) {
     throw new Error(`Post not found for slug: ${slug}`);
   }
 
-  const date = filename.split(".")[0];
+  const { date } = parsePostFilename(filename);
 
   const fullPath = path.join(contentDirectory, filename);
 
-  const file = await unified()
-    .use(remarkParse)
-    .use(remarkFrontmatter)
-    .use(() => (_: unknown, file: VFile) => {
-      matter(file);
-    })
-    .use(remarkImageSize)
-    .use(remarkGfm)
-    .use(tightenBlockquoteLists)
-    .use(remarkRehype, { allowDangerousHtml: true })
-    .use(rehypeRaw)
-    .use(rehypeShiki, {
-      themes: {
-        light: "one-light",
-        dark: "one-dark-pro",
-        // light: "github-light",
-        // dark: "github-dark",
-      },
-    })
-    .use(rehypeSlug)
-    .use(rehypeAutolinkHeadings, {
-      behavior: "append",
-      content: [
-        {
-          type: "element",
-          tagName: "span",
-          properties: { "data-link-icon": "" },
-          children: [],
-        },
-      ],
-      properties: {
-        class: "heading-anchor",
-        ariaHidden: true,
-        tabIndex: -1,
-      },
-      headingProperties: { class: "with-heading-anchor" },
-    })
-    .use(rehypeReact, {
-      ...production,
-      components: {
-        h1: (props: ComponentProps<"h1">) => (
-          <h2 {...props} />
-          // If adding additional classes, do it like this:
-          // <h2 {...props} className={cn(props.className, "foo bar")} />
-        ),
-        h2: (props: ComponentProps<"h2">) => <h2 {...props} />,
-        h3: (props: ComponentProps<"h3">) => <h2 {...props} />,
-        h4: (props: ComponentProps<"h4">) => <h2 {...props} />,
-        h5: (props: ComponentProps<"h5">) => <h2 {...props} />,
-        h6: (props: ComponentProps<"h6">) => <h2 {...props} />,
-        a: CustomLink,
-        img: MarkdownImage,
-        span: (props: ComponentProps<"span">) => {
-          if ("data-link-icon" in props) {
-            return (
-              <span {...props}>
-                <LinkIcon className="size-3.5" />
-              </span>
-            );
-          }
-          return <span {...props} />;
-        },
-      },
-    })
-    .process(await read(fullPath));
+  const processor = createMarkdownProcessor();
+  const file = await processor.process(await read(fullPath));
 
-  const title = file.data.matter.title;
+  const frontmatter = file.data.matter as Frontmatter | undefined;
+
+  if (!frontmatter || !frontmatter.title) {
+    throw new Error(
+      `[markdown] Missing required "title" frontmatter in "${filename}".`
+    );
+  }
+
+  const title = frontmatter.title;
 
   return {
     slug,
@@ -201,16 +255,22 @@ export async function getPostData(slug: string): Promise<PostData> {
 
 export async function getAllPosts() {
   const allPostsData = await Promise.all(
-    filenames.map(async (filename) => {
-      const date = filename.split(".")[0];
-      const slug = filename.split(".")[1];
+    getContentFilenames().map(async (filename) => {
+      const { date, slug } = parsePostFilename(filename);
 
       const fullPath = path.join(contentDirectory, filename);
 
       const file = await read(fullPath);
       matter(file);
-      // @ts-expect-error - not a good way to type matter
-      const title = file.data.matter.title;
+      const frontmatter = file.data.matter as Frontmatter | undefined;
+
+      if (!frontmatter || !frontmatter.title) {
+        throw new Error(
+          `[markdown] Missing required "title" frontmatter in "${filename}".`
+        );
+      }
+
+      const title = frontmatter.title;
 
       return {
         slug,
@@ -222,10 +282,6 @@ export async function getAllPosts() {
 
   // Sort posts by date
   return allPostsData.sort((a, b) => {
-    if (a.date < b.date) {
-      return 1;
-    } else {
-      return -1;
-    }
+    return a.date < b.date ? 1 : -1;
   });
 }
