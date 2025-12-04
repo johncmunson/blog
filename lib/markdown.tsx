@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { unified } from "unified";
+import { unified, type Plugin } from "unified";
 import remarkParse from "remark-parse";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
@@ -20,6 +20,9 @@ import type { ComponentProps } from "react";
 import { remarkImageSize } from "./remark-image-size";
 import { LinkIcon } from "@/components/link-icon";
 import rehypeRaw from "rehype-raw";
+import { visit } from "unist-util-visit";
+// the mdast package is not actually installed, but @types/mdast is and this is how we get the types
+import type { Root, Blockquote, ListItem, Paragraph } from "mdast";
 import "@/tmp/reload-trigger";
 
 const contentDirectory = path.join(process.cwd(), "content");
@@ -41,6 +44,30 @@ const CustomLink = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
       {children}
     </a>
   );
+};
+
+// Remark, annoyingly, treats regular list and lists inside blockquotes differently.
+// Regular list items render as "tight": <li>some text</li>
+// Blockquote list items render as "loose": <li><p>some text</p></li>
+// This plugin standardizes blockquote lists to be tight as well.
+// https://github.com/remarkjs/remark/issues/104
+export const tightenBlockquoteLists: Plugin<[], Root> = () => {
+  return (tree: Root) => {
+    visit(tree, "blockquote", (blockquoteNode) => {
+      const blockquote = blockquoteNode as Blockquote;
+
+      visit(blockquote, "listItem", (listItemNode) => {
+        const item = listItemNode as ListItem;
+        if (
+          item.children.length === 1 &&
+          item.children[0].type === "paragraph"
+        ) {
+          const paragraph = item.children[0] as Paragraph;
+          item.children = paragraph.children as typeof item.children;
+        }
+      });
+    });
+  };
 };
 
 const MarkdownImage = (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
@@ -104,6 +131,7 @@ export async function getPostData(slug: string): Promise<PostData> {
     })
     .use(remarkImageSize)
     .use(remarkGfm)
+    .use(tightenBlockquoteLists)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
     .use(rehypeShiki, {

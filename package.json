@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:watch": "concurrently \"pnpm dev\" \"tsx scripts/watch-content.ts\"",
+    "dev:watch": "concurrently \"tsx scripts/watch-content.ts\" \"pnpm dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
@@ -37,6 +37,7 @@
     "@next/env": "^16.0.6",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.19",
+    "@types/mdast": "^4.0.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
