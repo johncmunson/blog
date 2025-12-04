@@ -1,0 +1,3 @@
+- Vercel Analytics
+- Sitemap
+- OG Images
