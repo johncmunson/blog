@@ -16,7 +16,7 @@ export default async function Home() {
         </Link>
       </div>
 
-      <p>
+      <p className="mt-7">
         Hello there. Think of this space as a carefully curated archive of
         thoughts no one asked for, arranged with just enough enthusiasm to
         suggest purpose without actually providing any. If you’re looking for

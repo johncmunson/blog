@@ -24,7 +24,7 @@ export default async function Post({
         {"<<"} back
       </Link>
       <article className="mt-6">
-        <h1 className="font-bold text-xl mb-0">{postData.title}</h1>
+        <h1 className="font-bold text-xl mt-9 mb-0">{postData.title}</h1>
         <DateText>{formatDate(postData.date)}</DateText>
         <div className="mt-8">{postData.content}</div>
       </article>
