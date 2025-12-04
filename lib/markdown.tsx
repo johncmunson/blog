@@ -19,6 +19,7 @@ import { matter } from "vfile-matter";
 import type { ComponentProps } from "react";
 import { remarkImageSize } from "./remark-image-size";
 import { LinkIcon } from "@/components/link-icon";
+import rehypeRaw from "rehype-raw";
 
 const contentDirectory = path.join(process.cwd(), "content");
 const filenames = fs.readdirSync(contentDirectory);
@@ -102,7 +103,8 @@ export async function getPostData(slug: string): Promise<PostData> {
     })
     .use(remarkImageSize)
     .use(remarkGfm)
-    .use(remarkRehype)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
     .use(rehypeShiki, {
       themes: {
         light: "one-light",
