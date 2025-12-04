@@ -7,5 +7,7 @@
 
 ## Features
 
+- Security Patch
+  - https://vercel.com/changelog/cve-2025-55182
 - Vercel Analytics
 - OG Images
