@@ -19,11 +19,11 @@ export default async function Post({
   const postData = await getPostData(slug);
 
   return (
-    <main className="prose-h2:text-base prose-h2:font-bold prose-h2:mt-0">
+    <main className="prose-h2:text-base prose-h2:font-bold">
       <Link href="/" className="text-sm">
         {"<<"} back
       </Link>
-      <article className="mt-6">
+      <article>
         <h1 className="font-bold text-xl mt-9 mb-0">{postData.title}</h1>
         <DateText>{formatDate(postData.date)}</DateText>
         <div className="mt-8">{postData.content}</div>
