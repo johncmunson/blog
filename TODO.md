@@ -4,6 +4,7 @@
 
 - How this blog was built
 - Why build a custom blog in 2025?
+- Keeping lighthouse scores high
 - Locksmith project
 - Spec Kit vs BMAD
 - Publish custom remark-image-size plugin to npm
