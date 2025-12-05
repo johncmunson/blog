@@ -4,15 +4,9 @@ import path from "path";
 const CONTENT_DIR = path.join(process.cwd(), "content");
 const TRIGGER_FILE = path.join(process.cwd(), "tmp", "reload-trigger.ts");
 
-// Ensure tmp directory exists
-fs.mkdirSync(path.dirname(TRIGGER_FILE), { recursive: true });
-
-// Ensure reload-trigger.ts exists
-fs.closeSync(fs.openSync(TRIGGER_FILE, "a"));
-
 function triggerReload() {
   const stamp = `// reload: ${Date.now()}`;
-  fs.writeFileSync(TRIGGER_FILE, stamp);
+  fs.writeFileSync(TRIGGER_FILE, `${stamp}\nexport {};\n`);
   console.log("[HMR] Triggered reload:", stamp);
 }
 
