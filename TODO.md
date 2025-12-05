@@ -6,12 +6,13 @@
 - Why build a custom blog in 2025?
 - Locksmith project
 - Spec Kit vs BMAD
+- Publish custom remark-image-size plugin to npm
+  - Inspiration: https://fumadocs.dev/docs/headless/mdx/remark-image
 
 ## Features
 
-- Security Patch
-  - https://vercel.com/changelog/cve-2025-55182
 - Vercel Analytics
 - OG Images
 - Lighthouse Audit
 - Consider the following route structure: /blog/post-slug
+- Contact form

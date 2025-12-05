@@ -17,11 +17,11 @@ export default async function Home() {
       </div>
 
       <p className="mt-7">
-        Hello there. Think of this space as a carefully curated archive of
-        thoughts no one asked for, arranged with just enough enthusiasm to
-        suggest purpose without actually providing any. If you’re looking for
-        practical advice, profound wisdom, or even a mildly useful tip, you may
-        be disappointed.
+        I write code, play soccer, drink more coffee than recommended, and
+        generally follow my ADHD-powered curiosity into far too many side
+        quests. Always learning, always tinkering. My blog collects the things
+        I’ve built, explored, or gotten distracted by. Dive in, but don’t expect
+        much of a straight line or common thread.
       </p>
 
       <hr />
