@@ -13,7 +13,7 @@ function triggerReload() {
 function watchMarkdownFiles() {
   console.log(`Watching markdown files in: ${CONTENT_DIR}`);
 
-  fs.watch(CONTENT_DIR, { recursive: true }, (eventType, filename) => {
+  fs.watch(CONTENT_DIR, { recursive: true }, (_eventType, filename) => {
     if (!filename) return;
 
     if (filename.endsWith(".md")) {
