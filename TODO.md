@@ -8,6 +8,8 @@
 - Spec Kit vs BMAD
 - Publish custom remark-image-size plugin to npm
   - Inspiration: https://fumadocs.dev/docs/headless/mdx/remark-image
+- Why this blog is effectively fully static, even though Next.js insists on creating an ISR function
+  - https://community.vercel.com/t/why-do-entirely-static-next-js-app-router-apps-generate-isr-functions/2088
 
 ## Features
 
