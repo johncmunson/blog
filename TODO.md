@@ -18,3 +18,5 @@
 - Lighthouse Audit
 - Consider the following route structure: /blog/post-slug
 - Contact form
+- Prevent Vercel from building and deploying when non-important files like README or TODO change
+  - https://chatgpt.com/c/693243d8-d128-8326-bbeb-fe2e6f2e7f48
