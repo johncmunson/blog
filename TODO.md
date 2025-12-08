@@ -2,7 +2,6 @@
 
 ## Blog Posts
 
-- How this blog was built
 - Why build a custom blog in 2025?
 - Keeping lighthouse scores high
 - Locksmith project
@@ -11,10 +10,14 @@
   - Inspiration: https://fumadocs.dev/docs/headless/mdx/remark-image
 - Why this blog is effectively fully static, even though Next.js insists on creating an ISR function
   - https://community.vercel.com/t/why-do-entirely-static-next-js-app-router-apps-generate-isr-functions/2088
+- Browser-based video editor using Mediabunny
+- Pirating fonts out of the dev tools
+- The one very important thing you will learn when building with HTMX
 
 ## Features
 
 - Vercel Analytics
+- YouTube, Insta, Twitter embeds
 - OG Images
 - Lighthouse Audit
 - Consider the following route structure: /blog/post-slug
