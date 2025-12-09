@@ -28,7 +28,9 @@ const processor = unified()
 
 async function readPosts(contentDir: string): Promise<PostMeta[]> {
   const entries = await fs.readdir(contentDir);
-  const markdownFiles = entries.filter((name) => name.endsWith(".md"));
+  const markdownFiles = entries.filter(
+    (name) => name.endsWith(".md") && !name.startsWith("DRAFT.")
+  );
 
   const summaries = await Promise.all(
     markdownFiles.map(async (filename) => {
