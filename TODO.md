@@ -5,6 +5,8 @@
 - Why build a custom blog in 2025?
 - Keeping lighthouse scores high
 - Locksmith project
+- VSCode + Copilot vs Cursor
+- OpenAI Codex vs OpenCode
 - Spec Kit vs BMAD
 - Publish custom remark-image-size plugin to npm
   - Inspiration: https://fumadocs.dev/docs/headless/mdx/remark-image
@@ -13,6 +15,10 @@
 - Browser-based video editor using Mediabunny
 - Pirating fonts out of the dev tools
 - The one very important thing you will learn when building with HTMX
+- How Iterative Canvas was going to work
+- How I Lift, What I Eat, Etc.
+- How to tell Vercel to ignore certain files so that it doesn't unnecessarily build and deploy
+- Plaid app to download financial transactions
 
 ## Features
 
