@@ -23,6 +23,7 @@ import rehypeRaw from "rehype-raw";
 import { visit } from "unist-util-visit";
 // the mdast package is not actually installed, but @types/mdast is and this is how we get the types
 import type { Root, Blockquote, ListItem, Paragraph } from "mdast";
+import { dateObjToYYYYMMDD } from "@/lib/utils";
 import "@/tmp/reload-trigger";
 
 const contentDirectory = path.join(process.cwd(), "content");
@@ -51,26 +52,14 @@ function parsePostFilename(filename: string): { date: string; slug: string } {
   const isDraft = isDraftFilename(filename);
   const parts = filename.split(".");
 
-  // Regular: YYYY-MM-DD.post-slug.md (3 parts)
-  // Draft: DRAFT.YYYY-MM-DD.post-slug.md (4 parts)
-  const minParts = isDraft ? 4 : 3;
-
-  if (parts.length < minParts) {
+  if (parts.length < 3) {
     throw new Error(
-      `[markdown] Invalid content filename "${filename}". Expected format "${
-        isDraft ? "DRAFT." : ""
-      }YYYY-MM-DD.post-slug.md".`
+      `[markdown] Invalid content filename "${filename}". Expected format "YYYY-MM-DD.post-slug.md", or "DRAFT.YYYY-MM-DD.post-slug.md".`
     );
   }
 
-  if (isDraft) {
-    // Skip the "DRAFT" part
-    const [, date, ...slugParts] = parts;
-    const slug = slugParts.slice(0, -1).join("."); // Remove .md extension
-    return { date, slug };
-  }
-
-  const [date, slug] = parts;
+  const date = isDraft ? dateObjToYYYYMMDD(new Date()) : parts[0];
+  const slug = parts[1];
 
   return { date, slug };
 }
@@ -154,19 +143,21 @@ const MarkdownImage = (props: ComponentProps<"img">) => {
 
 const production = { Fragment, jsx, jsxs };
 
-interface PostData {
+type PostData = {
   slug: string;
   date: string;
   title: string;
   content: React.ReactNode;
   isDraft: boolean;
-}
+};
 
-interface Frontmatter {
+type PostMeta = Omit<PostData, "content">;
+
+type Frontmatter = {
   title: string;
   // Allow additional frontmatter properties without constraining them here.
   [key: string]: unknown;
-}
+};
 
 const markdownComponents = {
   h1: (props: ComponentProps<"h1">) => (
@@ -274,7 +265,9 @@ export async function getPostData(slug: string): Promise<PostData> {
   };
 }
 
-export async function getAllPosts(includeDrafts: boolean = false) {
+export async function getAllPosts(
+  includeDrafts: boolean = false
+): Promise<PostMeta[]> {
   const allPostsData = await Promise.all(
     getContentFilenames()
       .filter((filename) => {
