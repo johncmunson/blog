@@ -4,7 +4,8 @@ import { formatDate } from "@/lib/utils";
 import { DateText } from "@/components/date-text";
 
 export async function generateStaticParams() {
-  const posts = await getAllPosts();
+  const includeDrafts = process.env.NODE_ENV === "development";
+  const posts = await getAllPosts(includeDrafts);
   return posts.map((post) => ({
     slug: post.slug,
   }));

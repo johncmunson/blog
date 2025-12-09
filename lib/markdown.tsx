@@ -43,13 +43,31 @@ function findFilenameBySlug(slug: string): string | undefined {
   );
 }
 
+function isDraftFilename(filename: string): boolean {
+  return filename.startsWith("DRAFT.");
+}
+
 function parsePostFilename(filename: string): { date: string; slug: string } {
+  const isDraft = isDraftFilename(filename);
   const parts = filename.split(".");
 
-  if (parts.length < 3) {
+  // Regular: YYYY-MM-DD.post-slug.md (3 parts)
+  // Draft: DRAFT.YYYY-MM-DD.post-slug.md (4 parts)
+  const minParts = isDraft ? 4 : 3;
+
+  if (parts.length < minParts) {
     throw new Error(
-      `[markdown] Invalid content filename "${filename}". Expected format "YYYY-MM-DD.post-slug.md".`
+      `[markdown] Invalid content filename "${filename}". Expected format "${
+        isDraft ? "DRAFT." : ""
+      }YYYY-MM-DD.post-slug.md".`
     );
+  }
+
+  if (isDraft) {
+    // Skip the "DRAFT" part
+    const [, date, ...slugParts] = parts;
+    const slug = slugParts.slice(0, -1).join("."); // Remove .md extension
+    return { date, slug };
   }
 
   const [date, slug] = parts;
@@ -253,31 +271,39 @@ export async function getPostData(slug: string): Promise<PostData> {
   };
 }
 
-export async function getAllPosts() {
+export async function getAllPosts(includeDrafts: boolean = false) {
   const allPostsData = await Promise.all(
-    getContentFilenames().map(async (filename) => {
-      const { date, slug } = parsePostFilename(filename);
+    getContentFilenames()
+      .filter((filename) => {
+        // Filter out drafts unless includeDrafts is true
+        if (isDraftFilename(filename)) {
+          return includeDrafts;
+        }
+        return true;
+      })
+      .map(async (filename) => {
+        const { date, slug } = parsePostFilename(filename);
 
-      const fullPath = path.join(contentDirectory, filename);
+        const fullPath = path.join(contentDirectory, filename);
 
-      const file = await read(fullPath);
-      matter(file);
-      const frontmatter = file.data.matter as Frontmatter | undefined;
+        const file = await read(fullPath);
+        matter(file);
+        const frontmatter = file.data.matter as Frontmatter | undefined;
 
-      if (!frontmatter || !frontmatter.title) {
-        throw new Error(
-          `[markdown] Missing required "title" frontmatter in "${filename}".`
-        );
-      }
+        if (!frontmatter || !frontmatter.title) {
+          throw new Error(
+            `[markdown] Missing required "title" frontmatter in "${filename}".`
+          );
+        }
 
-      const title = frontmatter.title;
+        const title = frontmatter.title;
 
-      return {
-        slug,
-        title,
-        date,
-      };
-    })
+        return {
+          slug,
+          title,
+          date,
+        };
+      })
   );
 
   // Sort posts by date
