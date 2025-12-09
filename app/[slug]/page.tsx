@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getPostData, getAllPosts } from "../../lib/markdown";
 import { formatDate } from "@/lib/utils";
 import { DateText } from "@/components/date-text";
+import { PencilLineIcon } from "@/components/pencil-line-icon";
 
 export async function generateStaticParams() {
   const includeDrafts = process.env.NODE_ENV === "development";
@@ -29,7 +30,14 @@ export default async function Post({
         {"<<"} back
       </Link>
       <article>
-        <h1 className="font-bold text-xl mt-9 mb-0">{postData.title}</h1>
+        <div className="not-prose flex items-center gap-2 mt-9 mb-0">
+          <h1 className="font-bold text-xl">{postData.title}</h1>
+          {postData.isDraft && (
+            <span title="This is a draft post">
+              <PencilLineIcon className="size-5 text-red-500 shrink-0" />
+            </span>
+          )}
+        </div>
         <DateText>{formatDate(postData.date)}</DateText>
         <div className="mt-8">{postData.content}</div>
       </article>

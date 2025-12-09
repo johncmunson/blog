@@ -3,9 +3,11 @@ import { getAllPosts } from "../lib/markdown";
 import { formatDate } from "@/lib/utils";
 import { DateText } from "@/components/date-text";
 import { RssIcon } from "@/components/rss-icon";
+import { PencilLineIcon } from "@/components/pencil-line-icon";
 
 export default async function Home() {
-  const allPosts = await getAllPosts();
+  const includeDrafts = process.env.NODE_ENV === "development";
+  const allPosts = await getAllPosts(includeDrafts);
 
   return (
     <main className="prose-ul:pl-0 prose-li:pl-0">
@@ -32,9 +34,16 @@ export default async function Home() {
             key={post.slug}
             className="flex items-center justify-between w-full"
           >
-            <Link href={`/${post.slug}`} className="truncate">
-              {post.title}
-            </Link>
+            <div className="flex items-center gap-2 truncate">
+              {post.isDraft && (
+                <span title="This is a draft post">
+                  <PencilLineIcon className="size-4 text-red-500 shrink-0" />
+                </span>
+              )}
+              <Link href={`/${post.slug}`} className="truncate">
+                {post.title}
+              </Link>
+            </div>
             <DateText className="shrink-0 ml-8">
               {formatDate(post.date)}
             </DateText>

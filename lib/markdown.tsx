@@ -159,6 +159,7 @@ interface PostData {
   date: string;
   title: string;
   content: React.ReactNode;
+  isDraft: boolean;
 }
 
 interface Frontmatter {
@@ -246,6 +247,7 @@ export async function getPostData(slug: string): Promise<PostData> {
     throw new Error(`Post not found for slug: ${slug}`);
   }
 
+  const isDraft = isDraftFilename(filename);
   const { date } = parsePostFilename(filename);
 
   const fullPath = path.join(contentDirectory, filename);
@@ -268,6 +270,7 @@ export async function getPostData(slug: string): Promise<PostData> {
     date,
     title,
     content: file.result as React.ReactNode,
+    isDraft,
   };
 }
 
@@ -282,6 +285,7 @@ export async function getAllPosts(includeDrafts: boolean = false) {
         return true;
       })
       .map(async (filename) => {
+        const isDraft = isDraftFilename(filename);
         const { date, slug } = parsePostFilename(filename);
 
         const fullPath = path.join(contentDirectory, filename);
@@ -302,6 +306,7 @@ export async function getAllPosts(includeDrafts: boolean = false) {
           slug,
           title,
           date,
+          isDraft,
         };
       })
   );
