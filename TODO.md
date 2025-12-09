@@ -19,6 +19,7 @@
 - How I Lift, What I Eat, Etc.
 - How to tell Vercel to ignore certain files so that it doesn't unnecessarily build and deploy
 - Plaid app to download financial transactions
+- How I used Figma to build my logo
 
 ## Features
 
