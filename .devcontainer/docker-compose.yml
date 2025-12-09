@@ -1,5 +1,3 @@
-version: "3.9"
-
 # Define the services/containers that will be created
 services:
   blog:
