@@ -6,7 +6,10 @@
 - Keeping lighthouse scores high
 - Locksmith project
 - VSCode + Copilot vs Cursor
+- Trying out Zed
 - OpenAI Codex vs OpenCode
+- Relace, Cerebras, Inception Labs, swe-grep
+- OpenTUI
 - Spec Kit vs BMAD
 - Publish custom remark-image-size plugin to npm
   - Inspiration: https://fumadocs.dev/docs/headless/mdx/remark-image
@@ -14,12 +17,18 @@
   - https://community.vercel.com/t/why-do-entirely-static-next-js-app-router-apps-generate-isr-functions/2088
 - Browser-based video editor using Mediabunny
 - Pirating fonts out of the dev tools
+  - https://chatgpt.com/c/6924e9e6-7c88-8327-8c87-18d639e421da
 - The one very important thing you will learn when building with HTMX
 - How Iterative Canvas was going to work
 - How I Lift, What I Eat, Etc.
 - How to tell Vercel to ignore certain files so that it doesn't unnecessarily build and deploy
 - Plaid app to download financial transactions
 - How I used Figma to build my logo
+- Helium Browser
+- Moving off of LastPass
+- https://buildlist.org/
+- Monarch vs Copilot Money
+- https://sli.dev/
 
 ## Features
 
