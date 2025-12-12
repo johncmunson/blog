@@ -12,6 +12,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "format": "prettier --write .",
     "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {
@@ -49,6 +50,8 @@
     "concurrently": "^9.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.0.7",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.7.4",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
     "typescript": "^5"
