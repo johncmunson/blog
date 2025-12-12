@@ -80,7 +80,7 @@
  * in any plugin or utility that touches `file.dirname`.
  */
 
-import "vfile";
+import "vfile"
 
 declare module "vfile" {
   interface VFile {
@@ -95,6 +95,6 @@ declare module "vfile" {
      * Our remark/rehype plugins use this to resolve image paths and other
      * file-relative resources.
      */
-    dirname?: string;
+    dirname?: string
   }
 }

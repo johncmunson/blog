@@ -1,24 +1,24 @@
-import Link from "next/link";
-import { getPostData, getAllPosts } from "../../lib/markdown";
-import { formatDate } from "@/lib/utils";
-import { DateText } from "@/components/date-text";
-import { PencilLineIcon } from "@/components/pencil-line-icon";
+import Link from "next/link"
+import { getPostData, getAllPosts } from "../../lib/markdown"
+import { formatDate } from "@/lib/utils"
+import { DateText } from "@/components/date-text"
+import { PencilLineIcon } from "@/components/pencil-line-icon"
 
 export async function generateStaticParams() {
-  const includeDrafts = process.env.NODE_ENV === "development";
-  const posts = await getAllPosts(includeDrafts);
+  const includeDrafts = process.env.NODE_ENV === "development"
+  const posts = await getAllPosts(includeDrafts)
   return posts.map((post) => ({
     slug: post.slug,
-  }));
+  }))
 }
 
 export default async function Post({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>
 }) {
-  const { slug } = await params;
-  const postData = await getPostData(slug);
+  const { slug } = await params
+  const postData = await getPostData(slug)
 
   return (
     // Keep paragraphs the same, but reduce the top/bottom margins slightly.
@@ -42,5 +42,5 @@ export default async function Post({
         <div className="mt-8">{postData.content}</div>
       </article>
     </main>
-  );
+  )
 }

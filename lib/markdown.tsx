@@ -1,86 +1,86 @@
-import fs from "fs";
-import path from "path";
-import { unified, type Plugin } from "unified";
-import remarkParse from "remark-parse";
-import remarkFrontmatter from "remark-frontmatter";
-import remarkGfm from "remark-gfm";
-import remarkRehype from "remark-rehype";
-import rehypeReact from "rehype-react";
-import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypeShiki from "@shikijs/rehype";
-import { jsx, jsxs } from "react/jsx-runtime";
-import Image from "next/image";
-import Link from "next/link";
-import React, { Fragment } from "react";
-import { type VFile } from "vfile";
-import { read } from "to-vfile";
-import { matter } from "vfile-matter";
-import type { ComponentProps } from "react";
-import { remarkImageSize } from "./remark-image-size";
-import { LinkIcon } from "@/components/link-icon";
-import rehypeRaw from "rehype-raw";
-import { visit } from "unist-util-visit";
+import fs from "fs"
+import path from "path"
+import { unified, type Plugin } from "unified"
+import remarkParse from "remark-parse"
+import remarkFrontmatter from "remark-frontmatter"
+import remarkGfm from "remark-gfm"
+import remarkRehype from "remark-rehype"
+import rehypeReact from "rehype-react"
+import rehypeSlug from "rehype-slug"
+import rehypeAutolinkHeadings from "rehype-autolink-headings"
+import rehypeShiki from "@shikijs/rehype"
+import { jsx, jsxs } from "react/jsx-runtime"
+import Image from "next/image"
+import Link from "next/link"
+import React, { Fragment } from "react"
+import { type VFile } from "vfile"
+import { read } from "to-vfile"
+import { matter } from "vfile-matter"
+import type { ComponentProps } from "react"
+import { remarkImageSize } from "./remark-image-size"
+import { LinkIcon } from "@/components/link-icon"
+import rehypeRaw from "rehype-raw"
+import { visit } from "unist-util-visit"
 // the mdast package is not actually installed, but @types/mdast is and this is how we get the types
-import type { Root, Blockquote, ListItem, Paragraph } from "mdast";
-import { dateObjToYYYYMMDD } from "@/lib/utils";
-import "@/tmp/reload-trigger";
+import type { Root, Blockquote, ListItem, Paragraph } from "mdast"
+import { dateObjToYYYYMMDD } from "@/lib/utils"
+import "@/tmp/reload-trigger"
 
-const contentDirectory = path.join(process.cwd(), "content");
+const contentDirectory = path.join(process.cwd(), "content")
 
-let cachedContentFilenames: string[] | null = null;
+let cachedContentFilenames: string[] | null = null
 
 function getContentFilenames(): string[] {
   if (!cachedContentFilenames) {
-    cachedContentFilenames = fs.readdirSync(contentDirectory);
+    cachedContentFilenames = fs.readdirSync(contentDirectory)
   }
 
-  return cachedContentFilenames;
+  return cachedContentFilenames
 }
 
 function findFilenameBySlug(slug: string): string | undefined {
   return getContentFilenames().find((filename) =>
-    filename.endsWith(`.${slug}.md`)
-  );
+    filename.endsWith(`.${slug}.md`),
+  )
 }
 
 function isDraftFilename(filename: string): boolean {
-  return filename.startsWith("DRAFT.");
+  return filename.startsWith("DRAFT.")
 }
 
 function parsePostFilename(filename: string): { date: string; slug: string } {
-  const isDraft = isDraftFilename(filename);
-  const parts = filename.split(".");
+  const isDraft = isDraftFilename(filename)
+  const parts = filename.split(".")
 
   if (parts.length < 3) {
     throw new Error(
-      `[markdown] Invalid content filename "${filename}". Expected format "YYYY-MM-DD.post-slug.md", or "DRAFT.YYYY-MM-DD.post-slug.md".`
-    );
+      `[markdown] Invalid content filename "${filename}". Expected format "YYYY-MM-DD.post-slug.md", or "DRAFT.YYYY-MM-DD.post-slug.md".`,
+    )
   }
 
-  const date = isDraft ? dateObjToYYYYMMDD(new Date()) : parts[0];
-  const slug = parts[1];
+  const date = isDraft ? dateObjToYYYYMMDD(new Date()) : parts[0]
+  const slug = parts[1]
 
-  return { date, slug };
+  return { date, slug }
 }
 
 const CustomLink = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
-  const { href, children, ...rest } = props;
+  const { href, children, ...rest } = props
 
   if (href && (href.startsWith("/") || href.startsWith("#"))) {
     return (
       <Link href={href} {...rest}>
         {children}
       </Link>
-    );
+    )
   }
 
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" {...rest}>
       {children}
     </a>
-  );
-};
+  )
+}
 
 // Remark, annoyingly, treats regular list and lists inside blockquotes differently.
 // Regular list items render as "tight": <li>some text</li>
@@ -90,44 +90,42 @@ const CustomLink = (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
 export const tightenBlockquoteLists: Plugin<[], Root> = () => {
   return (tree: Root) => {
     visit(tree, "blockquote", (blockquoteNode) => {
-      const blockquote = blockquoteNode as Blockquote;
+      const blockquote = blockquoteNode as Blockquote
 
       visit(blockquote, "listItem", (listItemNode) => {
-        const item = listItemNode as ListItem;
+        const item = listItemNode as ListItem
         if (
           item.children.length === 1 &&
           item.children[0].type === "paragraph"
         ) {
-          const paragraph = item.children[0] as Paragraph;
-          item.children = paragraph.children as typeof item.children;
+          const paragraph = item.children[0] as Paragraph
+          item.children = paragraph.children as typeof item.children
         }
-      });
-    });
-  };
-};
+      })
+    })
+  }
+}
 
 // Expects width/height to be present on the img element, which is ensured
 // by running remark-image-size before remarkRehype in the markdown pipeline.
 const MarkdownImage = (props: ComponentProps<"img">) => {
-  const { src, alt = "", width, height, ...rest } = props;
+  const { src, alt = "", width, height, ...rest } = props
 
   if (typeof src !== "string" || src.length === 0) {
-    throw new Error("[markdown] Missing image src while rendering markdown.");
+    throw new Error("[markdown] Missing image src while rendering markdown.")
   }
 
   const parsedWidth =
-    typeof width === "number"
-      ? width
-      : Number.parseInt(String(width ?? ""), 10);
+    typeof width === "number" ? width : Number.parseInt(String(width ?? ""), 10)
   const parsedHeight =
     typeof height === "number"
       ? height
-      : Number.parseInt(String(height ?? ""), 10);
+      : Number.parseInt(String(height ?? ""), 10)
 
   if (!Number.isFinite(parsedWidth) || !Number.isFinite(parsedHeight)) {
     throw new Error(
-      `[markdown] Missing image dimensions for "${src}". Did remark-image-size run?`
-    );
+      `[markdown] Missing image dimensions for "${src}". Did remark-image-size run?`,
+    )
   }
 
   return (
@@ -138,26 +136,26 @@ const MarkdownImage = (props: ComponentProps<"img">) => {
       height={parsedHeight}
       {...rest}
     />
-  );
-};
+  )
+}
 
-const production = { Fragment, jsx, jsxs };
+const production = { Fragment, jsx, jsxs }
 
 type PostData = {
-  slug: string;
-  date: string;
-  title: string;
-  content: React.ReactNode;
-  isDraft: boolean;
-};
+  slug: string
+  date: string
+  title: string
+  content: React.ReactNode
+  isDraft: boolean
+}
 
-type PostMeta = Omit<PostData, "content">;
+type PostMeta = Omit<PostData, "content">
 
 type Frontmatter = {
-  title: string;
+  title: string
   // Allow additional frontmatter properties without constraining them here.
-  [key: string]: unknown;
-};
+  [key: string]: unknown
+}
 
 const markdownComponents = {
   h1: (props: ComponentProps<"h1">) => (
@@ -178,11 +176,11 @@ const markdownComponents = {
         <span {...props}>
           <LinkIcon className="size-3.5" />
         </span>
-      );
+      )
     }
-    return <span {...props} />;
+    return <span {...props} />
   },
-};
+}
 
 function createMarkdownProcessor() {
   return (
@@ -190,7 +188,7 @@ function createMarkdownProcessor() {
       .use(remarkParse)
       .use(remarkFrontmatter)
       .use(() => (_: unknown, file: VFile) => {
-        matter(file);
+        matter(file)
       })
       .use(remarkImageSize)
       .use(remarkGfm)
@@ -228,33 +226,33 @@ function createMarkdownProcessor() {
         ...production,
         components: markdownComponents,
       })
-  );
+  )
 }
 
 export async function getPostData(slug: string): Promise<PostData> {
-  const filename = findFilenameBySlug(slug);
+  const filename = findFilenameBySlug(slug)
 
   if (!filename) {
-    throw new Error(`Post not found for slug: ${slug}`);
+    throw new Error(`Post not found for slug: ${slug}`)
   }
 
-  const isDraft = isDraftFilename(filename);
-  const { date } = parsePostFilename(filename);
+  const isDraft = isDraftFilename(filename)
+  const { date } = parsePostFilename(filename)
 
-  const fullPath = path.join(contentDirectory, filename);
+  const fullPath = path.join(contentDirectory, filename)
 
-  const processor = createMarkdownProcessor();
-  const file = await processor.process(await read(fullPath));
+  const processor = createMarkdownProcessor()
+  const file = await processor.process(await read(fullPath))
 
-  const frontmatter = file.data.matter as Frontmatter | undefined;
+  const frontmatter = file.data.matter as Frontmatter | undefined
 
   if (!frontmatter || !frontmatter.title) {
     throw new Error(
-      `[markdown] Missing required "title" frontmatter in "${filename}".`
-    );
+      `[markdown] Missing required "title" frontmatter in "${filename}".`,
+    )
   }
 
-  const title = frontmatter.title;
+  const title = frontmatter.title
 
   return {
     slug,
@@ -262,50 +260,50 @@ export async function getPostData(slug: string): Promise<PostData> {
     title,
     content: file.result as React.ReactNode,
     isDraft,
-  };
+  }
 }
 
 export async function getAllPosts(
-  includeDrafts: boolean = false
+  includeDrafts: boolean = false,
 ): Promise<PostMeta[]> {
   const allPostsData = await Promise.all(
     getContentFilenames()
       .filter((filename) => {
         // Filter out drafts unless includeDrafts is true
         if (isDraftFilename(filename)) {
-          return includeDrafts;
+          return includeDrafts
         }
-        return true;
+        return true
       })
       .map(async (filename) => {
-        const isDraft = isDraftFilename(filename);
-        const { date, slug } = parsePostFilename(filename);
+        const isDraft = isDraftFilename(filename)
+        const { date, slug } = parsePostFilename(filename)
 
-        const fullPath = path.join(contentDirectory, filename);
+        const fullPath = path.join(contentDirectory, filename)
 
-        const file = await read(fullPath);
-        matter(file);
-        const frontmatter = file.data.matter as Frontmatter | undefined;
+        const file = await read(fullPath)
+        matter(file)
+        const frontmatter = file.data.matter as Frontmatter | undefined
 
         if (!frontmatter || !frontmatter.title) {
           throw new Error(
-            `[markdown] Missing required "title" frontmatter in "${filename}".`
-          );
+            `[markdown] Missing required "title" frontmatter in "${filename}".`,
+          )
         }
 
-        const title = frontmatter.title;
+        const title = frontmatter.title
 
         return {
           slug,
           title,
           date,
           isDraft,
-        };
-      })
-  );
+        }
+      }),
+  )
 
   // Sort posts by date
   return allPostsData.sort((a, b) => {
-    return a.date < b.date ? 1 : -1;
-  });
+    return a.date < b.date ? 1 : -1
+  })
 }

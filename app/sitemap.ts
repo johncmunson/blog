@@ -1,17 +1,17 @@
-import type { MetadataRoute } from "next";
-import { getAllPosts } from "@/lib/markdown";
+import type { MetadataRoute } from "next"
+import { getAllPosts } from "@/lib/markdown"
 
-const SITE_URL = process.env.SITE_URL;
+const SITE_URL = process.env.SITE_URL
 
 if (!SITE_URL) {
-  throw new Error("[sitemap] Missing SITE_URL environment variable.");
+  throw new Error("[sitemap] Missing SITE_URL environment variable.")
 }
 
-const baseUrl = SITE_URL.endsWith("/") ? SITE_URL.slice(0, -1) : SITE_URL;
+const baseUrl = SITE_URL.endsWith("/") ? SITE_URL.slice(0, -1) : SITE_URL
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = await getAllPosts();
-  const latestPostDate = posts[0]?.date ? new Date(posts[0].date) : new Date();
+  const posts = await getAllPosts()
+  const latestPostDate = posts[0]?.date ? new Date(posts[0].date) : new Date()
 
   return [
     {
@@ -29,5 +29,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
-  ];
+  ]
 }

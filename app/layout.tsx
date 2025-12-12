@@ -1,27 +1,27 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
-import Image from "next/image";
+import type { Metadata } from "next"
+import localFont from "next/font/local"
+import "./globals.css"
+import Image from "next/image"
 
 const geistSans = localFont({
   variable: "--font-geist-sans",
   src: "../public/fonts/Geist[wght].ttf",
-});
+})
 
 const geistMono = localFont({
   variable: "--font-geist-mono",
   src: "../public/fonts/GeistMono[wght].ttf",
-});
+})
 
 export const metadata: Metadata = {
   title: process.env.SITE_TITLE!,
   description: process.env.SITE_DESCRIPTION!,
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en">
@@ -61,5 +61,5 @@ export default function RootLayout({
         </footer>
       </body>
     </html>
-  );
+  )
 }

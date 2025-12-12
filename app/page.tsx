@@ -1,13 +1,13 @@
-import Link from "next/link";
-import { getAllPosts } from "../lib/markdown";
-import { formatDate } from "@/lib/utils";
-import { DateText } from "@/components/date-text";
-import { RssIcon } from "@/components/rss-icon";
-import { PencilLineIcon } from "@/components/pencil-line-icon";
+import Link from "next/link"
+import { getAllPosts } from "../lib/markdown"
+import { formatDate } from "@/lib/utils"
+import { DateText } from "@/components/date-text"
+import { RssIcon } from "@/components/rss-icon"
+import { PencilLineIcon } from "@/components/pencil-line-icon"
 
 export default async function Home() {
-  const includeDrafts = process.env.NODE_ENV === "development";
-  const allPosts = await getAllPosts(includeDrafts);
+  const includeDrafts = process.env.NODE_ENV === "development"
+  const allPosts = await getAllPosts(includeDrafts)
 
   return (
     <main className="prose-ul:pl-0 prose-li:pl-0">
@@ -51,5 +51,5 @@ export default async function Home() {
         ))}
       </ul>
     </main>
-  );
+  )
 }

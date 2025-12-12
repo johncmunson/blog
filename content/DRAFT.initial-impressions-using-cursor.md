@@ -8,4 +8,3 @@ title: Initial Impressions Using Cursor
   - When using VSCode and you close out, or you "reopen folder in WSL", it automatically communicates with the Docker engine to stop the running Docker Compose containers. Cursor does not currently do this and it's a little frustrating.
 - WSL + devcontainer bug
   - https://forum.cursor.com/t/cursor-parallel-agents-in-wsl-devcontainers-misresolve-worktree-paths-and-context/145711
-  
