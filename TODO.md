@@ -29,6 +29,18 @@
 - https://buildlist.org/
 - Monarch vs Copilot Money
 - https://sli.dev/
+- [HTML Tools](https://simonwillison.net/2025/Dec/10/html-tools/)
+  - One single HTML file
+  - Use CDNs for libraries
+  - Try it out with...
+    - Raw JS
+    - JQuery
+    - HTMX
+    - React
+    - Solid
+  - Could extend this idea slightly further by having a backend comprised of...
+    - Single JS file
+    - SQLite database
 
 ## Features
 
