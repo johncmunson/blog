@@ -24,6 +24,7 @@ const eslintConfig = defineConfig([
       ],
     },
   },
+  eslintConfigPrettier,
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
@@ -32,7 +33,6 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
-  eslintConfigPrettier,
 ])
 
 export default eslintConfig
