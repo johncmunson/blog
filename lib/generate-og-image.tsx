@@ -42,19 +42,33 @@ export async function generateOGImage({ title, description }: OGImageProps) {
           flexDirection: "column",
           width: "100%",
           height: "100%",
-          backgroundColor: "#f6f6f6",
-          padding: "0px 80px",
+          background: "linear-gradient(135deg, #f6f6f6 0%, #f0f0f0 100%)",
+          // Change to where the left has 80px padding and the right has 100px padding and the top and bottom have 0px padding
+          padding: "0px 150px 0px 80px",
           fontFamily: "Geist",
           justifyContent: "center",
+          position: "relative",
         }}
       >
+        {/* Subtle decorative accent line */}
+        {/* <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 80,
+            right: 80,
+            height: "30x",
+            background: "linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.15) 50%, transparent 100%)",
+          }}
+        /> */}
+        
         {/* Logo and Title on same line */}
         <div
           style={{
             display: "flex",
             flexDirection: "row",
             alignItems: "flex-start",
-            marginBottom: "20px",
+            marginBottom: "24px",
           }}
         >
           <img
@@ -65,24 +79,36 @@ export async function generateOGImage({ title, description }: OGImageProps) {
             style={{
               marginRight: "40px",
               flexShrink: 0,
-              marginTop: "8px",
+              marginTop: "5px",
             }}
           />
           <h1
             style={{
               fontSize: 64,
               fontWeight: 600,
-              lineHeight: 1.2,
+              lineHeight: 1.08,
               color: "#000000",
               margin: 0,
               whiteSpace: "pre-wrap",
               fontFamily: "Geist",
               flex: 1,
+              textShadow: "0 1px 2px rgba(0,0,0,0.02)",
             }}
           >
             {title}
           </h1>
         </div>
+
+        {/* Subtle divider line */}
+        <div
+          style={{
+            width: "850px",
+            height: "1px",
+            backgroundColor: "rgba(0,0,0,0.1)",
+            marginLeft: "100px",
+            marginBottom: "24px",
+          }}
+        />
 
         {/* Description aligned with title text */}
         <p
