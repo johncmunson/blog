@@ -17,6 +17,14 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL!),
   title: process.env.SITE_TITLE!,
   description: process.env.SITE_DESCRIPTION!,
+  openGraph: {
+    title: process.env.SITE_TITLE!,
+    description: process.env.SITE_DESCRIPTION!,
+  },
+  twitter: {
+    title: process.env.SITE_TITLE!,
+    description: process.env.SITE_DESCRIPTION!,
+  },
 }
 
 export default function RootLayout({
