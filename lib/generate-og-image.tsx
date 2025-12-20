@@ -43,30 +43,31 @@ export async function generateOGImage({ title, description }: OGImageProps) {
           width: "100%",
           height: "100%",
           backgroundColor: "#f6f6f6",
-          padding: "60px 80px",
+          padding: "0px 80px",
           fontFamily: "Geist",
+          justifyContent: "center",
         }}
       >
-        {/* Logo */}
+        {/* Logo and Title on same line */}
         <div
           style={{
             display: "flex",
-            alignItems: "center",
-            marginBottom: "40px",
+            flexDirection: "row",
+            alignItems: "flex-start",
+            marginBottom: "20px",
           }}
         >
-          <img src={logoSrc} width="60" height="60" alt="" />
-        </div>
-
-        {/* Title */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            flex: 1,
-            justifyContent: "center",
-          }}
-        >
+          <img
+            src={logoSrc}
+            width="60"
+            height="60"
+            alt=""
+            style={{
+              marginRight: "40px",
+              flexShrink: 0,
+              marginTop: "8px",
+            }}
+          />
           <h1
             style={{
               fontSize: 64,
@@ -74,29 +75,30 @@ export async function generateOGImage({ title, description }: OGImageProps) {
               lineHeight: 1.2,
               color: "#000000",
               margin: 0,
-              marginBottom: "24px",
               whiteSpace: "pre-wrap",
               fontFamily: "Geist",
+              flex: 1,
             }}
           >
             {title}
           </h1>
-
-          {/* Description */}
-            <p
-              style={{
-                fontSize: 32,
-                fontWeight: 400,
-                lineHeight: 1.4,
-                color: "#666666",
-                margin: 0,
-                whiteSpace: "pre-wrap",
-                fontFamily: "Geist",
-              }}
-            >
-            {description}
-          </p>
         </div>
+
+        {/* Description aligned with title text */}
+        <p
+          style={{
+            fontSize: 32,
+            fontWeight: 400,
+            lineHeight: 1.4,
+            color: "#666666",
+            margin: 0,
+            marginLeft: "100px",
+            whiteSpace: "pre-wrap",
+            fontFamily: "Geist",
+          }}
+        >
+          {description}
+        </p>
       </div>
     ),
     {
