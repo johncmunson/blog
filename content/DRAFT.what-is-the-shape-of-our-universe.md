@@ -1,5 +1,6 @@
 ---
 title: What is the shape of the universe?
+description: A mathematical exploration of the shape of the universe.
 ---
 
 To answer this in mathematical terms, we really need to probe two things:

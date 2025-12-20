@@ -1,5 +1,6 @@
 ---
 title: Initial Impressions Using Cursor
+description: A review of my initial impressions of using Cursor.
 ---
 
 - It was slightly confusing what was happening, but the `cursor` shell command was actually installed appropriately and automatically in both Powershell and WSL Ubuntu.
