@@ -1,8 +1,24 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { getPostData, getAllPosts } from "../../lib/markdown"
 import { formatDate } from "@/lib/utils"
 import { DateText } from "@/components/date-text"
 import { PencilLineIcon } from "@/components/pencil-line-icon"
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const post = await getPostData(slug)
+
+  return {
+    metadataBase: new URL(process.env.SITE_URL!),
+    title: post.title,
+    description: post.description,
+  }
+}
 
 export async function generateStaticParams() {
   const includeDrafts = process.env.NODE_ENV === "development"

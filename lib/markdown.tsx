@@ -145,6 +145,7 @@ type PostData = {
   slug: string
   date: string
   title: string
+  description: string
   content: React.ReactNode
   isDraft: boolean
 }
@@ -153,6 +154,7 @@ type PostMeta = Omit<PostData, "content">
 
 type Frontmatter = {
   title: string
+  description: string
   // Allow additional frontmatter properties without constraining them here.
   [key: string]: unknown
 }
@@ -246,18 +248,19 @@ export async function getPostData(slug: string): Promise<PostData> {
 
   const frontmatter = file.data.matter as Frontmatter | undefined
 
-  if (!frontmatter || !frontmatter.title) {
+  if (!frontmatter || !frontmatter.title || !frontmatter.description) {
     throw new Error(
-      `[markdown] Missing required "title" frontmatter in "${filename}".`,
+      `[markdown] Missing required "title" or "description" frontmatter in "${filename}".`,
     )
   }
 
-  const title = frontmatter.title
+  const { title, description } = frontmatter
 
   return {
     slug,
     date,
     title,
+    description,
     content: file.result as React.ReactNode,
     isDraft,
   }
@@ -285,17 +288,18 @@ export async function getAllPosts(
         matter(file)
         const frontmatter = file.data.matter as Frontmatter | undefined
 
-        if (!frontmatter || !frontmatter.title) {
+        if (!frontmatter || !frontmatter.title || !frontmatter.description) {
           throw new Error(
-            `[markdown] Missing required "title" frontmatter in "${filename}".`,
+            `[markdown] Missing required "title" or "description" frontmatter in "${filename}".`,
           )
         }
 
-        const title = frontmatter.title
+        const { title, description } = frontmatter
 
         return {
           slug,
           title,
+          description,
           date,
           isDraft,
         }
