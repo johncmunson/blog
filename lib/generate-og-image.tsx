@@ -15,9 +15,18 @@ type OGImageProps = {
 /**
  * Generates an OG image with logo, title, and optional description.
  * Uses theme-neutral design suitable for social media sharing.
- * Uses the default Noto Sans font that comes with ImageResponse.
+ * Uses Geist font to match the site's typography.
  */
 export async function generateOGImage({ title, description }: OGImageProps) {
+  // Load Geist fonts for different weights. Using the non-variable font files instead of the variable font files
+  // because variable fonts (like Geist[wght].ttf) aren't supported by ImageResponse/Satori.
+  const geistRegular = await readFile(
+    join(process.cwd(), "public/fonts/Geist-Regular.ttf"),
+  )
+  const geistSemiBold = await readFile(
+    join(process.cwd(), "public/fonts/Geist-SemiBold.ttf"),
+  )
+
   // Load logo SVG and convert to base64 data URL
   const logoData = await readFile(
     join(process.cwd(), "public/logo-light.svg"),
@@ -35,6 +44,7 @@ export async function generateOGImage({ title, description }: OGImageProps) {
           height: "100%",
           backgroundColor: "#f6f6f6",
           padding: "60px 80px",
+          fontFamily: "Geist",
         }}
       >
         {/* Logo */}
@@ -66,6 +76,7 @@ export async function generateOGImage({ title, description }: OGImageProps) {
               margin: 0,
               marginBottom: "24px",
               whiteSpace: "pre-wrap",
+              fontFamily: "Geist",
             }}
           >
             {title}
@@ -80,6 +91,7 @@ export async function generateOGImage({ title, description }: OGImageProps) {
                 color: "#666666",
                 margin: 0,
                 whiteSpace: "pre-wrap",
+                fontFamily: "Geist",
               }}
             >
             {description}
@@ -89,7 +101,20 @@ export async function generateOGImage({ title, description }: OGImageProps) {
     ),
     {
       ...OG_IMAGE_SIZE,
+      fonts: [
+        {
+          name: "Geist",
+          data: geistRegular,
+          style: "normal",
+          weight: 400,
+        },
+        {
+          name: "Geist",
+          data: geistSemiBold,
+          style: "normal",
+          weight: 600,
+        },
+      ],
     },
   )
 }
-
