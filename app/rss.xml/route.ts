@@ -15,6 +15,7 @@ interface PostMeta {
   title: string
   slug: string
   date: string
+  description: string
 }
 
 const frontmatterPlugin = () => (_: unknown, file: VFile) => {
@@ -49,15 +50,21 @@ async function readPosts(contentDir: string): Promise<PostMeta[]> {
       const tree = processor.parse(file)
       await processor.run(tree, file)
 
-      const title = (file.data as { matter?: { title?: string } }).matter?.title
+      const matter = (file.data as { matter?: { title?: string; description?: string } }).matter
+      const title = matter?.title
       if (!title) {
         throw new Error(`Missing frontmatter title in ${filename}`)
+      }
+      const description = matter?.description
+      if (!description) {
+        throw new Error(`Missing frontmatter description in ${filename}`)
       }
 
       return {
         title,
         slug,
         date: datePart,
+        description,
       }
     }),
   )
@@ -81,6 +88,7 @@ function buildRssFeed(posts: PostMeta[]): string {
         `      <link>${postUrl}</link>`,
         `      <guid>${postUrl}</guid>`,
         `      <pubDate>${pubDate}</pubDate>`,
+        `      <description>${escapeXml(post.description)}</description>`,
         "    </item>",
       ].join("\n")
     })
@@ -93,7 +101,7 @@ function buildRssFeed(posts: PostMeta[]): string {
     `    <title>${escapeXml(SITE_TITLE)}</title>`,
     `    <link>${SITE_URL}</link>`,
     `    <atom:link href="${feedUrl}" rel="self" type="application/rss+xml" />`,
-    `    <description><![CDATA[${SITE_DESCRIPTION}]]></description>`,
+    `    <description>${escapeXml(SITE_DESCRIPTION)}</description>`,
     items,
     "  </channel>",
     "</rss>",
