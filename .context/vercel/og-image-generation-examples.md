@@ -3,7 +3,9 @@ title: "OG Image Generation Examples"
 description: "Learn how to use the @vercel/og library with examples."
 last_updated: "2025-12-20T01:45:32.460Z"
 source: "https://vercel.com/docs/og-image-generation/examples"
---------------------------------------------------------------------------------
+---
+
+---
 
 # OG Image Generation Examples
 
@@ -15,17 +17,17 @@ Create an api route with `route.tsx` in `/app/api/og/` and paste the following c
 import { ImageResponse } from 'next/og';
 // App router includes @vercel/og.
 // No need to install it.
- 
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
- 
+
     // ?title=<title>
     const hasTitle = searchParams.has('title');
     const title = hasTitle
       ? searchParams.get('title')?.slice(0, 100)
       : 'My default title';
- 
+
     return new ImageResponse(
       (
         <div
@@ -96,7 +98,7 @@ Create an api route with `route.tsx` in `/app/api/og/` and paste the following c
 import { ImageResponse } from 'next/og';
 // App router includes @vercel/og.
 // No need to install it.
- 
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const username = searchParams.get('username');
@@ -106,7 +108,7 @@ export async function GET(request: Request) {
       height: 630,
     });
   }
- 
+
   return new ImageResponse(
     (
       <div
@@ -150,7 +152,7 @@ Create an api route with `route.tsx` in `/app/api/og/` and paste the following c
 import { ImageResponse } from 'next/og';
 // App router includes @vercel/og.
 // No need to install it.
- 
+
 export async function GET() {
   return new ImageResponse(
     (
@@ -189,7 +191,7 @@ Create an api route with `route.tsx` in `/app/api/og/` and paste the following c
 import { ImageResponse } from 'next/og';
 // App router includes @vercel/og.
 // No need to install it.
- 
+
 export async function GET() {
   return new ImageResponse(
     (
@@ -227,25 +229,25 @@ Create an api route with `route.tsx` in `/app/api/og/` and paste the following c
 import { ImageResponse } from 'next/og';
 // App router includes @vercel/og.
 // No need to install it.
- 
+
 async function loadGoogleFont (font: string, text: string) {
   const url = `https://fonts.googleapis.com/css2?family=${font}&text=${encodeURIComponent(text)}`
   const css = await (await fetch(url)).text()
   const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/)
- 
+
   if (resource) {
     const response = await fetch(resource[1])
     if (response.status == 200) {
       return await response.arrayBuffer()
     }
   }
- 
+
   throw new Error('failed to load font data')
 }
- 
+
 export async function GET() {
   const text = 'Hello world!'
- 
+
   return new ImageResponse(
     (
       <div
@@ -285,7 +287,7 @@ Create an api route with `route.tsx` in `/app/api/og/` and paste the following c
 import { ImageResponse } from 'next/og';
 // App router includes @vercel/og.
 // No need to install it.
- 
+
 export async function GET() {
   return new ImageResponse(
     (
@@ -345,7 +347,7 @@ Create an api route with `route.tsx` in `/app/api/og/` and paste the following c
 import { ImageResponse } from 'next/og';
 // App router includes @vercel/og.
 // No need to install it.
- 
+
 export async function GET() {
   return new ImageResponse(
     (
@@ -379,7 +381,7 @@ export async function GET() {
 import { ImageResponse } from 'next/og';
 // App router includes @vercel/og.
 // No need to install it.
- 
+
 const key = crypto.subtle.importKey(
   'raw',
   new TextEncoder().encode('my_secret'),
@@ -387,19 +389,19 @@ const key = crypto.subtle.importKey(
   false,
   ['sign'],
 );
- 
+
 function toHex(arrayBuffer: ArrayBuffer) {
   return Array.prototype.map
     .call(new Uint8Array(arrayBuffer), (n) => n.toString(16).padStart(2, '0'))
     .join('');
 }
- 
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
- 
+
   const id = searchParams.get('id');
   const token = searchParams.get('token');
- 
+
   const verifyToken = toHex(
     await crypto.subtle.sign(
       'HMAC',
@@ -407,11 +409,11 @@ export async function GET(request: Request) {
       new TextEncoder().encode(JSON.stringify({ id })),
     ),
   );
- 
+
   if (token !== verifyToken) {
     return new Response('Invalid token.', { status: 401 });
   }
- 
+
   return new ImageResponse(
     (
       <div
@@ -444,25 +446,25 @@ Create the dynamic route `[id]/page` under `/app/encrypted` and paste the follow
 ```ts
 // This page generates the token to prevent generating OG images with random parameters (`id`).
 import { createHmac } from 'node:crypto';
- 
+
 function getToken(id: string): string {
   const hmac = createHmac('sha256', 'my_secret');
   hmac.update(JSON.stringify({ id: id }));
   const token = hmac.digest('hex');
   return token;
 }
- 
+
 interface PageParams {
   params: {
     id: string;
   };
 }
- 
+
 export default function Page({ params }: PageParams) {
   console.log(params);
   const { id } = params;
   const token = getToken(id);
- 
+
   return (
     <div>
       <h1>Encrypted Open Graph Image.</h1>

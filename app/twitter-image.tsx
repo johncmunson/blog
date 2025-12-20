@@ -10,4 +10,3 @@ export default async function Image() {
     description: process.env.SITE_DESCRIPTION!,
   })
 }
-

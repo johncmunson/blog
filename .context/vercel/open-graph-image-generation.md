@@ -3,7 +3,9 @@ title: "Open Graph (OG) Image Generation"
 description: "Learn how to optimize social media image generation through the Open Graph Protocol and @vercel/og library."
 last_updated: "2025-12-20T01:45:32.394Z"
 source: "https://vercel.com/docs/og-image-generation"
---------------------------------------------------------------------------------
+---
+
+---
 
 # Open Graph (OG) Image Generation
 
@@ -30,12 +32,12 @@ Vercel OG image generation is supported on the [Node.js runtime](/docs/functions
 Local resources can be loaded directly using `fs.readFile`. Alternatively, `fetch` can be used to load remote resources.
 
 ```js filename="og.js"
-const fs = require('fs').promises;
+const fs = require("fs").promises
 
 const loadLocalImage = async () => {
-  const imageData = await fs.readFile('/path/to/image.png');
+  const imageData = await fs.readFile("/path/to/image.png")
   // Process image data
-};
+}
 ```
 
 ### Runtime caveats
@@ -53,7 +55,7 @@ There are limitations when using `vercel/og` with the **Next.js Pages Router** a
 
 ### Requirements
 
-- Install  or newer by visiting [nodejs.org](https://nodejs.org)
+- Install or newer by visiting [nodejs.org](https://nodejs.org)
 - Install `@vercel/og` by running the following command inside your project directory. **This isn't required for Next.js App Router projects**, as the package is already included:
 
 <CodeBlock>
@@ -116,15 +118,15 @@ Get started with an example that generates an image from static text using Next.
 
 > For \["nextjs"]:
 
-Create an API endpoint by adding  under the `/pages/api` directory in the root of your project.
+Create an API endpoint by adding under the `/pages/api` directory in the root of your project.
 
 > For \["nextjs-app"]:
 
-Create an API endpoint by adding  under the `app/api/og` directory in the root of your project.
+Create an API endpoint by adding under the `app/api/og` directory in the root of your project.
 
 > For \["other"]:
 
-Create an API endpoint by adding  under the `api` directory in the root of your project.
+Create an API endpoint by adding under the `api` directory in the root of your project.
 
 Then paste the following code:
 
@@ -161,34 +163,32 @@ export async function GET() {
 ```
 
 ```js v0="build" filename="app/api/og/route.jsx" framework=nextjs-app
-import { ImageResponse } from 'next/og';
+import { ImageResponse } from "next/og"
 // App router includes @vercel/og.
 // No need to install it.
 
 export async function GET() {
   return new ImageResponse(
-    (
-      <div
-        style={{
-          fontSize: 40,
-          color: 'black',
-          background: 'white',
-          width: '100%',
-          height: '100%',
-          padding: '50px 200px',
-          textAlign: 'center',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        👋 Hello
-      </div>
-    ),
+    <div
+      style={{
+        fontSize: 40,
+        color: "black",
+        background: "white",
+        width: "100%",
+        height: "100%",
+        padding: "50px 200px",
+        textAlign: "center",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      👋 Hello
+    </div>,
     {
       width: 1200,
       height: 630,
     },
-  );
+  )
 }
 ```
 
@@ -223,32 +223,30 @@ export default async function handler() {
 ```
 
 ```js v0="build" filename="pages/api/og.jsx" framework=nextjs
-import { ImageResponse } from '@vercel/og';
+import { ImageResponse } from "@vercel/og"
 
 export default async function handler() {
   return new ImageResponse(
-    (
-      <div
-        style={{
-          fontSize: 40,
-          color: 'black',
-          background: 'white',
-          width: '100%',
-          height: '100%',
-          padding: '50px 200px',
-          textAlign: 'center',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        👋 Hello 你好 नमस्ते こんにちは สวัสดีค่ะ 안녕 добрий день Hallá
-      </div>
-    ),
+    <div
+      style={{
+        fontSize: 40,
+        color: "black",
+        background: "white",
+        width: "100%",
+        height: "100%",
+        padding: "50px 200px",
+        textAlign: "center",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      👋 Hello 你好 नमस्ते こんにちは สวัสดีค่ะ 안녕 добрий день Hallá
+    </div>,
     {
       width: 1200,
       height: 630,
     },
-  );
+  )
 }
 ```
 
@@ -283,40 +281,37 @@ export default async function handler() {
 ```
 
 ```js filename="api/og.jsx" framework=other
-import { ImageResponse } from '@vercel/og';
+import { ImageResponse } from "@vercel/og"
 
 export default async function handler() {
   return new ImageResponse(
-    (
-      <div
-        style={{
-          fontSize: 40,
-          color: 'black',
-          background: 'white',
-          width: '100%',
-          height: '100%',
-          padding: '50px 200px',
-          textAlign: 'center',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        👋 Hello
-      </div>
-    ),
+    <div
+      style={{
+        fontSize: 40,
+        color: "black",
+        background: "white",
+        width: "100%",
+        height: "100%",
+        padding: "50px 200px",
+        textAlign: "center",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      👋 Hello
+    </div>,
     {
       width: 1200,
       height: 630,
     },
-  );
+  )
 }
 ```
 
 > **💡 Note:** If you're not using a framework, you must either add
 > &#x20;to your
 > &#x20;or change your JavaScript Functions'
-> file extensions from  to
->
+> file extensions from to
 
 Run the following command:
 

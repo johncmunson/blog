@@ -1,7 +1,7 @@
 # opengraph-image and twitter-image
+
 @doc-version: 16.1.0
 @last-updated: 2025-10-22
-
 
 The `opengraph-image` and `twitter-image` file conventions allow you to set Open Graph and Twitter images for a route segment.
 
@@ -9,8 +9,8 @@ They are useful for setting the images that appear on social networks and messag
 
 There are two ways to set Open Graph and Twitter images:
 
-* [Using image files (.jpg, .png, .gif)](#image-files-jpg-png-gif)
-* [Using code to generate images (.js, .ts, .tsx)](#generate-images-using-code-js-ts-tsx)
+- [Using image files (.jpg, .png, .gif)](#image-files-jpg-png-gif)
+- [Using code to generate images (.js, .ts, .tsx)](#generate-images-using-code-js-ts-tsx)
 
 ## Image files (.jpg, .png, .gif)
 
@@ -88,50 +88,48 @@ Generate a route segment's shared image by creating an `opengraph-image` or `twi
 
 > **Good to know**:
 >
-> * By default, generated images are [**statically optimized**](/docs/app/guides/caching.md#static-rendering) (generated at build time and cached) unless they use [Dynamic APIs](/docs/app/guides/caching.md#dynamic-rendering) or uncached data.
-> * You can generate multiple Images in the same file using [`generateImageMetadata`](/docs/app/api-reference/functions/generate-image-metadata.md).
-> * `opengraph-image.js` and `twitter-image.js` are special Route Handlers that is cached by default unless it uses a [Dynamic API](/docs/app/guides/caching.md#dynamic-apis) or [dynamic config](/docs/app/guides/caching.md#segment-config-options) option.
+> - By default, generated images are [**statically optimized**](/docs/app/guides/caching.md#static-rendering) (generated at build time and cached) unless they use [Dynamic APIs](/docs/app/guides/caching.md#dynamic-rendering) or uncached data.
+> - You can generate multiple Images in the same file using [`generateImageMetadata`](/docs/app/api-reference/functions/generate-image-metadata.md).
+> - `opengraph-image.js` and `twitter-image.js` are special Route Handlers that is cached by default unless it uses a [Dynamic API](/docs/app/guides/caching.md#dynamic-apis) or [dynamic config](/docs/app/guides/caching.md#segment-config-options) option.
 
 The easiest way to generate an image is to use the [ImageResponse](/docs/app/api-reference/functions/image-response.md) API from `next/og`.
 
 ```tsx filename="app/about/opengraph-image.tsx" switcher
-import { ImageResponse } from 'next/og'
-import { readFile } from 'node:fs/promises'
-import { join } from 'node:path'
+import { ImageResponse } from "next/og"
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
 
 // Image metadata
-export const alt = 'About Acme'
+export const alt = "About Acme"
 export const size = {
   width: 1200,
   height: 630,
 }
 
-export const contentType = 'image/png'
+export const contentType = "image/png"
 
 // Image generation
 export default async function Image() {
   // Font loading, process.cwd() is Next.js project directory
   const interSemiBold = await readFile(
-    join(process.cwd(), 'assets/Inter-SemiBold.ttf')
+    join(process.cwd(), "assets/Inter-SemiBold.ttf"),
   )
 
   return new ImageResponse(
-    (
-      // ImageResponse JSX element
-      <div
-        style={{
-          fontSize: 128,
-          background: 'white',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        About Acme
-      </div>
-    ),
+    // ImageResponse JSX element
+    <div
+      style={{
+        fontSize: 128,
+        background: "white",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      About Acme
+    </div>,
     // ImageResponse options
     {
       // For convenience, we can re-use the exported opengraph-image
@@ -139,55 +137,53 @@ export default async function Image() {
       ...size,
       fonts: [
         {
-          name: 'Inter',
+          name: "Inter",
           data: interSemiBold,
-          style: 'normal',
+          style: "normal",
           weight: 400,
         },
       ],
-    }
+    },
   )
 }
 ```
 
 ```jsx filename="app/about/opengraph-image.js" switcher
-import { ImageResponse } from 'next/og'
-import { readFile } from 'node:fs/promises'
-import { join } from 'node:path'
+import { ImageResponse } from "next/og"
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
 
 // Image metadata
-export const alt = 'About Acme'
+export const alt = "About Acme"
 export const size = {
   width: 1200,
   height: 630,
 }
 
-export const contentType = 'image/png'
+export const contentType = "image/png"
 
 // Image generation
 export default async function Image() {
   // Font loading, process.cwd() is Next.js project directory
   const interSemiBold = await readFile(
-    join(process.cwd(), 'assets/Inter-SemiBold.ttf')
+    join(process.cwd(), "assets/Inter-SemiBold.ttf"),
   )
 
   return new ImageResponse(
-    (
-      // ImageResponse JSX element
-      <div
-        style={{
-          fontSize: 128,
-          background: 'white',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        About Acme
-      </div>
-    ),
+    // ImageResponse JSX element
+    <div
+      style={{
+        fontSize: 128,
+        background: "white",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      About Acme
+    </div>,
     // ImageResponse options
     {
       // For convenience, we can re-use the exported opengraph-image
@@ -195,13 +191,13 @@ export default async function Image() {
       ...size,
       fonts: [
         {
-          name: 'Inter',
+          name: "Inter",
           data: interSemiBold,
-          style: 'normal',
+          style: "normal",
           weight: 400,
         },
       ],
-    }
+    },
   )
 }
 ```
@@ -267,13 +263,13 @@ You can optionally configure the image's metadata by exporting `alt`, `size`, an
 #### `alt`
 
 ```tsx filename="opengraph-image.tsx | twitter-image.tsx" switcher
-export const alt = 'My images alt text'
+export const alt = "My images alt text"
 
 export default function Image() {}
 ```
 
 ```jsx filename="opengraph-image.js | twitter-image.js" switcher
-export const alt = 'My images alt text'
+export const alt = "My images alt text"
 
 export default function Image() {}
 ```
@@ -304,13 +300,13 @@ export default function Image() {}
 #### `contentType`
 
 ```tsx filename="opengraph-image.tsx | twitter-image.tsx" switcher
-export const contentType = 'image/png'
+export const contentType = "image/png"
 
 export default function Image() {}
 ```
 
 ```jsx filename="opengraph-image.js | twitter-image.js" switcher
-export const contentType = 'image/png'
+export const contentType = "image/png"
 
 export default function Image() {}
 ```
@@ -333,14 +329,14 @@ This example uses the `params` object and external data to generate the image.
 > By default, this generated image will be [statically optimized](/docs/app/guides/caching.md#static-rendering). You can configure the individual `fetch` [`options`](/docs/app/api-reference/functions/fetch.md) or route segments [options](/docs/app/api-reference/file-conventions/route-segment-config.md#revalidate) to change this behavior.
 
 ```tsx filename="app/posts/[slug]/opengraph-image.tsx" switcher
-import { ImageResponse } from 'next/og'
+import { ImageResponse } from "next/og"
 
-export const alt = 'About Acme'
+export const alt = "About Acme"
 export const size = {
   width: 1200,
   height: 630,
 }
-export const contentType = 'image/png'
+export const contentType = "image/png"
 
 export default async function Image({
   params,
@@ -349,67 +345,63 @@ export default async function Image({
 }) {
   const { slug } = await params
   const post = await fetch(`https://.../posts/${slug}`).then((res) =>
-    res.json()
+    res.json(),
   )
 
   return new ImageResponse(
-    (
-      <div
-        style={{
-          fontSize: 48,
-          background: 'white',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {post.title}
-      </div>
-    ),
+    <div
+      style={{
+        fontSize: 48,
+        background: "white",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {post.title}
+    </div>,
     {
       ...size,
-    }
+    },
   )
 }
 ```
 
 ```jsx filename="app/posts/[slug]/opengraph-image.js" switcher
-import { ImageResponse } from 'next/og'
+import { ImageResponse } from "next/og"
 
-export const alt = 'About Acme'
+export const alt = "About Acme"
 export const size = {
   width: 1200,
   height: 630,
 }
-export const contentType = 'image/png'
+export const contentType = "image/png"
 
 export default async function Image({ params }) {
   const { slug } = await params
   const post = await fetch(`https://.../posts/${slug}`).then((res) =>
-    res.json()
+    res.json(),
   )
 
   return new ImageResponse(
-    (
-      <div
-        style={{
-          fontSize: 48,
-          background: 'white',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {post.title}
-      </div>
-    ),
+    <div
+      style={{
+        fontSize: 48,
+        background: "white",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {post.title}
+    </div>,
     {
       ...size,
-    }
+    },
   )
 }
 ```
@@ -419,51 +411,47 @@ export default async function Image({ params }) {
 These examples use the Node.js runtime to fetch a local image from the file system and pass it to the `<img>` `src` attribute, either as a base64 string or an `ArrayBuffer`. Place the local asset relative to the project root, not the example source file.
 
 ```tsx filename="app/opengraph-image.tsx" switcher
-import { ImageResponse } from 'next/og'
-import { join } from 'node:path'
-import { readFile } from 'node:fs/promises'
+import { ImageResponse } from "next/og"
+import { join } from "node:path"
+import { readFile } from "node:fs/promises"
 
 export default async function Image() {
-  const logoData = await readFile(join(process.cwd(), 'logo.png'), 'base64')
+  const logoData = await readFile(join(process.cwd(), "logo.png"), "base64")
   const logoSrc = `data:image/png;base64,${logoData}`
 
   return new ImageResponse(
-    (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <img src={logoSrc} height="100" />
-      </div>
-    )
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <img src={logoSrc} height="100" />
+    </div>,
   )
 }
 ```
 
 ```jsx filename="app/opengraph-image.js" switcher
-import { ImageResponse } from 'next/og'
-import { join } from 'node:path'
-import { readFile } from 'node:fs/promises'
+import { ImageResponse } from "next/og"
+import { join } from "node:path"
+import { readFile } from "node:fs/promises"
 
 export default async function Image() {
-  const logoData = await readFile(join(process.cwd(), 'logo.png'), 'base64')
+  const logoData = await readFile(join(process.cwd(), "logo.png"), "base64")
   const logoSrc = `data:image/png;base64,${logoData}`
 
   return new ImageResponse(
-    (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <img src={logoSrc} height="100" />
-      </div>
-    )
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <img src={logoSrc} height="100" />
+    </div>,
   )
 }
 ```
@@ -471,52 +459,48 @@ export default async function Image() {
 Passing an `ArrayBuffer` to the `src` attribute of an `<img>` element is not part of the HTML spec. The rendering engine used by `next/og` supports it, but because TypeScript definitions follow the spec, you need a `@ts-expect-error` directive or similar to use this [feature](https://github.com/vercel/satori/issues/606#issuecomment-2144000453).
 
 ```tsx filename="app/opengraph-image.tsx" switcher
-import { ImageResponse } from 'next/og'
-import { join } from 'node:path'
-import { readFile } from 'node:fs/promises'
+import { ImageResponse } from "next/og"
+import { join } from "node:path"
+import { readFile } from "node:fs/promises"
 
 export default async function Image() {
-  const logoData = await readFile(join(process.cwd(), 'logo.png'))
+  const logoData = await readFile(join(process.cwd(), "logo.png"))
   const logoSrc = Uint8Array.from(logoData).buffer
 
   return new ImageResponse(
-    (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {/* @ts-expect-error Satori accepts ArrayBuffer/typed arrays for <img src> at runtime */}
-        <img src={logoSrc} height="100" />
-      </div>
-    )
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {/* @ts-expect-error Satori accepts ArrayBuffer/typed arrays for <img src> at runtime */}
+      <img src={logoSrc} height="100" />
+    </div>,
   )
 }
 ```
 
 ```jsx filename="app/opengraph-image.js" switcher
-import { ImageResponse } from 'next/og'
-import { join } from 'node:path'
-import { readFile } from 'node:fs/promises'
+import { ImageResponse } from "next/og"
+import { join } from "node:path"
+import { readFile } from "node:fs/promises"
 
 export default async function Image() {
-  const logoData = await readFile(join(process.cwd(), 'logo.png'))
+  const logoData = await readFile(join(process.cwd(), "logo.png"))
   const logoSrc = Uint8Array.from(logoData).buffer
 
   return new ImageResponse(
-    (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <img src={logoSrc} height="100" />
-      </div>
-    )
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <img src={logoSrc} height="100" />
+    </div>,
   )
 }
 ```

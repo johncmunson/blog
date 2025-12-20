@@ -50,7 +50,9 @@ async function readPosts(contentDir: string): Promise<PostMeta[]> {
       const tree = processor.parse(file)
       await processor.run(tree, file)
 
-      const matter = (file.data as { matter?: { title?: string; description?: string } }).matter
+      const matter = (
+        file.data as { matter?: { title?: string; description?: string } }
+      ).matter
       const title = matter?.title
       if (!title) {
         throw new Error(`Missing frontmatter title in ${filename}`)

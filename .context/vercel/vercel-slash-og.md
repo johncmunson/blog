@@ -3,7 +3,9 @@ title: "@vercel/og Reference"
 description: "This reference provides information on how the @vercel/og package works on Vercel."
 last_updated: "2025-12-20T01:45:32.370Z"
 source: "https://vercel.com/docs/og-image-generation/og-image-api"
---------------------------------------------------------------------------------
+---
+
+---
 
 # @vercel/og Reference
 

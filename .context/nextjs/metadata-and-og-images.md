@@ -1,7 +1,7 @@
 # Metadata and OG images
+
 @doc-version: 16.1.0
 @last-updated: 2025-11-17
-
 
 The Metadata APIs can be used to define your application metadata for improved SEO and web shareability and include:
 
@@ -17,8 +17,8 @@ The `metadata` object and `generateMetadata` function exports are only supported
 
 There are two default `meta` tags that are always added even if a route doesn't define metadata:
 
-* The [meta charset tag](https://developer.mozilla.org/docs/Web/HTML/Element/meta#attr-charset) sets the character encoding for the website.
-* The [meta viewport tag](https://developer.mozilla.org/docs/Web/HTML/Viewport_meta_tag) sets the viewport width and scale for the website to adjust for different devices.
+- The [meta charset tag](https://developer.mozilla.org/docs/Web/HTML/Element/meta#attr-charset) sets the character encoding for the website.
+- The [meta viewport tag](https://developer.mozilla.org/docs/Web/HTML/Viewport_meta_tag) sets the viewport width and scale for the website to adjust for different devices.
 
 ```html
 <meta charset="utf-8" />
@@ -32,11 +32,11 @@ The other metadata fields can be defined with the `Metadata` object (for [static
 To define static metadata, export a [`Metadata` object](/docs/app/api-reference/functions/generate-metadata.md#metadata-object) from a static [`layout.js`](/docs/app/api-reference/file-conventions/layout.md) or [`page.js`](/docs/app/api-reference/file-conventions/page.md) file. For example, to add a title and description to the blog route:
 
 ```tsx filename="app/blog/layout.tsx" switcher
-import type { Metadata } from 'next'
+import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: 'My Blog',
-  description: '...',
+  title: "My Blog",
+  description: "...",
 }
 
 export default function Layout() {}
@@ -44,8 +44,8 @@ export default function Layout() {}
 
 ```jsx filename="app/blog/layout.js" switcher
 export const metadata = {
-  title: 'My Blog',
-  description: '...',
+  title: "My Blog",
+  description: "...",
 }
 
 export default function Layout() {}
@@ -58,7 +58,7 @@ You can view a full list of available options, in the [`generateMetadata` docume
 You can use [`generateMetadata`](/docs/app/api-reference/functions/generate-metadata.md) function to `fetch` metadata that depends on data. For example, to fetch the title and description for a specific blog post:
 
 ```tsx filename="app/blog/[slug]/page.tsx" switcher
-import type { Metadata, ResolvingMetadata } from 'next'
+import type { Metadata, ResolvingMetadata } from "next"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -67,13 +67,13 @@ type Props = {
 
 export async function generateMetadata(
   { params, searchParams }: Props,
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const slug = (await params).slug
 
   // fetch post information
   const post = await fetch(`https://api.vercel.app/blog/${slug}`).then((res) =>
-    res.json()
+    res.json(),
   )
 
   return {
@@ -91,7 +91,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
 
   // fetch post information
   const post = await fetch(`https://api.vercel.app/blog/${slug}`).then((res) =>
-    res.json()
+    res.json(),
   )
 
   return {
@@ -122,8 +122,8 @@ Learn more about [streaming metadata](/docs/app/api-reference/functions/generate
 There may be cases where you need to fetch the **same** data for metadata and the page itself. To avoid duplicate requests, you can use React's [`cache` function](https://react.dev/reference/react/cache) to memoize the return value and only fetch the data once. For example, to fetch the blog post information for both the metadata and the page:
 
 ```ts filename="app/lib/data.ts" highlight={5} switcher
-import { cache } from 'react'
-import { db } from '@/app/lib/db'
+import { cache } from "react"
+import { db } from "@/app/lib/db"
 
 // getPost will be used twice, but execute only once
 export const getPost = cache(async (slug: string) => {
@@ -133,8 +133,8 @@ export const getPost = cache(async (slug: string) => {
 ```
 
 ```js filename="app/lib/data.js" highlight={5} switcher
-import { cache } from 'react'
-import { db } from '@/app/lib/db'
+import { cache } from "react"
+import { db } from "@/app/lib/db"
 
 // getPost will be used twice, but execute only once
 export const getPost = cache(async (slug) => {
@@ -144,7 +144,7 @@ export const getPost = cache(async (slug) => {
 ```
 
 ```tsx filename="app/blog/[slug]/page.tsx" switcher
-import { getPost } from '@/app/lib/data'
+import { getPost } from "@/app/lib/data"
 
 export async function generateMetadata({
   params,
@@ -165,7 +165,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 ```
 
 ```jsx filename="app/blog/[slug]/page.js" switcher
-import { getPost } from '@/app/lib/data'
+import { getPost } from "@/app/lib/data"
 
 export async function generateMetadata({ params }) {
   const post = await getPost(params.slug)
@@ -185,10 +185,10 @@ export default async function Page({ params }) {
 
 The following special files are available for metadata:
 
-* [favicon.ico, apple-icon.jpg, and icon.jpg](/docs/app/api-reference/file-conventions/metadata/app-icons.md)
-* [opengraph-image.jpg and twitter-image.jpg](/docs/app/api-reference/file-conventions/metadata/opengraph-image.md)
-* [robots.txt](/docs/app/api-reference/file-conventions/metadata/robots.md)
-* [sitemap.xml](/docs/app/api-reference/file-conventions/metadata/sitemap.md)
+- [favicon.ico, apple-icon.jpg, and icon.jpg](/docs/app/api-reference/file-conventions/metadata/app-icons.md)
+- [opengraph-image.jpg and twitter-image.jpg](/docs/app/api-reference/file-conventions/metadata/opengraph-image.md)
+- [robots.txt](/docs/app/api-reference/file-conventions/metadata/robots.md)
+- [sitemap.xml](/docs/app/api-reference/file-conventions/metadata/sitemap.md)
 
 You can use these for static metadata, or you can programmatically generate these files with code.
 
@@ -221,8 +221,8 @@ The [`ImageResponse` constructor](/docs/app/api-reference/functions/image-respon
 For example, to generate a unique OG image for each blog post, add a `opengraph-image.tsx` file inside the `blog` folder, and import the `ImageResponse` constructor from `next/og`:
 
 ```tsx filename="app/blog/[slug]/opengraph-image.tsx" switcher
-import { ImageResponse } from 'next/og'
-import { getPost } from '@/app/lib/data'
+import { ImageResponse } from "next/og"
+import { getPost } from "@/app/lib/data"
 
 // Image metadata
 export const size = {
@@ -230,36 +230,34 @@ export const size = {
   height: 630,
 }
 
-export const contentType = 'image/png'
+export const contentType = "image/png"
 
 // Image generation
 export default async function Image({ params }: { params: { slug: string } }) {
   const post = await getPost(params.slug)
 
   return new ImageResponse(
-    (
-      // ImageResponse JSX element
-      <div
-        style={{
-          fontSize: 128,
-          background: 'white',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {post.title}
-      </div>
-    )
+    // ImageResponse JSX element
+    <div
+      style={{
+        fontSize: 128,
+        background: "white",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {post.title}
+    </div>,
   )
 }
 ```
 
 ```jsx filename="app/blog/[slug]/opengraph-image.js" switcher
-import { ImageResponse } from 'next/og'
-import { getPost } from '@/app/lib/data'
+import { ImageResponse } from "next/og"
+import { getPost } from "@/app/lib/data"
 
 // Image metadata
 export const size = {
@@ -267,29 +265,27 @@ export const size = {
   height: 630,
 }
 
-export const contentType = 'image/png'
+export const contentType = "image/png"
 
 // Image generation
 export default async function Image({ params }) {
   const post = await getPost(params.slug)
 
   return new ImageResponse(
-    (
-      // ImageResponse JSX element
-      <div
-        style={{
-          fontSize: 128,
-          background: 'white',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        {post.title}
-      </div>
-    )
+    // ImageResponse JSX element
+    <div
+      style={{
+        fontSize: 128,
+        background: "white",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {post.title}
+    </div>,
   )
 }
 ```
@@ -298,9 +294,10 @@ export default async function Image({ params }) {
 
 > **Good to know**:
 >
-> * Examples are available in the [Vercel OG Playground](https://og-playground.vercel.app/).
-> * `ImageResponse` uses [`@vercel/og`](https://vercel.com/docs/og-image-generation), [`satori`](https://github.com/vercel/satori), and `resvg` to convert HTML and CSS into PNG.
-> * Only flexbox and a subset of CSS properties are supported. Advanced layouts (e.g. `display: grid`) will not work.
+> - Examples are available in the [Vercel OG Playground](https://og-playground.vercel.app/).
+> - `ImageResponse` uses [`@vercel/og`](https://vercel.com/docs/og-image-generation), [`satori`](https://github.com/vercel/satori), and `resvg` to convert HTML and CSS into PNG.
+> - Only flexbox and a subset of CSS properties are supported. Advanced layouts (e.g. `display: grid`) will not work.
+
 ## API Reference
 
 Learn more about the Metadata APIs mentioned in this page.
