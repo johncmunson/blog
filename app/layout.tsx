@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "./globals.css"
 import Image from "next/image"
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = localFont({
   variable: "--font-geist-sans",
@@ -68,6 +69,7 @@ export default function RootLayout({
             </p>
           </div>
         </footer>
+        <Analytics />
       </body>
     </html>
   )
