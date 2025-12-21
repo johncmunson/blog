@@ -39,12 +39,12 @@ export async function generateOGImage({ title, description }: OGImageProps) {
   const noiseSVG = `
   <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <pattern id="grain" width="3" height="3" patternUnits="userSpaceOnUse">
-        <circle cx="0.5" cy="0.5" r="0.6" fill="rgba(0,0,0,0.12)"/>
-        <circle cx="2.5" cy="2.5" r="0.6" fill="rgba(0,0,0,0.12)"/>
-        <circle cx="0.5" cy="2.5" r="0.5" fill="rgba(0,0,0,0.1)"/>
-        <circle cx="2.5" cy="0.5" r="0.5" fill="rgba(0,0,0,0.1)"/>
-        <circle cx="1.5" cy="1.5" r="0.4" fill="rgba(0,0,0,0.08)"/>
+      <pattern id="grain" width="5" height="5" patternUnits="userSpaceOnUse">
+        <circle cx="0.5" cy="0.5" r="0.6" fill="rgba(64, 64, 64, 0.16)"/>
+        <circle cx="2.5" cy="2.5" r="0.6" fill="rgba(64, 64, 64, 0.16)"/>
+        <circle cx="0.5" cy="2.5" r="0.5" fill="rgba(64, 64, 64, 0.12)"/>
+        <circle cx="2.5" cy="0.5" r="0.5" fill="rgba(64, 64, 64, 0.12)"/>
+        <circle cx="1.5" cy="1.5" r="0.4" fill="rgba(64, 64, 64, 0.08)"/>
       </pattern>
     </defs>
     <rect width="1200" height="630" fill="url(#grain)"/>
@@ -60,7 +60,7 @@ export async function generateOGImage({ title, description }: OGImageProps) {
           flexDirection: "column",
           width: "100%",
           height: "100%",
-          background: "linear-gradient(135deg, #f6f6f6 0%, #f0f0f0 100%)",
+          background: "#fafafa",
           padding: "0px 150px 0px 80px",
           fontFamily: "Geist",
           justifyContent: "center",
