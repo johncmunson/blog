@@ -22,8 +22,9 @@ export default async function Home() {
         I write code, play soccer, drink more coffee than recommended, and
         generally follow my ADHD-powered curiosity into far too many side
         quests. Always learning, always tinkering. My blog collects the things
-        I’ve built, explored, or gotten distracted by.<br />Dive in, but don’t expect
-        much of a straight line or common thread.
+        I’ve built, explored, or gotten distracted by.
+        <br />
+        Dive in, but don’t expect much of a straight line or common thread.
       </p>
 
       <hr />
