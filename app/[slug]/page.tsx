@@ -18,17 +18,15 @@ export async function generateMetadata({
     // Sets the title and description for the page
     title: post.title,
     description: post.description,
-    // Sets og:title and og:description for the Open Graph image
     // I should really be using the post title for og:title, but I don't like how the social platforms
     // add the title again below the image when the title is already in the image.
     openGraph: {
+      url: `${process.env.SITE_URL!}/${slug}`,
+      siteName: process.env.SITE_TITLE!,
       title: process.env.SITE_TITLE!,
-      description: post.description,
     },
-    // Same, but for twitter:title and twitter:description
     twitter: {
       title: process.env.SITE_TITLE!,
-      description: post.description,
       card: "summary_large_image",
     },
   }

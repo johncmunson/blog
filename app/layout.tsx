@@ -19,12 +19,12 @@ export const metadata: Metadata = {
   title: process.env.SITE_TITLE!,
   description: process.env.SITE_DESCRIPTION!,
   openGraph: {
+    url: process.env.SITE_URL!,
+    siteName: process.env.SITE_TITLE!,
     title: process.env.SITE_TITLE!,
-    description: process.env.SITE_DESCRIPTION!,
   },
   twitter: {
     title: process.env.SITE_TITLE!,
-    description: process.env.SITE_DESCRIPTION!,
     card: "summary_large_image",
   },
 }
