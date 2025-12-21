@@ -27,7 +27,7 @@ export async function generateMetadata({
     },
     twitter: {
       title: process.env.SITE_TITLE!,
-      card: "summary",
+      card: "summary_large_image",
     },
   }
 }
