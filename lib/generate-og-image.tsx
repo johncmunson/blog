@@ -39,15 +39,33 @@ export async function generateOGImage({ title, description }: OGImageProps) {
   const noiseSVG = `
   <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
     <defs>
+      <!-- Base noise pattern -->
       <pattern id="grain" width="5" height="5" patternUnits="userSpaceOnUse">
-        <circle cx="0.5" cy="0.5" r="0.6" fill="rgba(64, 64, 64, 0.16)"/>
-        <circle cx="2.5" cy="2.5" r="0.6" fill="rgba(64, 64, 64, 0.16)"/>
-        <circle cx="0.5" cy="2.5" r="0.5" fill="rgba(64, 64, 64, 0.12)"/>
-        <circle cx="2.5" cy="0.5" r="0.5" fill="rgba(64, 64, 64, 0.12)"/>
-        <circle cx="1.5" cy="1.5" r="0.4" fill="rgba(64, 64, 64, 0.08)"/>
+        <circle cx="0.5" cy="0.5" r="0.6" fill="rgba(64, 64, 64, 0.12)"/>
+        <circle cx="2.5" cy="2.5" r="0.6" fill="rgba(64, 64, 64, 0.12)"/>
+        <circle cx="0.5" cy="2.5" r="0.5" fill="rgba(64, 64, 64, 0.08)"/>
+        <circle cx="2.5" cy="0.5" r="0.5" fill="rgba(64, 64, 64, 0.08)"/>
+        <circle cx="1.5" cy="1.5" r="0.4" fill="rgba(64, 64, 64, 0.04)"/>
       </pattern>
+      
+      <!-- Turbulence filter - Remove this if you want a perfectly uniform noise pattern -->
+      <filter id="noise-filter">
+        <feTurbulence 
+          type="fractalNoise" 
+          baseFrequency="0.4 0.6" 
+          numOctaves="4" 
+          result="noise"
+        />
+        <feDisplacementMap 
+          in="SourceGraphic" 
+          in2="noise" 
+          scale="12"
+          xChannelSelector="R"
+          yChannelSelector="G"
+        />
+      </filter>
     </defs>
-    <rect width="1200" height="630" fill="url(#grain)"/>
+    <rect width="1200" height="630" fill="url(#grain)" filter="url(#noise-filter)"/>
   </svg>
 `
   const noiseSrc = `data:image/svg+xml;base64,${Buffer.from(noiseSVG).toString("base64")}`
@@ -135,7 +153,6 @@ export async function generateOGImage({ title, description }: OGImageProps) {
               whiteSpace: "pre-wrap",
               fontFamily: "Geist",
               flex: 1,
-              textShadow: "0 1px 2px rgba(0,0,0,0.02)",
             }}
           >
             {title}
@@ -160,7 +177,7 @@ export async function generateOGImage({ title, description }: OGImageProps) {
             fontSize: 38,
             fontWeight: 400,
             lineHeight: 1.4,
-            color: "#666666",
+            color: "#737373",
             margin: 0,
             marginLeft: "100px",
             whiteSpace: "pre-wrap",
