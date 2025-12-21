@@ -157,7 +157,7 @@ export async function generateOGImage({ title, description }: OGImageProps) {
         {/* Description aligned with title text */}
         <p
           style={{
-            fontSize: 32,
+            fontSize: 38,
             fontWeight: 400,
             lineHeight: 1.4,
             color: "#666666",
