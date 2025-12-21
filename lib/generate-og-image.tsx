@@ -231,7 +231,7 @@ export async function generateTwitterImage() {
         display: "flex",
         width: "100%",
         height: "100%",
-        background: "transparent",
+        background: "#fafafa",
         alignItems: "center",
         justifyContent: "center",
       }}
