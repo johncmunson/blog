@@ -7,6 +7,11 @@ export const OG_IMAGE_SIZE = {
   height: 630,
 }
 
+export const TWITTER_IMAGE_SIZE = {
+  width: 120,
+  height: 120,
+}
+
 type OGImageProps = {
   title: string
   description: string
@@ -204,6 +209,45 @@ export async function generateOGImage({ title, description }: OGImageProps) {
           weight: 600,
         },
       ],
+    },
+  )
+}
+
+/**
+ * Generates a Twitter image (120x120) displaying the personal logo.
+ * Simple square image suitable for Twitter/X profile images.
+ */
+export async function generateTwitterImage() {
+  // Load logo SVG and convert to base64 data URL
+  const logoData = await readFile(
+    join(process.cwd(), "public/logo-light.svg"),
+    "utf-8",
+  )
+  const logoSrc = `data:image/svg+xml;base64,${Buffer.from(logoData).toString("base64")}`
+
+  return new ImageResponse(
+    <div
+      style={{
+        display: "flex",
+        width: "100%",
+        height: "100%",
+        background: "transparent",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <img
+        src={logoSrc}
+        width="100"
+        height="100"
+        alt=""
+        style={{
+          display: "flex",
+        }}
+      />
+    </div>,
+    {
+      ...TWITTER_IMAGE_SIZE,
     },
   )
 }
