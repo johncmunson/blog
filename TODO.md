@@ -2,7 +2,7 @@
 
 - LENGTH of title and descriptions for og and twitter images
 - Check if twitter still being weird. If it is, is twitter-image.tsx even needed?
-- 
+- fix `<br />` tags in markdown
 
 ## Blog Posts
 
