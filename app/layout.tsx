@@ -24,6 +24,8 @@ export const metadata: Metadata = {
     title: process.env.SITE_TITLE!,
   },
   twitter: {
+    title: process.env.SITE_TITLE!,
+    description: process.env.SITE_DESCRIPTION!,
     card: "summary",
   },
 }
