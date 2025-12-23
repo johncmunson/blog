@@ -1,0 +1,67 @@
+version: 2
+
+updates:
+  # pnpm / npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "04:00"
+      timezone: "UTC"
+
+    open-pull-requests-limit: 3
+    rebase-strategy: auto
+
+    # Exclude major updates
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+
+    # Dependency grouping
+    groups:
+      core-framework:
+        patterns:
+          - "next"
+          - "react"
+          - "react-dom"
+          - "@next/env"
+          - "eslint-config-next"
+
+      content-rendering:
+        patterns:
+          - "unified"
+          - "remark*"
+          - "rehype*"
+          - "shiki"
+          - "@shikijs/*"
+          - "to-vfile"
+          - "vfile*"
+          - "unist-util-visit"
+          - "image-size"
+
+      tooling-and-styling:
+        dependency-type: development
+
+      misc-runtime:
+        dependency-type: production
+        patterns:
+          - "*"
+
+  # GitHub Actions (future-proofed)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "04:00"
+      timezone: "UTC"
+
+    open-pull-requests-limit: 3
+    rebase-strategy: auto
+
+    groups:
+      github-actions:
+        patterns:
+          - "*"
