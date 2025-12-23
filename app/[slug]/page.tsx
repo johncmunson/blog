@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { getPostData, getAllPosts } from "../../lib/markdown"
-import { formatDate } from "@/lib/utils"
+import { formatDate, toNoonISO8601 } from "@/lib/utils"
 import { DateText } from "@/components/date-text"
 import { PencilLineIcon } from "@/components/pencil-line-icon"
 
@@ -12,9 +12,38 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params
   const post = await getPostData(slug)
+  const siteUrl = process.env.SITE_URL!
+
+  const images = [
+    {
+      url: `/${slug}/opengraph-image`,
+      width: 1200,
+      height: 630,
+      alt: post.title,
+    },
+  ]
 
   return {
-    // Finish implementing this!
+    title: post.title,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      url: slug,
+      siteName: process.env.SITE_TITLE!,
+      images,
+      locale: "en_US",
+      type: "article",
+      publishedTime: toNoonISO8601(post.date),
+      authors: [process.env.SITE_AUTHOR!],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+      images,
+      siteId: process.env.SITE_AUTHOR_TWITTER_ID!,
+    },
   }
 }
 

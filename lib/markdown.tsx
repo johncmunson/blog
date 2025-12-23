@@ -294,6 +294,18 @@ export async function getAllPosts(
           )
         }
 
+        // Enforcing maximum length for title and description mainly because of Open Graph and Twitter card limitations.
+        if (frontmatter.title.length > 70) {
+          throw new Error(
+            `[markdown] Title is too long in "${filename}". Expected less than 70 characters.`,
+          )
+        }
+        if (frontmatter.description.length > 200) {
+          throw new Error(
+            `[markdown] Description is too long in "${filename}". Expected less than 200 characters.`,
+          )
+        }
+
         const { title, description } = frontmatter
 
         return {

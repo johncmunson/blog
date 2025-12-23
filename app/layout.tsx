@@ -14,11 +14,35 @@ const geistMono = localFont({
   src: "../public/fonts/GeistMono[wght].ttf",
 })
 
+const images = [
+  {
+    url: "/opengraph-image",
+    width: 1200,
+    height: 630,
+    alt: "Blog Homepage",
+  },
+]
+
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL!),
   title: process.env.SITE_TITLE!,
   description: process.env.SITE_DESCRIPTION!,
-  // Finish implementing this!
+  openGraph: {
+    title: process.env.SITE_TITLE!,
+    description: process.env.SITE_DESCRIPTION!,
+    url: process.env.SITE_URL!,
+    siteName: process.env.SITE_TITLE!,
+    images,
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: process.env.SITE_TITLE!,
+    description: process.env.SITE_DESCRIPTION!,
+    images,
+    siteId: process.env.SITE_AUTHOR_TWITTER_ID!,
+  },
 }
 
 export default function RootLayout({

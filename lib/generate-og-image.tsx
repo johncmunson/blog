@@ -13,7 +13,11 @@ type OGImageProps = {
  * Uses theme-neutral design suitable for social media sharing.
  * Uses Geist font to match the site's typography.
  */
-export async function generateOGImage({ title, description, size }: OGImageProps) {
+export async function generateOGImage({
+  title,
+  description,
+  size,
+}: OGImageProps) {
   // Load Geist fonts for different weights. Using the non-variable font files instead of the variable font files
   // because variable fonts (like Geist[wght].ttf) aren't supported by ImageResponse/Satori.
   const geistRegular = await readFile(
