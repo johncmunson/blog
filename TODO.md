@@ -1,10 +1,6 @@
 # Todos
 
-- LENGTH of title and descriptions for og and twitter images
-- Check if twitter still being weird. If it is, is twitter-image.tsx even needed?
-- fix `<br />` tags in markdown
-- memoize getPostData - https://nextjs.org/docs/app/getting-started/metadata-and-og-images#memoizing-data-requests
-- og tailwind
+- https://cassidoo.co/post/css-quote-attr/
 
 ## Blog Posts
 
@@ -30,6 +26,7 @@
 - How to tell Vercel to ignore certain files so that it doesn't unnecessarily build and deploy
 - Plaid app to download financial transactions
 - How I used Figma to build my logo
+- Building something cool with Meta SAM and/or Qwen-Image-Layered
 - Helium Browser
 - Moving off of LastPass
 - https://buildlist.org/

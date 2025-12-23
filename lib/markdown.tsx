@@ -12,7 +12,7 @@ import rehypeShiki from "@shikijs/rehype"
 import { jsx, jsxs } from "react/jsx-runtime"
 import Image from "next/image"
 import Link from "next/link"
-import React, { Fragment } from "react"
+import React, { Fragment, cache } from "react"
 import { type VFile } from "vfile"
 import { read } from "to-vfile"
 import { matter } from "vfile-matter"
@@ -231,7 +231,7 @@ function createMarkdownProcessor() {
   )
 }
 
-export async function getPostData(slug: string): Promise<PostData> {
+export const getPostData = cache(async (slug: string): Promise<PostData> => {
   const filename = findFilenameBySlug(slug)
 
   if (!filename) {
@@ -264,7 +264,7 @@ export async function getPostData(slug: string): Promise<PostData> {
     content: file.result as React.ReactNode,
     isDraft,
   }
-}
+})
 
 export async function getAllPosts(
   includeDrafts: boolean = false,
