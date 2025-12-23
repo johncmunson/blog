@@ -49,19 +49,19 @@ updates:
         patterns:
           - "*"
 
-  # GitHub Actions (future-proofed)
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: weekly
-      day: monday
-      time: "04:00"
-      timezone: "UTC"
+  # TODO: GitHub Actions
+  # - package-ecosystem: "github-actions"
+  #   directory: "/"
+  #   schedule:
+  #     interval: weekly
+  #     day: monday
+  #     time: "04:00"
+  #     timezone: "UTC"
 
-    open-pull-requests-limit: 3
-    rebase-strategy: auto
+  #   open-pull-requests-limit: 3
+  #   rebase-strategy: auto
 
-    groups:
-      github-actions:
-        patterns:
-          - "*"
+  #   groups:
+  #     github-actions:
+  #       patterns:
+  #         - "*"
