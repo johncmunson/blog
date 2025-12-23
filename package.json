@@ -20,7 +20,7 @@
     "@vercel/analytics": "^1.6.1",
     "clsx": "^2.1.1",
     "image-size": "^2.0.2",
-    "next": "16.0.10",
+    "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "rehype-autolink-headings": "^7.1.0",
@@ -41,7 +41,7 @@
     "vfile-matter": "^5.0.1"
   },
   "devDependencies": {
-    "@next/env": "^16.0.10",
+    "@next/env": "^16.1.1",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.19",
     "@types/mdast": "^4.0.4",
@@ -50,7 +50,7 @@
     "@types/react-dom": "^19",
     "concurrently": "^9.2.1",
     "eslint": "^9",
-    "eslint-config-next": "16.0.10",
+    "eslint-config-next": "16.1.1",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.7.4",
     "tailwindcss": "^4",
