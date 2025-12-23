@@ -1,4 +1,8 @@
-import { generateOGImage, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } from "@/lib/generate-og-image"
+import {
+  generateOGImage,
+  OG_IMAGE_WIDTH,
+  OG_IMAGE_HEIGHT,
+} from "@/lib/generate-og-image"
 import { getPostData } from "@/lib/markdown"
 
 export const alt = "Blog Post"
