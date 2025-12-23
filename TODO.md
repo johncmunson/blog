@@ -1,6 +1,7 @@
 # Todos
 
 - https://cassidoo.co/post/css-quote-attr/
+- tests
 
 ## Blog Posts
 
@@ -49,7 +50,6 @@
 
 - Vercel Analytics
 - YouTube, Insta, Twitter embeds
-- OG Images
 - Lighthouse Audit
 - Consider the following route structure: /blog/post-slug
 - Contact form
