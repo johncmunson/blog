@@ -75,118 +75,56 @@ export async function generateOGImage({
 
   return new ImageResponse(
     <div
+      tw="flex flex-col w-full h-full bg-neutral-50 px-[150px] pl-20 justify-center"
       style={{
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-        height: "100%",
-        background: "#fafafa",
-        padding: "0px 150px 0px 80px",
         fontFamily: "Geist",
-        justifyContent: "center",
-        position: "relative",
       }}
     >
       {/* Subtle noise/grain overlay */}
       <div
+        tw="absolute top-0 left-0 opacity-100 flex"
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
           width: `${OG_IMAGE_WIDTH}px`,
           height: `${OG_IMAGE_HEIGHT}px`,
-          opacity: 1,
-          pointerEvents: "none",
-          display: "flex",
         }}
       >
-        <img
-          src={noiseSrc}
-          width={OG_IMAGE_WIDTH}
-          height={OG_IMAGE_HEIGHT}
-          alt=""
-          style={{
-            width: `${OG_IMAGE_WIDTH}px`,
-            height: `${OG_IMAGE_HEIGHT}px`,
-          }}
-        />
+        <img src={noiseSrc} />
       </div>
 
       {/* Subtle decorative accent line */}
       <div
+        tw="absolute top-0 h-[25px]"
         style={{
-          position: "absolute",
-          top: 0,
-          left: 80,
-          right: 80,
-          height: "25x",
+          left: "80px",
+          right: "80px",
           background:
             "linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.15) 50%, transparent 100%)",
         }}
       />
 
       {/* Logo and Title on same line */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "flex-start",
-          marginBottom: "24px",
-          position: "relative",
-        }}
-      >
+      <div tw="flex flex-row items-start mb-6">
         <img
           src={logoSrc}
           width="60"
           height="60"
-          alt=""
-          style={{
-            marginRight: "40px",
-            flexShrink: 0,
-            marginTop: "5px",
-          }}
+          tw="mr-10 shrink-0 mt-[5px]"
         />
         <h1
-          style={{
-            fontSize: 64,
-            fontWeight: 600,
-            lineHeight: 1.08,
-            color: "#000000",
-            margin: 0,
-            whiteSpace: "pre-wrap",
-            fontFamily: "Geist",
-            flex: 1,
-          }}
+          tw="text-[64px] font-semibold leading-[1.08] text-black m-0 whitespace-pre-wrap flex-1"
+          style={{ fontFamily: "Geist" }}
         >
           {title}
         </h1>
       </div>
 
       {/* Subtle divider line */}
-      <div
-        style={{
-          width: "850px",
-          height: "1.5px",
-          backgroundColor: "rgba(0,0,0,0.4)",
-          marginLeft: "100px",
-          marginBottom: "24px",
-          position: "relative",
-        }}
-      />
+      <div tw="w-[850px] h-[1.5px] bg-neutral-400 ml-[100px] mb-6" />
 
       {/* Description aligned with title text */}
       <p
-        style={{
-          fontSize: 38,
-          fontWeight: 400,
-          lineHeight: 1.4,
-          color: "#737373",
-          margin: 0,
-          marginLeft: "100px",
-          whiteSpace: "pre-wrap",
-          fontFamily: "Geist",
-          position: "relative",
-        }}
+        tw="text-[38px] font-normal leading-[1.4] text-neutral-500 m-0 ml-[100px] whitespace-pre-wrap"
+        style={{ fontFamily: "Geist" }}
       >
         {description}
       </p>
