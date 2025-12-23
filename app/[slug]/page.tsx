@@ -12,7 +12,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params
   const post = await getPostData(slug)
-  const siteUrl = process.env.SITE_URL!
 
   const images = [
     {
