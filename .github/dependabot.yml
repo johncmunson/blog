@@ -41,13 +41,11 @@ updates:
           - "unist-util-visit"
           - "image-size"
 
-      tooling-and-styling:
+      development:
         dependency-type: development
 
-      misc-runtime:
+      production:
         dependency-type: production
-        patterns:
-          - "*"
 
   # TODO: GitHub Actions
   # - package-ecosystem: "github-actions"
