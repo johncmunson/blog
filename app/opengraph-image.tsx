@@ -1,9 +1,9 @@
-import { generateOGImage } from "@/lib/generate-og-image"
+import { generateOGImage, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } from "@/lib/generate-og-image"
 
 export const alt = "Blog Homepage"
 export const size = {
-  width: 1200,
-  height: 630,
+  width: OG_IMAGE_WIDTH,
+  height: OG_IMAGE_HEIGHT,
 }
 export const contentType = "image/png"
 

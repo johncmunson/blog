@@ -4,6 +4,7 @@ import { getPostData, getAllPosts } from "../../lib/markdown"
 import { formatDate, toNoonISO8601 } from "@/lib/utils"
 import { DateText } from "@/components/date-text"
 import { PencilLineIcon } from "@/components/pencil-line-icon"
+import { OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } from "@/lib/generate-og-image"
 
 export async function generateMetadata({
   params,
@@ -16,8 +17,8 @@ export async function generateMetadata({
   const images = [
     {
       url: `/${slug}/opengraph-image`,
-      width: 1200,
-      height: 630,
+      width: OG_IMAGE_WIDTH,
+      height: OG_IMAGE_HEIGHT,
       alt: post.title,
     },
   ]

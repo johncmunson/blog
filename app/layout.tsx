@@ -3,6 +3,7 @@ import localFont from "next/font/local"
 import "./globals.css"
 import Image from "next/image"
 import { Analytics } from "@vercel/analytics/next"
+import { OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } from "@/lib/generate-og-image"
 
 const geistSans = localFont({
   variable: "--font-geist-sans",
@@ -17,8 +18,8 @@ const geistMono = localFont({
 const images = [
   {
     url: "/opengraph-image",
-    width: 1200,
-    height: 630,
+    width: OG_IMAGE_WIDTH,
+    height: OG_IMAGE_HEIGHT,
     alt: "Blog Homepage",
   },
 ]

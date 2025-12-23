@@ -2,6 +2,9 @@ import { ImageResponse } from "next/og"
 import { readFile } from "node:fs/promises"
 import { join } from "node:path"
 
+export const OG_IMAGE_WIDTH = 1200
+export const OG_IMAGE_HEIGHT = 630
+
 type OGImageProps = {
   title: string
   description: string
@@ -37,7 +40,7 @@ export async function generateOGImage({
   // Create a subtle noise/grain pattern using SVG
   // Using a dot pattern approach that works reliably with Satori
   const noiseSVG = `
-  <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <svg width="${OG_IMAGE_WIDTH}" height="${OG_IMAGE_HEIGHT}" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <!-- Base noise pattern -->
       <pattern id="grain" width="5" height="5" patternUnits="userSpaceOnUse">
@@ -65,7 +68,7 @@ export async function generateOGImage({
         />
       </filter>
     </defs>
-    <rect width="1200" height="630" fill="url(#grain)" filter="url(#noise-filter)"/>
+    <rect width="${OG_IMAGE_WIDTH}" height="${OG_IMAGE_HEIGHT}" fill="url(#grain)" filter="url(#noise-filter)"/>
   </svg>
 `
   const noiseSrc = `data:image/svg+xml;base64,${Buffer.from(noiseSVG).toString("base64")}`
@@ -90,8 +93,8 @@ export async function generateOGImage({
           position: "absolute",
           top: 0,
           left: 0,
-          width: "1200px",
-          height: "630px",
+          width: `${OG_IMAGE_WIDTH}px`,
+          height: `${OG_IMAGE_HEIGHT}px`,
           opacity: 1,
           pointerEvents: "none",
           display: "flex",
@@ -99,12 +102,12 @@ export async function generateOGImage({
       >
         <img
           src={noiseSrc}
-          width="1200"
-          height="630"
+          width={OG_IMAGE_WIDTH}
+          height={OG_IMAGE_HEIGHT}
           alt=""
           style={{
-            width: "1200px",
-            height: "630px",
+            width: `${OG_IMAGE_WIDTH}px`,
+            height: `${OG_IMAGE_HEIGHT}px`,
           }}
         />
       </div>
