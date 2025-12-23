@@ -2,19 +2,10 @@ import { ImageResponse } from "next/og"
 import { readFile } from "node:fs/promises"
 import { join } from "node:path"
 
-export const OG_IMAGE_SIZE = {
-  width: 1200,
-  height: 630,
-}
-
-export const TWITTER_IMAGE_SIZE = {
-  width: 120,
-  height: 120,
-}
-
 type OGImageProps = {
   title: string
   description: string
+  size: { width: number; height: number }
 }
 
 /**
@@ -22,7 +13,7 @@ type OGImageProps = {
  * Uses theme-neutral design suitable for social media sharing.
  * Uses Geist font to match the site's typography.
  */
-export async function generateOGImage({ title, description }: OGImageProps) {
+export async function generateOGImage({ title, description, size }: OGImageProps) {
   // Load Geist fonts for different weights. Using the non-variable font files instead of the variable font files
   // because variable fonts (like Geist[wght].ttf) aren't supported by ImageResponse/Satori.
   const geistRegular = await readFile(
@@ -194,7 +185,7 @@ export async function generateOGImage({ title, description }: OGImageProps) {
       </p>
     </div>,
     {
-      ...OG_IMAGE_SIZE,
+      ...size,
       fonts: [
         {
           name: "Geist",
@@ -209,45 +200,6 @@ export async function generateOGImage({ title, description }: OGImageProps) {
           weight: 600,
         },
       ],
-    },
-  )
-}
-
-/**
- * Generates a Twitter image (120x120) displaying the personal logo.
- * Simple square image suitable for Twitter/X profile images.
- */
-export async function generateTwitterImage() {
-  // Load logo SVG and convert to base64 data URL
-  const logoData = await readFile(
-    join(process.cwd(), "public/logo-light.svg"),
-    "utf-8",
-  )
-  const logoSrc = `data:image/svg+xml;base64,${Buffer.from(logoData).toString("base64")}`
-
-  return new ImageResponse(
-    <div
-      style={{
-        display: "flex",
-        width: "100%",
-        height: "100%",
-        background: "#fafafa",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <img
-        src={logoSrc}
-        width="100"
-        height="100"
-        alt=""
-        style={{
-          display: "flex",
-        }}
-      />
-    </div>,
-    {
-      ...TWITTER_IMAGE_SIZE,
     },
   )
 }

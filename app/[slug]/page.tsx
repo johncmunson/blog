@@ -14,22 +14,7 @@ export async function generateMetadata({
   const post = await getPostData(slug)
 
   return {
-    metadataBase: new URL(process.env.SITE_URL!),
-    // Sets the title and description for the page
-    title: post.title,
-    description: post.description,
-    // I should really be using the post title for og:title, but I don't like how the social platforms
-    // add the title again below the image when the title is already in the image.
-    // openGraph: {
-    //   url: `${process.env.SITE_URL!}/${slug}`,
-    //   siteName: process.env.SITE_TITLE!,
-    //   title: process.env.SITE_TITLE!,
-    // },
-    // twitter: {
-    //   title: post.title,
-    //   description: post.description,
-    //   card: "summary",
-    // },
+    // Finish implementing this!
   }
 }
 
