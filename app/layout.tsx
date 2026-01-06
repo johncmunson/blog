@@ -59,17 +59,19 @@ export default function RootLayout({
         <div className="font-sans">{children}</div>
         <hr />
         <footer className="text-xs flex items-center">
-          <a href="https://github.com/johncmunson/blog">
+          {/* aria-label provides the accessible name for this link. Images use alt="" 
+              to mark them as decorative, avoiding aria-hidden conflicts with the focusable <a>. */}
+          <a href="https://github.com/johncmunson/blog" aria-label="View source on GitHub">
             <Image
               src="/logo-light.svg"
-              alt="Logo"
+              alt=""
               width={42}
               height={42}
               className="m-0! dark:hidden"
             />
             <Image
               src="/logo-dark.svg"
-              alt="Logo (dark mode)"
+              alt=""
               width={42}
               height={42}
               className="m-0! hidden dark:inline"
