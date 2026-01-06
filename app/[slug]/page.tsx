@@ -68,7 +68,7 @@ export default async function Post({
     // Then, change h2 styles to exactly match paragraphs, except...
     //   - larger top margin
     //   - bold font weight
-    <main className="prose-p:my-4 prose-h2:text-base prose-h2:leading-[1.75] prose-h2:mt-8 prose-h2:mb-4 prose-h2:font-bold">
+    <div className="prose-p:my-4 prose-h2:text-base prose-h2:leading-[1.75] prose-h2:mt-8 prose-h2:mb-4 prose-h2:font-bold">
       <Link href="/" className="text-sm">
         {"<<"} back
       </Link>
@@ -84,6 +84,6 @@ export default async function Post({
         <DateText>{formatDate(postData.date)}</DateText>
         <div className="mt-8">{postData.content}</div>
       </article>
-    </main>
+    </div>
   )
 }

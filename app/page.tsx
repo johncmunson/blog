@@ -10,7 +10,7 @@ export default async function Home() {
   const allPosts = await getAllPosts(includeDrafts)
 
   return (
-    <main className="prose-ul:pl-0 prose-li:pl-0">
+    <div className="prose-ul:pl-0 prose-li:pl-0">
       <div className="not-prose flex items-center">
         <h1 className="text-xl font-bold">{process.env.SITE_TITLE}</h1>
         <Link href="/rss.xml" aria-label="RSS feed">
@@ -50,6 +50,6 @@ export default async function Home() {
           </li>
         ))}
       </ul>
-    </main>
+    </div>
   )
 }
