@@ -59,7 +59,7 @@ export default function RootLayout({
       >
         <main className="font-sans">{children}</main>
         <hr />
-        <footer className="text-xs flex items-center">
+        <footer className="font-sans text-xs flex items-center">
           {/* aria-label provides the accessible name for this link. Images use alt="" 
               to mark them as decorative, avoiding aria-hidden conflicts with the focusable <a>. */}
           <a href="https://github.com/johncmunson/blog" aria-label="View source on GitHub">
