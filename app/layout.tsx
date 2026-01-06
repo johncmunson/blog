@@ -88,6 +88,8 @@ export default function RootLayout({
             <p className="mt-1.5">
               Code: MIT License // Content: Licensed under CC BY 4.0
             </p>
+            {/* TODO: Remove this - intentional a11y violation for testing Vercel Toolbar */}
+            <a href="/test-a11y" style={{ display: 'inline-block', width: 20, height: 20, background: 'red' }}></a>
           </div>
         </footer>
         <Analytics />
