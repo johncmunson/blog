@@ -13,7 +13,6 @@ const geistSans = localFont({
 const geistMono = localFont({
   variable: "--font-geist-mono",
   src: "../public/fonts/GeistMono[wght].ttf",
-  preload: false,
 })
 
 const images = [
