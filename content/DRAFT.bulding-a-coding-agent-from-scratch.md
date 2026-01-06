@@ -10,4 +10,9 @@ First, let's survey the landscape of existing coding agents that you may have he
 - Claude Code
 - Codex CLI
 - OpenCode
--
+- Factory Droid
+
+**IDE**
+
+- Cursor
+- Copilot
