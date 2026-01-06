@@ -57,7 +57,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-[70ch] m-3 sm:m-4 prose dark:prose-invert prose-hr:my-10`}
       >
-        <main className="font-sans">{children}</main>
+        <main className="font-sans prose-code:font-mono prose-pre:font-mono">{children}</main>
         <hr />
         <footer className="font-sans text-xs flex items-center">
           {/* aria-label provides the accessible name for this link. Images use alt="" 
