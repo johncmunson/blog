@@ -16,3 +16,12 @@ First, let's survey the landscape of existing coding agents that you may have he
 
 - Cursor
 - Copilot
+
+**Other**
+
+- Augment Code
+- OpenHands
+
+Next, let's take a look at the Agent Client Protocol...
+
+https://agentclientprotocol.com/overview/introduction
