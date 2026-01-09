@@ -56,12 +56,20 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-[70ch] m-3 sm:m-4 prose dark:prose-invert prose-hr:my-10`}
       >
-        <main role="main" className="font-sans prose-code:font-mono prose-pre:font-mono">{children}</main>
+        <main
+          role="main"
+          className="font-sans prose-code:font-mono prose-pre:font-mono"
+        >
+          {children}
+        </main>
         <hr />
         <footer className="font-sans text-xs flex items-center">
           {/* aria-label provides the accessible name for this link. Images use alt="" 
               to mark them as decorative, avoiding aria-hidden conflicts with the focusable <a>. */}
-          <a href="https://github.com/johncmunson/blog" aria-label="View source on GitHub">
+          <a
+            href="https://github.com/johncmunson/blog"
+            aria-label="View source on GitHub"
+          >
             <Image
               src="/logo-light.svg"
               alt=""
