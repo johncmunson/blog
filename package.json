@@ -16,7 +16,7 @@
     "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {
-    "@shikijs/rehype": "^3.20.0",
+    "@shikijs/rehype": "^3.21.0",
     "@vercel/analytics": "^1.6.1",
     "clsx": "^2.1.1",
     "image-size": "^2.0.2",
