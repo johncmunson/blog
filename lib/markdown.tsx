@@ -21,8 +21,9 @@ import { remarkImageSize } from "./remark-image-size"
 import { LinkIcon } from "@/components/link-icon"
 import rehypeRaw from "rehype-raw"
 import { visit } from "unist-util-visit"
+import GithubSlugger from "github-slugger"
 // the mdast package is not actually installed, but @types/mdast is and this is how we get the types
-import type { Root, Blockquote, ListItem, Paragraph } from "mdast"
+import type { Root, Blockquote, ListItem, Paragraph, Heading } from "mdast"
 import { dateObjToYYYYMMDD } from "@/lib/utils"
 import "@/tmp/reload-trigger"
 
@@ -141,22 +142,85 @@ const MarkdownImage = (props: ComponentProps<"img">) => {
 
 const production = { Fragment, jsx, jsxs }
 
+export type TableOfContentsItem = {
+  id: string
+  text: string
+  depth: number
+}
+
 type PostData = {
   slug: string
   date: string
   title: string
   description: string
   content: React.ReactNode
+  tableOfContents: TableOfContentsItem[]
   isDraft: boolean
 }
 
-type PostMeta = Omit<PostData, "content">
+type PostMeta = Omit<PostData, "content" | "tableOfContents">
 
 type Frontmatter = {
   title: string
   description: string
   // Allow additional frontmatter properties without constraining them here.
   [key: string]: unknown
+}
+
+type MdastNodeWithText = {
+  value?: unknown
+  alt?: unknown
+  children?: unknown[]
+}
+
+function isMdastNodeWithText(node: unknown): node is MdastNodeWithText {
+  return typeof node === "object" && node !== null
+}
+
+function extractNodeText(node: unknown): string {
+  if (!isMdastNodeWithText(node)) {
+    return ""
+  }
+
+  if (typeof node.value === "string") {
+    return node.value
+  }
+
+  if (typeof node.alt === "string") {
+    return node.alt
+  }
+
+  if (node.children) {
+    return node.children.map(extractNodeText).join("")
+  }
+
+  return ""
+}
+
+function extractTableOfContents(markdown: string): TableOfContentsItem[] {
+  const tree = unified()
+    .use(remarkParse)
+    .use(remarkFrontmatter)
+    .parse(markdown) as Root
+  const slugger = new GithubSlugger()
+  const headings: TableOfContentsItem[] = []
+
+  visit(tree, "heading", (node) => {
+    const heading = node as Heading
+    const text = extractNodeText(heading).trim()
+
+    if (!text) {
+      return
+    }
+
+    headings.push({
+      id: slugger.slug(text),
+      text,
+      depth: heading.depth,
+    })
+  })
+
+  return headings
 }
 
 const markdownComponents = {
@@ -243,8 +307,11 @@ export const getPostData = cache(async (slug: string): Promise<PostData> => {
 
   const fullPath = path.join(contentDirectory, filename)
 
+  const markdownFile = await read(fullPath)
+  const markdown = String(markdownFile)
+
   const processor = createMarkdownProcessor()
-  const file = await processor.process(await read(fullPath))
+  const file = await processor.process(markdownFile)
 
   const frontmatter = file.data.matter as Frontmatter | undefined
 
@@ -262,6 +329,7 @@ export const getPostData = cache(async (slug: string): Promise<PostData> => {
     title,
     description,
     content: file.result as React.ReactNode,
+    tableOfContents: extractTableOfContents(markdown),
     isDraft,
   }
 })

@@ -4,6 +4,7 @@ import { getPostData, getAllPosts } from "../../lib/markdown"
 import { formatDate, toNoonISO8601 } from "@/lib/utils"
 import { DateText } from "@/components/date-text"
 import { PencilLineIcon } from "@/components/pencil-line-icon"
+import { TableOfContents } from "@/components/table-of-contents"
 import { OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } from "@/lib/generate-og-image"
 
 export async function generateMetadata({
@@ -68,7 +69,7 @@ export default async function Post({
     // Then, change h2 styles to exactly match paragraphs, except...
     //   - larger top margin
     //   - bold font weight
-    <div className="prose-p:my-4 prose-h2:text-base prose-h2:leading-[1.75] prose-h2:mt-8 prose-h2:mb-4 prose-h2:font-bold">
+    <div className="relative prose-p:my-4 prose-h2:text-base prose-h2:leading-[1.75] prose-h2:mt-8 prose-h2:mb-4 prose-h2:font-bold">
       <Link href="/" className="text-sm">
         {"<<"} back
       </Link>
@@ -84,6 +85,7 @@ export default async function Post({
         <DateText>{formatDate(postData.date)}</DateText>
         <div className="mt-8">{postData.content}</div>
       </article>
+      <TableOfContents items={postData.tableOfContents} />
     </div>
   )
 }
