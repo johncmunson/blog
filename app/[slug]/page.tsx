@@ -65,8 +65,8 @@ export default async function Post({
   const postData = await getPostData(slug)
 
   return (
-    // Keep paragraphs the same, but reduce the top/bottom margins slightly.
-    // Then, change h2 styles to exactly match paragraphs, except...
+    // Keeps paragraphs the same, but reduces the top/bottom margins slightly.
+    // Also, changes h2 styles to exactly match paragraphs, except...
     //   - larger top margin
     //   - bold font weight
     <div className="prose-p:my-4 prose-h2:text-base prose-h2:leading-[1.75] prose-h2:mt-8 prose-h2:mb-4 prose-h2:font-bold">
