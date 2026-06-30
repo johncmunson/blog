@@ -70,25 +70,25 @@ export default async function Post({
     //   - larger top margin
     //   - bold font weight
     <div className="prose-p:my-4 prose-h2:text-base prose-h2:leading-[1.75] prose-h2:mt-8 prose-h2:mb-4 prose-h2:font-bold">
-      <div className="lg:grid lg:w-[calc(70ch+16rem)] lg:max-w-[calc(100vw-2rem)] lg:grid-cols-[minmax(0,70ch)_13rem] lg:gap-12">
-        <div>
-          <Link href="/" className="text-sm">
-            {"<<"} back
-          </Link>
-          <article>
-            <div className="not-prose flex items-center gap-2 mt-9 mb-0">
-              <h1 className="font-bold text-xl">{postData.title}</h1>
-              {postData.isDraft && (
-                <span title="This is a draft post">
-                  <PencilLineIcon className="size-5 text-red-500 shrink-0" />
-                </span>
-              )}
-            </div>
-            <DateText>{formatDate(postData.date)}</DateText>
-            <div className="mt-8">{postData.content}</div>
-          </article>
-        </div>
-        <TableOfContents items={postData.tableOfContents} />
+      <div className="lg:w-[calc(70ch+16rem)] lg:max-w-[calc(100vw-2rem)]">
+        <Link href="/" className="text-sm">
+          {"<<"} back
+        </Link>
+        <article>
+          <div className="not-prose flex items-center gap-2 mt-9 mb-0 lg:w-[70ch]">
+            <h1 className="font-bold text-xl">{postData.title}</h1>
+            {postData.isDraft && (
+              <span title="This is a draft post">
+                <PencilLineIcon className="size-5 text-red-500 shrink-0" />
+              </span>
+            )}
+          </div>
+          <DateText>{formatDate(postData.date)}</DateText>
+          <div className="mt-8 lg:grid lg:grid-cols-[minmax(0,70ch)_13rem] lg:gap-12">
+            <div>{postData.content}</div>
+            <TableOfContents items={postData.tableOfContents} />
+          </div>
+        </article>
       </div>
     </div>
   )
