@@ -151,7 +151,7 @@ type PostData = {
   isDraft: boolean
 }
 
-type PostMeta = Omit<PostData, "content">
+type PostMeta = Omit<PostData, "content" | "tableOfContents">
 
 export type TableOfContentsItem = {
   id: string
