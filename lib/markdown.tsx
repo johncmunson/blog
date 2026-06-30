@@ -208,7 +208,7 @@ function getNodeText(node: HastNode): string {
 }
 
 const collectTableOfContents: Plugin<[], HastNode> = () => {
-  return (tree, file) => {
+  return (tree: HastNode, file: VFile) => {
     const tableOfContents: TableOfContentsItem[] = []
 
     visit(tree, "element", (node) => {
