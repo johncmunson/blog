@@ -11,7 +11,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
   }
 
   return (
-    <aside className="not-prose hidden lg:mt-8 lg:block">
+    <aside className="not-prose hidden lg:mt-[3.75rem] lg:block">
       <nav
         aria-label="Table of contents"
         className="sticky top-4 max-h-[calc(100vh-2rem)] overflow-y-auto border-l border-gray-200 pl-4 text-sm dark:border-gray-800"
