@@ -13,8 +13,11 @@ Non-obvious caveats:
 
 - **Required env vars (the app 500s without them).** `app/layout.tsx` calls
   `new URL(process.env.SITE_URL!)` at module load, so the site throws `ERR_INVALID_URL` on every
-  page if `SITE_URL` is unset. `.env*` is gitignored and not committed, so create a local
-  `.env.local` at the repo root before running anything:
+  page if `SITE_URL` is unset. The vars are `SITE_URL`, `SITE_TITLE`, `SITE_DESCRIPTION`,
+  `SITE_AUTHOR`, `SITE_AUTHOR_TWITTER_ID`. In Cursor Cloud these are provided as injected secrets,
+  so no setup is needed — just confirm they're present (`echo $SITE_URL`). If they are ever missing
+  (e.g. running outside Cloud), create a local `.env.local` at the repo root instead (`.env*` is
+  gitignored and not committed; real production values live in Vercel):
 
   ```
   SITE_URL=http://localhost:3000
@@ -24,8 +27,10 @@ Non-obvious caveats:
   SITE_AUTHOR_TWITTER_ID=curtismunson
   ```
 
-  These are non-secret site config values; the dev placeholders above are sufficient for local dev,
-  build, lint, and typecheck. (Real production values are set in Vercel.)
+- **tmux + injected secrets gotcha.** The `tmux` server captures its environment when it first
+  starts. If you add/change secrets after a tmux server is already running, new sessions will NOT
+  see them and the dev server will 500 on `SITE_URL`. Run `tmux -f /exec-daemon/tmux.portal.conf
+  kill-server` and start a fresh session so it inherits the current environment.
 
 - **Use `pnpm dev:watch`, not `pnpm dev`, when adding/renaming Markdown.** `lib/markdown.tsx`
   caches the `content/` directory listing in module memory and only busts it when `tmp/reload-trigger.ts`
