@@ -147,10 +147,17 @@ type PostData = {
   title: string
   description: string
   content: React.ReactNode
+  tableOfContents: TableOfContentsItem[]
   isDraft: boolean
 }
 
 type PostMeta = Omit<PostData, "content">
+
+export type TableOfContentsItem = {
+  id: string
+  title: string
+  depth: number
+}
 
 type Frontmatter = {
   title: string
@@ -184,6 +191,51 @@ const markdownComponents = {
   },
 }
 
+type HastNode = {
+  type: string
+  tagName?: string
+  properties?: Record<string, unknown>
+  children?: HastNode[]
+  value?: unknown
+}
+
+function getNodeText(node: HastNode): string {
+  if (node.type === "text" && typeof node.value === "string") {
+    return node.value
+  }
+
+  return node.children?.map(getNodeText).join("") ?? ""
+}
+
+const collectTableOfContents: Plugin<[], HastNode> = () => {
+  return (tree, file) => {
+    const tableOfContents: TableOfContentsItem[] = []
+
+    visit(tree, "element", (node) => {
+      const heading = node as HastNode
+
+      if (!heading.tagName || !/^h[1-6]$/.test(heading.tagName)) {
+        return
+      }
+
+      const id = heading.properties?.id
+      const title = getNodeText(heading).trim()
+
+      if (typeof id !== "string" || title.length === 0) {
+        return
+      }
+
+      tableOfContents.push({
+        id,
+        title,
+        depth: Number.parseInt(heading.tagName.slice(1), 10),
+      })
+    })
+
+    file.data.tableOfContents = tableOfContents
+  }
+}
+
 function createMarkdownProcessor() {
   return (
     unified()
@@ -207,6 +259,7 @@ function createMarkdownProcessor() {
         },
       })
       .use(rehypeSlug)
+      .use(collectTableOfContents)
       .use(rehypeAutolinkHeadings, {
         behavior: "append",
         content: [
@@ -262,6 +315,8 @@ export const getPostData = cache(async (slug: string): Promise<PostData> => {
     title,
     description,
     content: file.result as React.ReactNode,
+    tableOfContents:
+      (file.data.tableOfContents as TableOfContentsItem[] | undefined) ?? [],
     isDraft,
   }
 })

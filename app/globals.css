@@ -25,6 +25,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -48,6 +52,7 @@ body {
 /* Styles for autolinked headings */
 .with-heading-anchor {
   position: relative;
+  scroll-margin-top: 1rem;
 }
 .heading-anchor {
   display: inline-flex;
