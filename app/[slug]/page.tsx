@@ -63,7 +63,7 @@ export default async function Post({
 }) {
   const { slug } = await params
   const postData = await getPostData(slug)
-  const hasTableOfContents = postData.headings.length > 0
+  const hasTableOfContents = postData.headings.length >= 2
 
   return (
     // Keep paragraphs the same, but reduce the top/bottom margins slightly.
@@ -84,14 +84,8 @@ export default async function Post({
           )}
         </div>
         <DateText>{formatDate(postData.date)}</DateText>
-        <div
-          className={
-            hasTableOfContents
-              ? "mt-8 lg:grid lg:grid-cols-[var(--container-readable)_auto] lg:gap-24 lg:items-start"
-              : "mt-8"
-          }
-        >
-          <div className="min-w-0 flow-root [&>*:first-child]:mt-0">
+        <div className="relative mt-8">
+          <div className="flow-root [&>*:first-child]:mt-0">
             {postData.content}
           </div>
           {hasTableOfContents && (
