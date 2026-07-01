@@ -88,6 +88,7 @@ export async function generateOGImage({
           height: `${OG_IMAGE_HEIGHT}px`,
         }}
       >
+        {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
         <img src={noiseSrc} />
       </div>
 
@@ -104,6 +105,7 @@ export async function generateOGImage({
 
       {/* Logo and Title on same line */}
       <div tw="flex flex-row items-start mb-6">
+        {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
         <img
           src={logoSrc}
           width="60"

@@ -141,16 +141,23 @@ const MarkdownImage = (props: ComponentProps<"img">) => {
 
 const production = { Fragment, jsx, jsxs }
 
+export type PostHeading = {
+  id: string
+  text: string
+  depth: number
+}
+
 type PostData = {
   slug: string
   date: string
   title: string
   description: string
   content: React.ReactNode
+  headings: PostHeading[]
   isDraft: boolean
 }
 
-type PostMeta = Omit<PostData, "content">
+type PostMeta = Omit<PostData, "content" | "headings">
 
 type Frontmatter = {
   title: string
@@ -184,7 +191,80 @@ const markdownComponents = {
   },
 }
 
-function createMarkdownProcessor() {
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null
+}
+
+function getChildren(node: unknown): unknown[] {
+  if (!isRecord(node) || !Array.isArray(node.children)) {
+    return []
+  }
+
+  return node.children
+}
+
+function extractPlainText(node: unknown): string {
+  if (!isRecord(node)) {
+    return ""
+  }
+
+  if (node.type === "text" && typeof node.value === "string") {
+    return node.value
+  }
+
+  return getChildren(node).map(extractPlainText).join("")
+}
+
+function isHeadingTagName(tagName: unknown): tagName is string {
+  return typeof tagName === "string" && /^h[1-6]$/.test(tagName)
+}
+
+function getElementId(node: Record<string, unknown>): string | undefined {
+  if (!isRecord(node.properties) || typeof node.properties.id !== "string") {
+    return undefined
+  }
+
+  return node.properties.id
+}
+
+function visitRehypeNode(
+  node: unknown,
+  visitor: (node: Record<string, unknown>) => void,
+) {
+  if (!isRecord(node)) {
+    return
+  }
+
+  visitor(node)
+
+  for (const child of getChildren(node)) {
+    visitRehypeNode(child, visitor)
+  }
+}
+
+const collectPostHeadings: Plugin<[PostHeading[]]> = (headings) => {
+  return (tree: unknown) => {
+    visitRehypeNode(tree, (node) => {
+      if (node.type !== "element" || !isHeadingTagName(node.tagName)) {
+        return
+      }
+
+      const id = getElementId(node)
+
+      if (!id) {
+        return
+      }
+
+      headings.push({
+        id,
+        text: extractPlainText(node).replace(/\s+/g, " ").trim(),
+        depth: Number.parseInt(node.tagName.slice(1), 10),
+      })
+    })
+  }
+}
+
+function createMarkdownProcessor(headings: PostHeading[]) {
   return (
     unified()
       .use(remarkParse)
@@ -207,6 +287,7 @@ function createMarkdownProcessor() {
         },
       })
       .use(rehypeSlug)
+      .use(collectPostHeadings, headings)
       .use(rehypeAutolinkHeadings, {
         behavior: "append",
         content: [
@@ -243,7 +324,8 @@ export const getPostData = cache(async (slug: string): Promise<PostData> => {
 
   const fullPath = path.join(contentDirectory, filename)
 
-  const processor = createMarkdownProcessor()
+  const headings: PostHeading[] = []
+  const processor = createMarkdownProcessor(headings)
   const file = await processor.process(await read(fullPath))
 
   const frontmatter = file.data.matter as Frontmatter | undefined
@@ -262,6 +344,7 @@ export const getPostData = cache(async (slug: string): Promise<PostData> => {
     title,
     description,
     content: file.result as React.ReactNode,
+    headings,
     isDraft,
   }
 })

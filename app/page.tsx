@@ -10,7 +10,7 @@ export default async function Home() {
   const allPosts = await getAllPosts(includeDrafts)
 
   return (
-    <div className="prose-ul:pl-0 prose-li:pl-0">
+    <div className="max-w-[70ch] prose-ul:pl-0 prose-li:pl-0">
       <div className="not-prose flex items-center">
         <h1 className="text-xl font-bold">{process.env.SITE_TITLE}</h1>
         <Link href="/rss.xml" aria-label="RSS feed">
