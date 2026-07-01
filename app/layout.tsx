@@ -54,7 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-none m-3 sm:m-4 prose dark:prose-invert prose-hr:my-10`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-readable m-3 sm:m-4 prose dark:prose-invert prose-hr:my-10`}
       >
         <main
           role="main"
@@ -62,8 +62,8 @@ export default function RootLayout({
         >
           {children}
         </main>
-        <hr className="max-w-[70ch]" />
-        <footer className="font-sans text-xs flex items-center max-w-[70ch]">
+        <hr />
+        <footer className="font-sans text-xs flex items-center">
           {/* aria-label provides the accessible name for this link. Images use alt="" 
               to mark them as decorative, avoiding aria-hidden conflicts with the focusable <a>. */}
           <a

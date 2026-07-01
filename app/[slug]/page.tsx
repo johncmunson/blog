@@ -63,6 +63,7 @@ export default async function Post({
 }) {
   const { slug } = await params
   const postData = await getPostData(slug)
+  const hasTableOfContents = postData.headings.length > 0
 
   return (
     // Keep paragraphs the same, but reduce the top/bottom margins slightly.
@@ -70,28 +71,32 @@ export default async function Post({
     //   - larger top margin
     //   - bold font weight
     <div className="prose-p:my-4 prose-h2:text-base prose-h2:leading-[1.75] prose-h2:mt-8 prose-h2:mb-4 prose-h2:font-bold">
-      <div className="max-w-[70ch]">
-        <Link href="/" className="text-sm">
-          {"<<"} back
-        </Link>
-      </div>
+      <Link href="/" className="text-sm">
+        {"<<"} back
+      </Link>
       <article>
-        <div className="max-w-[70ch]">
-          <div className="not-prose flex items-center gap-2 mt-9 mb-0">
-            <h1 className="font-bold text-xl">{postData.title}</h1>
-            {postData.isDraft && (
-              <span title="This is a draft post">
-                <PencilLineIcon className="size-5 text-red-500 shrink-0" />
-              </span>
-            )}
-          </div>
-          <DateText>{formatDate(postData.date)}</DateText>
+        <div className="not-prose flex items-center gap-2 mt-9 mb-0">
+          <h1 className="font-bold text-xl">{postData.title}</h1>
+          {postData.isDraft && (
+            <span title="This is a draft post">
+              <PencilLineIcon className="size-5 text-red-500 shrink-0" />
+            </span>
+          )}
         </div>
-        <div className="mt-8 lg:grid lg:grid-cols-[minmax(0,70ch)_16rem] lg:gap-24 lg:items-start">
-          <div className="max-w-[70ch] min-w-0 flow-root [&>*:first-child]:mt-0">
+        <DateText>{formatDate(postData.date)}</DateText>
+        <div
+          className={
+            hasTableOfContents
+              ? "mt-8 lg:grid lg:grid-cols-[var(--container-readable)_auto] lg:gap-24 lg:items-start"
+              : "mt-8"
+          }
+        >
+          <div className="min-w-0 flow-root [&>*:first-child]:mt-0">
             {postData.content}
           </div>
-          <TableOfContents headings={postData.headings} />
+          {hasTableOfContents && (
+            <TableOfContents headings={postData.headings} />
+          )}
         </div>
       </article>
     </div>

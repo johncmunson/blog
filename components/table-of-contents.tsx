@@ -14,7 +14,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   return (
     <aside
       aria-label="Table of contents"
-      className="not-prose hidden lg:block sticky top-4 self-start max-h-[calc(100vh-2rem)] overflow-y-auto w-64 border-l border-gray-200 pl-6 text-sm dark:border-gray-800"
+      className="not-prose hidden lg:block sticky top-6 self-start max-h-[calc(100vh-2rem)] overflow-y-auto w-64 border-l border-gray-200 pl-6 text-sm dark:border-gray-800"
     >
       <div className="mb-3 text-base font-semibold uppercase tracking-wider [font-variant-caps:all-small-caps]">
         ON THIS PAGE
