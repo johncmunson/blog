@@ -4,6 +4,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --polka-dot-color: rgb(23 23 23 / 0.08);
+  --polka-dot-size: 1px;
+  --polka-dot-spacing: 1.35rem;
   /* See color-scheme comment below */
   color-scheme: light;
 }
@@ -23,6 +26,7 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --polka-dot-color: rgb(237 237 237 / 0.08);
     /* Tells the browser which native color palette to use for built‑in UI (scrollbars, form controls, focus rings, etc.). */
     /* Without it, those elements stay “light” even when the site background and text switch to dark */
     color-scheme: dark;
@@ -30,6 +34,13 @@
 }
 
 html {
+  background-color: var(--background);
+  background-image: radial-gradient(
+    circle,
+    var(--polka-dot-color) var(--polka-dot-size),
+    transparent calc(var(--polka-dot-size) + 0.5px)
+  );
+  background-size: var(--polka-dot-spacing) var(--polka-dot-spacing);
   scroll-behavior: smooth;
 }
 
@@ -40,7 +51,7 @@ html {
 }
 
 body {
-  background: var(--background);
+  background: transparent;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
