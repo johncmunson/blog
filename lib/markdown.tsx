@@ -9,6 +9,10 @@ import rehypeReact from "rehype-react"
 import rehypeSlug from "rehype-slug"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeShiki from "@shikijs/rehype"
+import {
+  transformerMetaHighlight,
+  transformerNotationHighlight,
+} from "@shikijs/transformers"
 import { jsx, jsxs } from "react/jsx-runtime"
 import Image from "next/image"
 import Link from "next/link"
@@ -242,6 +246,26 @@ function visitRehypeNode(
   }
 }
 
+// rehype-raw rebuilds the HAST and drops the code node's `data.meta` value.
+// Copy it to a property that survives so Shiki's meta transformers can read it.
+const preserveCodeMeta: Plugin = () => {
+  return (tree: unknown) => {
+    visitRehypeNode(tree, (node) => {
+      if (
+        node.type !== "element" ||
+        node.tagName !== "code" ||
+        !isRecord(node.data) ||
+        typeof node.data.meta !== "string" ||
+        !isRecord(node.properties)
+      ) {
+        return
+      }
+
+      node.properties.metastring = node.data.meta
+    })
+  }
+}
+
 const collectPostHeadings: Plugin<[PostHeading[]]> = (headings) => {
   return (tree: unknown) => {
     visitRehypeNode(tree, (node) => {
@@ -277,6 +301,7 @@ function createMarkdownProcessor(headings: PostHeading[]) {
       .use(tightenBlockquoteLists)
       // Intentionally allow raw HTML in markdown and pass it through.
       .use(remarkRehype, { allowDangerousHtml: true })
+      .use(preserveCodeMeta)
       .use(rehypeRaw)
       .use(rehypeShiki, {
         themes: {
@@ -285,6 +310,15 @@ function createMarkdownProcessor(headings: PostHeading[]) {
           // light: "github-light",
           // dark: "github-dark",
         },
+        transformers: [
+          // Highlight line ranges declared in the fence: ```ts {1,3-4}
+          transformerMetaHighlight(),
+          // Highlight with `// [!code highlight]` or the current line
+          // and the next two lines with `// [!code highlight:3]`.
+          // ex. `const foo = "sup" // [!code highlight]`
+          // ex. `const bar = "suh" // [!code highlight:3]`
+          transformerNotationHighlight({ matchAlgorithm: "v3" }),
+        ],
       })
       .use(rehypeSlug)
       .use(collectPostHeadings, headings)
