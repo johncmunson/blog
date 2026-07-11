@@ -33,11 +33,11 @@
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
-    "shiki": "^3.20.0",
+    "shiki": "^3.23.0",
     "tailwind-merge": "^3.4.0",
     "to-vfile": "^8.0.0",
     "unified": "^11.0.5",
-    "unist-util-visit": "^5.0.0",
+    "unist-util-visit": "^5.1.0",
     "vfile": "^6.0.3",
     "vfile-matter": "^5.0.1"
   },
