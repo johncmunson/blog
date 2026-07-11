@@ -275,7 +275,9 @@ const collectPostHeadings: Plugin<[PostHeading[]]> = (headings) => {
 
       const id = getElementId(node)
 
-      if (!id) {
+      // Footnotes generate an accessibility-only h2. It is not a post heading
+      // and should neither appear in nor count toward the table of contents.
+      if (!id || id === "footnote-label") {
         return
       }
 
